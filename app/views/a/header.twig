@@ -1,0 +1,47 @@
+<div id="header" class="{{ loggedIn ? 'active-session' : '' }}">
+<div class="center">
+		<div class="app">
+	        <a href="{{ config('app.baseUrl') }}">
+	            <span class="sitelogo"><img src="{{ url('/assets/img/logo.png') }}"/></span>
+	            <span class="sitename">{{ config('app.name') }}</span>
+	        </a>
+	    </div>
+	    <a class="toggle-menu">
+	    	<i class="fa fa-bars"></i>
+	    </a>
+	    <div class="desktop-nav">
+	    	{% if loggedIn %}
+	    		<a href="{{ url('/search') }}"><i class="fab fa-fw fa-medrt"></i> Book Appointment</a>
+		    	<a href="{{ url('/signout') }}" class="signout"><i class="fas fa-fw fa-sign-out-alt"></i></a>
+	    	{% else %}
+	    		<a href="{{ url('/') }}">Home</a>
+	    		<a href="{{ url('/d') }}">I'm a Doctor</a>
+				<a href="#">About Us</a>
+				<a href="#">Contact Us</a>
+				<a href="#">Guidelines</a>
+	    	{% endif %}
+	    </div>
+	    {% if loggedIn %}
+    	<div class="active-acct">
+    		Signed in as <a href="{{ url('/myaccount') }}" class="acct-name">{{ acctName }}</a>
+    	</div>
+	    {% endif %}
+	</div>
+</div>
+
+{# mobile nav #}
+<div id="mobile-nav">
+	{% if loggedIn %}
+		<div><a href="{{ url('/search') }}"><i class="fab fa-fw fa-medrt"></i> Book Appointment</a></div>
+		<div><a href="{{ url('/myaccount') }}"><i class="fas fa-fw fa-user-circle"></i> My Account</a></div>
+		<div><a href="{{ url('/myaccount/edit') }}"><i class="fas fa-fw fa-user-edit"></i> Edit Account</a></div>
+		<div><a href="{{ url('/signout') }}"><i class="fas fa-fw fa-sign-out-alt"></i> Sign Out</a></div>
+	{% else %}
+		<div><a href="#"><i class="fas fa-fw fa-home"></i> Home</a></div>
+		<div><a href="#"><i class="fas fa-fw fa-user-md"></i> I'm a Doctor</a></div>
+		<div><a href="#"><i class="fas fa-fw fa-info-circle"></i> About Us</a></div>
+		<div><a href="#"><i class="fas fa-fw fa-mobile-alt"></i> Contact Us</a></div>
+		<div><a href="#"><i class="fas fa-fw fa-question-circle"></i> Guidelines</a></div>
+		<div><a href="#"><i class="fas fa-fw fa-comment"></i> Report an Issue</a></div>
+	{% endif %}
+</div>

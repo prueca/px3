@@ -1,0 +1,18 @@
+<div class="result-item" data-id="{{ doctor_id|raw }}">
+	<div class="photo">
+		<img src="{{ photo }}">
+	</div>
+	<div class="info">
+		<div class="name">{{ doctor }}</div>
+		<div class="field">{{ specialization }}</div>
+		<div class="locations">
+			<div>Locations</div>
+			<ul>{{ locations|raw }}</ul>
+		</div>
+	</div>
+	<div class="locations">
+		<div>Locations</div>
+		<ul>{{ locations|raw }}</ul>
+	</div>
+	<button class="btn book" type="button">Book appointment</button>
+</div>

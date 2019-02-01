@@ -1,0 +1,108 @@
+<div id="book-modal" class="modal-overlay">
+	<div class="modal-box">
+		<div class="modal-content">
+			<a class="modal-close" data-modal="#book-modal"><i class="fas fa-times-circle"></i></a>
+			<div class="extra-padding">
+				<form id="form-book" method="POST">
+					<h3>Book appointment with</h3>
+					<div class="doctor">
+						<div class="photo"><img src="{{ url('/assets/img/icon_user.png') }}"></div>
+						<div class="info">
+							<div class="name"></div>
+							<div class="field"></div>
+						</div>
+					</div>
+					<div class="booking-details">
+						<div class="clinic">
+							<label>Locations</label>
+							<ul></ul>
+							<div class="error">Please select a clinic</div>
+						</div>
+						<div class="sched">
+							<label>Schedule</label>
+							<div class="input-wrapper">
+								<input type="date" name="schedule" min="{{ date().format('Y-m-d') }}">
+							</div>
+							<div class="error">Please provide a schedule</div>
+						</div>
+						<div class="purpose">
+							<label>Purpose / Health Condition</label>
+							<textarea name="purpose" placeholder="State your purpose or health condition"></textarea>
+							<div class="error">Please state your purpose</div>
+						</div>
+					</div>
+					<input type="checkbox" name="for_other"> Book for someone
+					<div class="for-other">
+						<div class="fname">
+							<label>First name</label>
+							<div class="input-wrapper">
+								<input type="text" name="first_name" placeholder="Enter first name">
+							</div>
+							<div class="error">Please provide an input</div>
+						</div>
+						<div class="mname">
+							<label>Middle name</label>
+							<div class="input-wrapper">
+								<input type="text" name="middle_name" placeholder="Enter middle name">
+							</div>
+							<div class="error">Please provide an input</div>
+						</div>
+						<div class="lname">
+							<label>Last name</label>
+							<div class="input-wrapper">
+								<input type="text" name="last_name" placeholder="Enter last name">
+							</div>
+							<div class="error">Please provide an input</div>
+						</div>
+						<div class="add">
+							<label>Address</label>
+							<div class="input-wrapper">
+								<input type="text" name="address" placeholder="Enter complete address">
+							</div>
+							<div class="error">Please provide an input</div>
+						</div>
+						<div class="bdate">
+							<label>Birthdate</label>
+							<div class="input-wrapper">
+								<input type="date" name="birthdate" placeholder="Enter birthdate">
+							</div>
+							<div class="error">Please provide an input</div>
+						</div>
+						<div class="gen">
+							<label>Gender</label>
+							<input type="hidden" name="gender" value="M">
+							<div class="gen-opt active" data-gender="M">
+								<img src="{{ url('/assets/img/icon_male.png') }}">
+								<span>Male</span>
+							</div>
+							<div class="gen-opt" data-gender="F">
+								<img src="{{ url('/assets/img/icon_female.png') }}">
+								<span>Female</span>
+							</div>
+							<div class="error">Please provide an input</div>
+						</div>
+						<div class="email">
+							<label>Email address</label>
+							<div class="input-wrapper">
+								<input type="text" name="email_address" placeholder="Enter email address">
+							</div>
+							<div class="error">Please provide an input</div>
+						</div>
+					</div>
+					<div class="errors">
+						<p>Something wrong with your inputs</p>
+						<ul>
+							<li>Invalid file type of photo</li>
+							<li>Missing name</li>
+							<li>Missing address</li>
+							<li>Missing contact number</li>
+							<li>Missing birthdate</li>
+						</ul>
+					</div>
+					<p class="note">Please bring one valid ID of the patient upon visit</p>
+					<button class="btn" type="submit">Proceed to Confirmation</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

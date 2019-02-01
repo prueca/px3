@@ -1,0 +1,277 @@
+@import '../variables.scss';
+
+#section-1 {
+	padding: 30px 0;
+	position: relative;
+
+	.photo-wrapper {
+		width: 100px;
+		height: 100px;
+		overflow: hidden;
+		position: relative;
+		margin: auto;
+		background: #fff;
+		border-radius: 100%;
+		border: thick solid rgba(255,255,255,0.4);
+
+		img {
+			width: 100%;
+			height: auto;
+		}
+	}
+	
+	.active-acct {
+		.name {
+			margin: 8px 0;
+			text-align: center;
+			font-size: 1.5em;
+			font-weight: bold;
+		}
+		.age-gen {
+			text-align: center;
+			margin-bottom: 8px;
+			line-height: 1.6em;
+		}
+		.edit-acct {
+			font-size: 0.85em;
+			display: none;
+
+			i {
+				font-size: 0.9em;
+			}
+		}
+	}
+
+	.notifs {
+		margin-top: 30px;
+		text-align: center;
+
+		.notif-item {
+			width: 93px;
+			display: inline-block;
+			vertical-align: top;
+
+			span {
+				width: 45px;
+				height: 45px;
+				display: block;
+				position: relative;
+				margin: 0 auto 15px;
+				border-radius: 50%;
+				line-height: 45px;
+				color: #fff;
+			}
+			&:nth-child(1) span {
+				background: $red;
+			}
+			&:nth-child(2) span {
+				background: $green;
+			}
+			&:nth-child(3) span {
+				background: $violet;
+			}
+		}
+	}
+
+	.book-btn {
+		display: block;
+		width: 150px;
+		position: relative;
+		margin: 50px auto 0;
+		background: $gradient;
+	}
+}
+
+@media (min-width: 768px) {
+	#section-1 {
+		margin-bottom: 30px;
+
+		.photo-wrapper {
+			display: inline-block;
+			margin: auto 40px 0 0;
+		}
+
+		.float-right {
+			width: calc(100% - 155px);
+			display: inline-block;
+			vertical-align: top;
+
+			.active-acct {
+				display: inline-block;
+				vertical-align: top;
+
+				.name {
+					text-align: left;
+				}
+
+				.age-gen {
+					text-align: left;
+				}
+
+				.edit-acct {
+					display: block;
+				}
+			}
+
+			.notifs {
+				float: right;
+				vertical-align: top;
+				margin-top: 0;
+			}
+		}
+
+		.book-btn {
+			display: none;
+		}
+	}
+}
+
+#section-2 {
+	h3 {
+		margin: 0 0 30px;
+	}
+
+	.no-data {
+		color: #eee;
+		font-size: 1.1em;
+		font-weight: bold;
+	}
+
+	.appointments {
+		.list .list-item {
+			margin-bottom: 30px;
+			padding: 15px;
+			border-radius: 20px;
+			box-shadow: $shadow;
+			line-height: 1.6em;
+
+			.book-code {
+				font-weight: bold;
+
+				& ~ div {
+					font-size: 0.9em;
+				}
+			}
+
+			> div:first-child {
+				font-weight: bold;
+			}
+		}
+
+		.pagination {
+			display: block;
+			margin-bottom: 15px;
+			text-align: center;
+
+			a {
+				margin: 0 6px;
+				padding: 2px 6px 1px;
+				display: inline-block;
+				border-radius: 4px;
+				border-bottom: 3.5px solid #ddd;
+				background: #eee;
+				font-size: 0.85em;
+				color: #aaa;
+
+				&.active {
+					color: #fff;
+					background: #aaa;
+					border-bottom: 3.5px solid #888;
+				}
+			}
+		}
+	}
+}
+
+@media (min-width: 520px) {
+	#section-2 {
+		h3 {
+			display: inline-block;
+		}
+
+		.appointments {
+			.action-forms {
+				margin-bottom: 15px;
+
+				&:after {
+					content: '';
+					display: block;
+					clear: both;
+				}
+
+				.filter {
+					margin-top: 0;
+					margin-bottom: 0;
+					width: auto;
+					float: left;
+				}
+			}
+
+			.pagination {
+				float: right;
+				text-align: right;
+			}
+		}
+	}
+}
+
+@media (min-width: 640px) {
+	.appointments .list .list-item .book-code ~ div {
+		width: 30%;
+		margin-right: 20px;
+		display: inline-block;
+		vertical-align: top;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		overflow: hidden;
+
+		&:last-child {
+			margin-right: 0;
+		}
+	}
+}
+
+@media (min-width: 768px) {
+	#section-2 {
+		&:before {
+			content: '';
+			display: block;
+			clear: both;
+			border-top: thin solid #eee;
+			position: relative;
+			top: -30px;
+		}
+
+		.appointments {
+			.list {
+				column-count: initial;
+
+				.list-item {
+					margin-bottom: 0;
+					border: none;
+					box-shadow: none;
+					column-count: 4;
+
+					&:nth-child(odd) {
+						background: #eee;
+					}
+
+					div {
+						white-space: nowrap;
+						text-overflow: ellipsis;
+						overflow: hidden;
+					}
+
+					.book-code ~ div {
+						width: auto;
+						display: block;
+					}
+				}
+			}
+
+			.pagination {
+				margin-top: 15px;
+			}
+		}
+	}
+}

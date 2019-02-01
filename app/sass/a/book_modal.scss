@@ -1,0 +1,178 @@
+@import '../variables.scss';
+
+#book-modal .modal-box {
+	width: 300px;
+
+	.modal-content {
+		max-height: 95vh;
+
+		.extra-padding {
+			padding: 0px 15px 20px;
+		}
+
+		.doctor {
+			margin-top: 30px;
+
+			.photo {
+				width: 50px;
+				height: 50px;
+				margin-right: 20px;
+				display: inline-block;
+				overflow: hidden;
+				border-radius: 50%;
+
+				img {
+					width: inherit;
+					height: auto;
+				}
+			}
+
+			.info {
+				display: inline-block;
+
+				div {
+					text-overflow: ellipsis;
+					white-space: nowrap;
+					overflow: hidden;
+					line-height: 1.6;
+
+					&.name {
+						font-weight: bold;
+					}
+					&.field {
+						font-size: 0.9em;
+					}
+				}
+			}
+		}
+
+		label {
+			display: block;
+		}
+
+		.input-wrapper {
+			margin-bottom: 0;
+		}
+
+		.error {
+			display: none;
+			margin-top: 4px;
+			color: $red;
+			font-size: 0.85em;
+		}
+
+		.booking-details {
+			margin: 30px 0;
+			padding-top: 30px;
+			border-top: thin solid #ddd;
+
+			> div {
+				margin-bottom: 15px;
+
+				textarea {
+					margin-top: 8px;
+				}
+
+				&:last-child {
+					margin-bottom: 0;
+				}
+			}
+
+			ul {
+				margin: 8px 0;
+				padding-left: 0;
+				list-style: none;
+
+				.clinic {
+					line-height: 1.6;
+					margin-bottom: 15px;
+
+					.name {
+						font-weight: bold;
+					}
+					.address {
+						font-size: 0.9em;
+						padding-left: 25px;
+					}
+					.schedule {
+						font-size: 0.85em;
+						padding-left: 25px;
+					}
+				}
+			}
+		}
+
+		.for-other {
+			margin: 30px 0 15px;
+			padding-top: 30px;
+			border-top: thin solid #ddd;
+			position: relative;
+			display: none;
+
+			> div {
+				margin-bottom: 15px;
+
+				.gen-opt {
+					margin: 15px 20px 0 0;
+					display: inline-block;
+					cursor: pointer;
+
+					img {
+						padding: 4px;
+						border-radius: 50%;
+					}
+
+					&.active, &:hover {
+						img {
+							background: $gradient;
+						}
+
+						span {
+							color: $primary-color;
+						}
+					}
+
+					span {
+						display: inline-block;
+						vertical-align: top;
+						line-height: 40px;
+						margin-left: 8px
+					}
+				}
+			}
+		}
+
+		.errors {
+			margin: 15px 0 30px;
+			padding: 2px 30px;
+			border-radius: 15px;
+			background: #fef9c5;
+			color: $red;
+			line-height: 1.6;
+			display: none;
+
+			ul {
+				padding-left: 15px;
+			}
+		}
+
+		.note {
+			font-size: 0.9em;
+			margin-bottom: 0;
+		}
+
+		button {
+			padding: 12px;
+		}
+	}
+}
+
+@media (min-width: 640px) {
+	#book-modal .modal-box {
+		width: 520px;
+
+		.modal-content {
+			max-height: 90vh;
+		}
+	}
+}

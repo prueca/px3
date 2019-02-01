@@ -1,0 +1,10 @@
+{% if appts %}
+	{% for data in appts %}
+		<div class="list-item">
+			<div>{{ data['doctor'] }}</div>
+			<div>{{ data['clinic'] }}</div>
+			<div>{{ data['status'] }}</div>
+			<div>{{ data['schedule'] }}</div>
+		</div>
+	{% endfor %}
+{% endif %}

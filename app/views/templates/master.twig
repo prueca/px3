@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>{{ config('app.name') }}</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" type="text/css" href="{{ url('/assets/css/fontawesome-free-5.2.0-web/css/all.min.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ url('/assets/css/common.css') }}">
+
+	{# styles #}
+	{% if css %}
+		{% for style in css %}
+			<link rel="stylesheet" type="text/css" href="{{ "#{style}" }}">
+		{% endfor %}
+	{% endif %}
+</head>
+<body>
+	
+	{# header #}
+	{% include "#{pageType}/header.twig" %}
+
+	{# page content #}
+	{% block content %}
+	{% endblock %}
+
+	{# footer #}
+	<div id="footer">
+	    <div class="contact-us">
+	        <p>Contact us thru</p>
+	        <div>
+	            <a href="#" class="icon"><i class="fab fa-facebook-f"></i></a>
+	            <a href="#" class="icon"><i class="fas fa-mobile-alt"></i></a>
+	            <a href="#" class="icon"><i class="fas fa-at"></i></a>
+	        </div>
+	    </div>
+	    <p class="copyright">All Rights Reserved © {{ "now"|date("Y") }}</p>
+	</div>
+
+	{# message overlay #}
+
+	<div id="loading-message">
+		<div class="message-container">
+			<p class="message">Loading. Please wait...</p>
+			<div class="loading"></div>
+		</div>
+	</div>
+
+	{# scripts #}
+	<script type="text/javascript" src="{{ url('/assets/js/jquery-3.3.1.min.js') }}"></script>
+	<script type="text/javascript" src="{{ url('/assets/js/common.js') }}"></script>
+	<script type="text/javascript">
+		config = {
+		    baseUrl: "{{ config('app.baseUrl') }}",
+			sessionExpiry: JSON.parse("{{ config('app.sessionExpiry') }}"),
+			ajax: {
+				type: 'POST',
+		        dataType: 'JSON',
+		        beforeSend: function() {
+					$('#loading-message').show();
+		        },
+		        complete: function() {
+					$('#loading-message').hide();
+		        }
+			}
+		};
+	</script>
+	
+	{% if js %}
+		{% for script in js %}
+			<script type="text/javascript" src="{{ "#{script}" }}"></script>
+		{% endfor %}
+	{% endif %}
+</body>
+</html>

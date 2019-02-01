@@ -1,0 +1,81 @@
+{% extends 'templates/master.twig' %}
+
+{% block content %}
+<input type="hidden" name="csrfname" value="{{ token['name'] }}">
+<input type="hidden" name="csrfvalue" value="{{ token['val'] }}">
+
+<div class="center">
+	<div id="section-1">
+		<div class="photo-wrapper">
+			<img src="{{ acct.photo }}">
+		</div>
+		<div class="float-right">
+			<div class="active-acct">
+				<div class="name">{{ acct.name }}</div>
+				<div class="age-gen">{{ acct.age }} years old, {{ acct.gender }}</div>
+				<a class="edit-acct" href="<?= url('/myaccount/edit'); ?>"><i class="fas fa-fw fa-edit"></i> Edit account</a>
+			</div>
+			<div class="notifs">
+				<div class="notif-item">
+					<span>{{ 0 }}</span>
+					<a href="">Cancelled appointments</a>
+				</div>
+				<div class="notif-item">
+					<span>{{ todaysAppts }}</span>
+					<a href="">Today's appointments</a>
+				</div>
+				<div class="notif-item">
+					<span>{{ acct.reward_points }}</span>
+					<a href="">Total points earned</a>
+				</div>
+			</div>
+		</div>
+		<a href="{{ url('/search') }}" class="btn book-btn">Book Appointment</a>
+	</div>
+	<div id="section-2">
+		<h3>Booked Appointments</h3>
+		<div class="appointments">
+			<div class="action-forms">
+				<div class="filter input-wrapper">
+					<input type="hidden" name="filter" value="all">
+					<select>
+						<option value="all">All appointments</option>
+						<option value="booked">Booked appointments</option>
+						<option value="settled">Settled appointments</option>
+						<option value="done">Appointments done</option>
+						<option value="cancelled">Appointments cancelled</option>
+					</select>
+				</div>
+				<div class="pagination">
+					{% if pagination %}
+						{% for pg, btn in pagination %}
+							{% set class = (btn == active ? 'page active' : 'page') %}
+							<a class="{{ class }}" data-page={{ pg }} href="#">{{ btn }}</a>
+						{% endfor %}
+					{% endif %}
+				</div>
+			</div>
+			<div class="list">
+				{% if appts %}
+					{% for data in appts %}
+						<div class="list-item">
+							<div>{{ data['doctor'] }}</div>
+							<div>{{ data['clinic'] }}</div>
+							<div>{{ data['status'] }}</div>
+							<div>{{ data['schedule'] }}</div>
+						</div>
+					{% endfor %}
+				{% endif %}
+			</div>
+			<div class="pagination">
+				{% if pagination %}
+					{% for pg, btn in pagination %}
+						{% set class = (btn == active ? 'page active' : 'page') %}
+						<a class="{{ class }}" data-page={{ pg }} href="#">{{ btn }}</a>
+					{% endfor %}
+				{% endif %}
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

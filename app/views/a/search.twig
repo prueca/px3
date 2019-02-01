@@ -1,0 +1,94 @@
+{% extends 'templates/master.twig' %}
+
+{% block content %}
+<input type="hidden" name="csrfname" value="{{ token['name'] }}">
+<input type="hidden" name="csrfvalue" value="{{ token['val'] }}">
+
+<div class="center">
+	<div id="section-1">
+		<div class="progress">
+			<div class="active">
+				<div class="step-icon">
+					<i class="fas fa-user-md"></i>
+				</div>
+				<div class="step-desc">
+					<div class="step-no">Step 1</div>
+					Find a doctor
+				</div>
+			</div>
+			<div class="">
+				<div class="step-icon">
+					<i class="fas fa-check"></i>
+				</div>
+				<div class="step-desc">
+					<div class="step-no">Step 2</div>
+					Confirmation
+				</div>
+			</div>
+			<div class="">
+				<div class="step-icon">
+					<i class="fas fa-credit-card"></i>
+				</div>
+				<div class="step-desc">
+					<div class="step-no">Step 3</div>
+					Payment
+				</div>
+			</div>
+		</div>
+		<div class="search-inputs">
+			<form id="search-form" method="POST">
+				<fieldset>
+					<legend><h3>Search Form</h3></legend>
+					<div class="form-wrapper">
+						<label>Select specialist</label>
+						<div class="input-wrapper">
+							<select name="spec">
+								<option>Doctor</option>
+								<option>General Medical Practice</option>
+								<option>Dentist</option>
+								<option>Dermatologist</option>
+								<option>Opthalmologist</option>
+								<option>Cardiologist</option>
+								<option>Gastroenterologist</option>
+								<option>Pediatrician</option>
+								<option>Physical Therapist</option>
+								<option>Hermatologist</option>
+								<option>Psychiatrist</option>
+								<option>Psychologist</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-wrapper">
+						<label>Select service / treatment</label>
+						<div class="input-wrapper">
+							<select name="srvc">
+								<option>Consultation</option>
+								<option>Prescription</option>
+								<option>Medical certification</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-wrapper">
+						<label>Enter your location</label>
+						<div class="input-wrapper">
+							<input type="text" name="area" placeholder="Enter barangay or city">
+						</div>
+					</div>
+					<input class="btn" type="submit" value="Find a doctor">
+				</fieldset>
+			</form>
+		</div>
+	</div>
+	<div id="section-2">
+		<h3>Search Result - <span class="result-count">0</span></h3>
+		<div class="filler"><img src="{{ url('/assets/img/filler.png') }}"></div>
+		<div class="results"></div>
+		<p class="load-more"><a href="#">Load More</a></p>
+		<input type="hidden" name="offset" value="0">
+		<input type="hidden" name="spec">
+		<input type="hidden" name="srvc">
+		<input type="hidden" name="area">
+	</div>
+</div>
+{% include 'a/book_modal.twig' %}
+{% endblock %}
