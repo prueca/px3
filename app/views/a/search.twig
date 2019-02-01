@@ -1,9 +1,6 @@
 {% extends 'templates/master.twig' %}
 
 {% block content %}
-<input type="hidden" name="csrfname" value="{{ token['name'] }}">
-<input type="hidden" name="csrfvalue" value="{{ token['val'] }}">
-
 <div class="center">
 	<div id="section-1">
 		<div class="progress">
@@ -81,7 +78,7 @@
 	</div>
 	<div id="section-2">
 		<h3>Search Result - <span class="result-count">0</span></h3>
-		<div class="filler"><img src="{{ url('/assets/img/filler.png') }}"></div>
+		<div class="filler"><img src="{{ base_url()~'/assets/img/filler.png' }}"></div>
 		<div class="results"></div>
 		<p class="load-more"><a href="#">Load More</a></p>
 		<input type="hidden" name="offset" value="0">

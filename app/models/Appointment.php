@@ -9,21 +9,7 @@ class Appointment extends Model
 	const CREATED_AT = 'date_booked';
     const UPDATED_AT = null;
 	protected $table = 'Appointments';
-	protected $fillable = [
-		'clinic_id',
-		'schedule',
-		'purpose',
-		'for_other',
-		'first_name',
-		'middle_name',
-		'last_name',
-		'address',
-		'birthdate',
-		'gender',
-		'email_address',
-		'booked_by',
-		'date_booked',
-	];
+	protected $guarded = ['appointment_id', 'date_booked'];
 
 	/**
 	 * Count today's appointments for notification

@@ -7,23 +7,9 @@ use \App\Models\Clinic;
 
 class Doctor extends Model
 {
-	const CREATED_AT = 'created_at';
-	const UPDATED_AT = null;
+	public $timestamps = false;
 	protected $table = 'Doctors';
-	protected $fillable = [
-		'email_address',
-		'password',
-		'first_name',
-		'middle_name',
-		'last_name',
-		'gender',
-		'address',
-		'contact_number',
-		'birthdate',
-		'photo',
-		'access_token',
-		'complete'
-	];
+	protected $guarded = ['doctor_id'];
 
 	/**
 	 * Search matching doctor
@@ -121,7 +107,8 @@ class Doctor extends Model
 		foreach ($result as $i => $data) {
 			$docId = $data['doctor_id'];
 			$result[$i]['clinics'] = Clinic::select('name', 'street_address', 'barangay', 'city')
-			->where('doctor_id', $docId)->get()->toArray();
+			->where('doctor_id', $docId)
+			->get()->toArray();
 		}
 
 		return $result;

@@ -7,6 +7,7 @@ use \Psr\Http\Message\ResponseInterface as Response;
 use \App\Models\Account;
 use \App\Models\Appointment;
 use \App\Models\Doctor;
+use \App\Models\Clinic;
 
 class AccountController
 {
@@ -19,10 +20,6 @@ class AccountController
 		if (!$request->getAttribute('access')) {
 			return $response->withJson(['err' => 'Unauthorized access']);
 		}
-
-		// csrf token
-		$tokenName = $request->getAttribute('csrf_name');
-	    $tokenVal = $request->getAttribute('csrf_value');
 
 		// active account data
 		$acctId = $request->getAttribute('id');
@@ -51,7 +48,6 @@ class AccountController
 			'active' => 1,
 			'css' => [url('/assets/css/a/myaccount.css')],
 			'js' => [url('/assets/js/a/myaccount.js')],
-			'token' => ['name' => $tokenName, 'val' => $tokenVal],
 		]);
 	}
 
@@ -65,13 +61,7 @@ class AccountController
 			return $response->withJson(['err' => 'Unauthorized access']);
 		}
 
-		if (false === $request->getAttribute('csrfstat')) {
-    		return $response->withJson(['err' => 'Failed CSRF check!']);
-    	}
-
-    	$data = ['token' => $this->csrf->generateToken()];
-    	$post = $request->getParsedBody();
-    	
+    	$post = $request->getParsedBody();    	
 		$acctId = $request->getAttribute('id');
 		$page = (int) $post['page'];
     	$offset = ($page - 1) * 10;
@@ -96,10 +86,6 @@ class AccountController
 			return $response->withJson(['err' => 'Unauthorized access']);
 		}
 
-		// csrf token
-		$tokenName = $request->getAttribute('csrf_name');
-	    $tokenVal = $request->getAttribute('csrf_value');
-
 	    // active account data
 	    $acctId = $request->getAttribute('id');
 	    $acctName = $request->getAttribute('name');
@@ -108,11 +94,14 @@ class AccountController
 			'pageType' => 'a',
 			'loggedIn' => true,
 			'acctName' => $acctName,
-			'token' => ['name' => $tokenName, 'val' => $tokenVal],
-			'js' => [url('/assets/js/a/book.js')],
+			'js' => [
+				url('/assets/js/a/book.js'),
+				url('/assets/js/jquery-ui-1.12.1.custom/jquery-ui.min.js')
+			],
 			'css' => [
 				url('/assets/css/a/search.css'),
 				url('/assets/css/a/book_modal.css'),
+				url('/assets/js/jquery-ui-1.12.1.custom/jquery-ui.min.css')
 			],
 		]);
 	}
@@ -127,11 +116,6 @@ class AccountController
 			return $response->withJson(['err' => 'Unauthorized access']);
 		}
 
-		if (false === $request->getAttribute('csrfstat')) {
-    		return $response->withJson(['err' => 'Failed CSRF check!']);
-    	}
-
-    	$data = ['token' => $this->csrf->generateToken()];
     	$post = $request->getParsedBody();
     	$spec = $post['spec'];
     	$srvc = $post['srvc'];
@@ -194,4 +178,40 @@ class AccountController
 		$data['searchResult'] = $html;
     	return $response->withJson($data);
 	}
+
+	/**
+     * Search for matching area
+     */
+
+    public function matchArea($request, $response, $args)
+    {
+    	if (!$request->getAttribute('access')) {
+			return $response->withJson(['err' => 'Unauthorized access']);
+		}
+
+		$post = $request->getParsedBody();
+		$area = $post['area'];
+
+		if (empty($area)) {
+			return $response->withJson(['err' => 'Missing required input']);
+		}
+
+        $data = Clinic::distinct('barangay', 'city')
+        ->whereRaw('MATCH(`barangay`, `city`) AGAINST(? IN NATURAL LANGUAGE MODE)', [$area])
+        ->get(['barangay', 'city']);
+
+        if ($data->isEmpty()) {
+			return null;
+		}
+
+		$data = $data->toArray();
+
+		foreach ($data as $k => $row) {
+			$brgy = trim($row['barangay']);
+			$city = trim($row['city']);
+			$data[$k]['area'] = ($brgy && $city) ? "$brgy, $city" : $city;
+		}
+
+        return $response->withJson($data);
+    }
 }

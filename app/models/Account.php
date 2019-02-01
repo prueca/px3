@@ -6,23 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Account extends Model
 {
-	const CREATED_AT = 'created_at';
-	const UPDATED_AT = null;
+	public $timestamps = false;
 	protected $table = 'Accounts';
-	protected $fillable = [
-		'email_address',
-		'password',
-		'first_name',
-		'middle_name',
-		'last_name',
-		'gender',
-		'address',
-		'contact_number',
-		'birthdate',
-		'photo',
-		'reward_points',
-		'access_token'
-	];
+	protected $guarded = ['account_id'];
 
 	/**
 	 * Check login credentials

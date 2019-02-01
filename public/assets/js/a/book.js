@@ -9,8 +9,6 @@ $(function(){
 		if (matching) matching.abort();
 
 		var post = {
-			csrf_name: $('input[name="csrfname"]').val(),
-			csrf_value: $('input[name="csrfvalue"]').val(),
 			spec: $('#search-form [name="spec"]').val(),
 			srvc: $('#search-form [name="srvc"]').val(),
 			area: $('#search-form [name="area"]').val(),
@@ -38,8 +36,6 @@ $(function(){
 				alert('No matching doctor');
 			}
 
-			$('input[name="csrfname"]').val(data.token.csrf_name);
-			$('input[name="csrfvalue"]').val(data.token.csrf_value);
 			$('input[type="hidden"][name="offset"]').val(data.offset);
 			$('input[type="hidden"][name="spec"]').val(post.spec);
 			$('input[type="hidden"][name="srvc"]').val(post.srvc);
@@ -58,8 +54,6 @@ $(function(){
 		if (matching) matching.abort();
 
 		var post = {
-			csrf_name: $('input[name="csrfname"]').val(),
-			csrf_value: $('input[name="csrfvalue"]').val(),
 			spec: $('input[type="hidden"][name="spec"]').val(),
 			srvc: $('input[type="hidden"][name="srvc"]').val(),
 			area: $('input[type="hidden"][name="area"]').val(),
@@ -82,8 +76,6 @@ $(function(){
 				alert('Reached end of search result');
 			}
 
-			$('input[name="csrfname"]').val(data.token.csrf_name);
-			$('input[name="csrfvalue"]').val(data.token.csrf_value);
 			$('input[type="hidden"][name="offset"]').val(data.offset);
 			$('input[type="hidden"][name="spec"]').val(post.spec);
 			$('input[type="hidden"][name="srvc"]').val(post.srvc);
@@ -97,14 +89,17 @@ $(function(){
 
 	/* address autocomplete */
 
-	/*$('#search-form input[name="area"]').autocomplete({
+	$('#search-form input[name="area"]').autocomplete({
 		minLength: 2,
 		delay: 1500,
 		source: function(request, response) {
-			config.ajax.url = config.base_url + '/match/area';
-			config.ajax.data = { area: request.term };
-
-			$.ajax(config.ajax).done(function(data){
+			$.ajax({
+				url: config.baseUrl + '/matcharea',
+				type: 'POST',
+				dataType: 'JSON',
+				data: { area: request.term }
+			})
+			.done(function(data){
 				response($.map(data, function(item){
                     return { value: item.area }
                 }));
@@ -114,7 +109,7 @@ $(function(){
 	.autocomplete("instance")._renderItem = function(ul, item) {
 		var customHtml = '<div>' + item.value + '</div>';
 		return $( "<li>" ).append( customHtml ).appendTo(ul);
-	};*/
+	};
 
 
 	/* book button clicked */

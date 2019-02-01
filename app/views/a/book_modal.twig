@@ -6,7 +6,7 @@
 				<form id="form-book" method="POST">
 					<h3>Book appointment with</h3>
 					<div class="doctor">
-						<div class="photo"><img src="{{ url('/assets/img/icon_user.png') }}"></div>
+						<div class="photo"><img src="{{ base_url()~'/assets/img/icon_user.png' }}"></div>
 						<div class="info">
 							<div class="name"></div>
 							<div class="field"></div>
@@ -72,11 +72,11 @@
 							<label>Gender</label>
 							<input type="hidden" name="gender" value="M">
 							<div class="gen-opt active" data-gender="M">
-								<img src="{{ url('/assets/img/icon_male.png') }}">
+								<img src="{{ base_url()~'/assets/img/icon_male.png' }}">
 								<span>Male</span>
 							</div>
 							<div class="gen-opt" data-gender="F">
-								<img src="{{ url('/assets/img/icon_female.png') }}">
+								<img src="{{ base_url()~'/assets/img/icon_female.png' }}">
 								<span>Female</span>
 							</div>
 							<div class="error">Please provide an input</div>

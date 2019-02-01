@@ -13,11 +13,6 @@ $ci['view'] = function ($ci) {
     $uri = \Slim\Http\Uri::createFromEnvironment(new \Slim\Http\Environment($_SERVER));
     $view->addExtension(new Slim\Views\TwigExtension($router, $uri));
 
-    // url function
-    $view->getEnvironment()->addFunction(new Twig_SimpleFunction('url', function(string $path) {
-	   return url($path);
-	}));
-
     // config function
     $view->getEnvironment()->addFunction(new Twig_SimpleFunction('config', function(string $name) {
        return config($name);
@@ -50,6 +45,7 @@ $ci['auth'] = function ($ci) {
     return new \App\Middlewares\Auth($ci);
 };
 
+
 /**
  * Eloquent ORM
  */
@@ -80,6 +76,5 @@ $ci['AccountController'] = function($ci) {
     $ctrl = new \App\Controllers\AccountController();
     $ctrl->app = $ci['app'];
     $ctrl->view = $ci['view'];
-    $ctrl->csrf = $ci['csrf'];
     return $ctrl;
 };

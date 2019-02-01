@@ -5,7 +5,7 @@ namespace App\Middlewares;
 class Auth
 {
 	/**
-	 * Bind router to this class
+	 * Bind dependencies
 	 */
 
 	public function __construct($ci)
@@ -51,7 +51,7 @@ class Auth
 
 		$request = $request->withAttribute('access', $access);
 
-		if (!$access) {
+		if (!$access && $request->isGet()) {
 			$uri = $request->getUri()->withPath($this->router->pathFor('home'));
 			$response = $response->withRedirect($uri, 307);
 		} else {

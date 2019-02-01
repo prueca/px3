@@ -1,9 +1,6 @@
 {% extends 'templates/master.twig' %}
 
 {% block content %}
-<input type="hidden" name="csrfname" value="{{ token['name'] }}">
-<input type="hidden" name="csrfvalue" value="{{ token['val'] }}">
-
 <div class="center">
 	<div id="section-1">
 		<div class="photo-wrapper">
@@ -13,7 +10,7 @@
 			<div class="active-acct">
 				<div class="name">{{ acct.name }}</div>
 				<div class="age-gen">{{ acct.age }} years old, {{ acct.gender }}</div>
-				<a class="edit-acct" href="<?= url('/myaccount/edit'); ?>"><i class="fas fa-fw fa-edit"></i> Edit account</a>
+				<a class="edit-acct" href="{{ base_url()~'/myaccount/edit' }}"><i class="fas fa-fw fa-edit"></i> Edit account</a>
 			</div>
 			<div class="notifs">
 				<div class="notif-item">
@@ -30,7 +27,7 @@
 				</div>
 			</div>
 		</div>
-		<a href="{{ url('/search') }}" class="btn book-btn">Book Appointment</a>
+		<a href="{{ base_url()~'/search' }}" class="btn book-btn">Book Appointment</a>
 	</div>
 	<div id="section-2">
 		<h3>Booked Appointments</h3>

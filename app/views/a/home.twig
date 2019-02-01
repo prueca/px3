@@ -8,9 +8,9 @@
 <div class="center">
     <h3 id="welcome-note">We're here to help you get well!</h3>
     <div id="section-1">
-    	<img src="{{ url('/assets/img/icon_doctor.png') }}">
+    	<img src="{{ base_url()~'/assets/img/icon_doctor.png' }}">
 		<p>Sign in and book your checkup</p>
-		<form id="login-form" method="POST" action="{{ url('/login') }}">
+		<form id="login-form" method="POST" action="{{ base_url()~'/login' }}">
 			<div class="input-wrapper">
 				<input type="text" name="email" placeholder="Enter email address">
 			</div>
@@ -23,7 +23,7 @@
 		</form>
     </div>
 	<div id="section-2">
-		<img src="{{ url('/assets/img/icon_why.png') }}">
+		<img src="{{ base_url()~'/assets/img/icon_why.png' }}">
 		<h3>Why choose us?</h3>
 		<div class="item">
 			<p>Discounted doctor's fee</p>
@@ -46,9 +46,9 @@
 			<div class="extra-padding">
 				<h3>Create an account</h3>
 				<div class="img-wrapper">
-					<img src="{{ url('/assets/img/icon_patient.png') }}">
+					<img src="{{ base_url()~'/assets/img/icon_patient.png' }}">
 				</div>
-				<form id="register-form" type="POST" action="{{ url('/register') }}">
+				<form id="register-form" type="POST" action="{{ base_url()~'/register' }}">
 					<label>First name</label>
 					<div class="input-wrapper">
 						<input type="text" name="fname" placeholder="Enter first name">

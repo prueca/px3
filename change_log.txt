@@ -1,0 +1,7 @@
+Feb. 01, 2019
+• Added change_log.txt
+• Changed base URL
+• Modified Auth middleware to redirect GET requests (pages) only
+• Modified AccountController to prioritize token generation
+• Route specific CSRF checking
+• Replaced url() with Twig's base_url() in views

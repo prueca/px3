@@ -3,8 +3,8 @@
 <head>
 	<title>{{ config('app.name') }}</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" type="text/css" href="{{ url('/assets/css/fontawesome-free-5.2.0-web/css/all.min.css') }}">
-	<link rel="stylesheet" type="text/css" href="{{ url('/assets/css/common.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ base_url()~'/assets/css/fontawesome-free-5.2.0-web/css/all.min.css' }}">
+	<link rel="stylesheet" type="text/css" href="{{ base_url()~'/assets/css/common.css' }}">
 
 	{# styles #}
 	{% if css %}
@@ -39,17 +39,17 @@
 
 	<div id="loading-message">
 		<div class="message-container">
-			<p class="message">Loading. Please wait...</p>
+			<p class="message">In progress. Please wait...</p>
 			<div class="loading"></div>
 		</div>
 	</div>
 
 	{# scripts #}
-	<script type="text/javascript" src="{{ url('/assets/js/jquery-3.3.1.min.js') }}"></script>
-	<script type="text/javascript" src="{{ url('/assets/js/common.js') }}"></script>
+	<script type="text/javascript" src="{{ base_url()~'/assets/js/jquery-3.3.1.min.js' }}"></script>
+	<script type="text/javascript" src="{{ base_url()~'/assets/js/common.js' }}"></script>
 	<script type="text/javascript">
 		config = {
-		    baseUrl: "{{ config('app.baseUrl') }}",
+		    baseUrl: "{{ base_url() }}",
 			sessionExpiry: JSON.parse("{{ config('app.sessionExpiry') }}"),
 			ajax: {
 				type: 'POST',

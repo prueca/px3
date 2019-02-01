@@ -15,7 +15,7 @@ $config['settings']['db'] = [
 
 // app custom config
 $config['app']['name'] = "Comfort'NCure";
-$config['app']['baseUrl'] = 'http://localhost/slim_app/public';
+$config['app']['baseUrl'] = 'http://localhost/px3/public';
 $config['app']['sessionExpiry'] = 20;
 
 $config['app']['sass']['compile'] = false;
