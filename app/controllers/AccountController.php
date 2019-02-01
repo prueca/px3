@@ -214,4 +214,67 @@ class AccountController
 
         return $response->withJson($data);
     }
+
+    /**
+     * Get doctor's data
+     */
+
+    public function getDoctor($request, $response, $args)
+    {
+    	if (!$request->getAttribute('access')) {
+			return $response->withJson(['err' => 'Unauthorized access']);
+		}
+
+		$post = $request->getParsedBody();
+		$docId = $post['id'];
+
+		if (empty($docId)) {
+			return $response->withJson(['err' => 'Missing required input']);
+		}
+
+		if (($docId = decrypt($docId)) == false) {
+			return $response->withJson(['err' => 'Invalid input']);
+		}
+
+		$data = Doctor::getDoctor($docId);
+		$clinics = $data['clinics'];
+		$htmlClinics = '';
+
+		foreach ($clinics as $k => $v) {
+			$clinicId = $v['clinic_id'];
+			$clinicName = $v['name'];
+			$address = $v['street_address'];
+			$sched = $v['schedule'];
+			$htmlSched = '';
+
+			if (!empty($v['barangay'])) {
+				$address .= ', ' . $v['barangay'];
+			}
+
+			if (!empty($v['city'])) {
+				$address .= ', ' . $v['city'];
+			}
+
+			foreach ($sched as $obj) {
+				$day = $obj->day;
+				$opening = $obj->opening;
+				$closing = $obj->closing;
+				$htmlSched .= "<div>$day $opening - $closing</div>";
+			}
+
+			$htmlClinics .= "
+			<li>
+				<div class='clinic'>
+					<div class='name'>
+						<input type='radio' name='clinic' value='$clinicId'> $clinicName
+					</div>
+					<div class='address'>$address</div>
+					<div class='schedule'>$htmlSched</div>
+				</div>
+			</li>";
+		}
+
+		$data['clinics'] = $htmlClinics;
+		return $response->withJson($data);
+    }
 }

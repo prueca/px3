@@ -5,3 +5,8 @@ Feb. 01, 2019
 • Modified AccountController to prioritize token generation
 • Route specific CSRF checking
 • Replaced url() with Twig's base_url() in views
+
+Feb. 02, 2019
+• Removed timestamps (created_at, updated_at) from database
+• Moved database folder to app
+• Get doctor data upon clicking "Book appointment"

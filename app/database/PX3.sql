@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 01, 2019 at 08:12 AM
+-- Generation Time: Feb 01, 2019 at 05:13 PM
 -- Server version: 10.1.29-MariaDB
 -- PHP Version: 7.2.0
 
@@ -41,17 +41,16 @@ CREATE TABLE `Accounts` (
   `birthdate` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `photo` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `reward_points` int(11) NOT NULL DEFAULT '0',
-  `access_token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `access_token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `Accounts`
 --
 
-INSERT INTO `Accounts` (`account_id`, `email_address`, `password`, `first_name`, `middle_name`, `last_name`, `gender`, `address`, `contact_number`, `birthdate`, `photo`, `reward_points`, `access_token`, `created_at`) VALUES
-(1, 'peterrueca@yahoo.com', '$2y$10$OX6Z6Nf80NEUJhxNXBsyMuroJkXZ1YyM/8zuH2kZOp5wE.taLDt0e', 'Peter John', 'Resoles', 'Rueca', 'M', 'C5-Quirino, Nova., Quezon City', '0916-872-8941', '1993-06-21', 'storage/account/ZPe1Yeyo/420e390f458b732f5164277d392bd2c7.png', 7, 'MoTjU1zIguxJQeRIyYNuezBQKzlOenBFVW9kWmV0N0Jod0tWc0syQWZLd0NQQXFPQ1pLSmMwUFFURWM9', '2019-01-30 08:31:49'),
-(2, 'dummy@yahoo.com', '$2y$10$OX6Z6Nf80NEUJhxNXBsyMuroJkXZ1YyM/8zuH2kZOp5wE.taLDt0e', 'Dummy', '', 'Account', 'M', NULL, NULL, NULL, NULL, 0, '', '2019-01-30 08:31:49');
+INSERT INTO `Accounts` (`account_id`, `email_address`, `password`, `first_name`, `middle_name`, `last_name`, `gender`, `address`, `contact_number`, `birthdate`, `photo`, `reward_points`, `access_token`) VALUES
+(1, 'peterrueca@yahoo.com', '$2y$10$OX6Z6Nf80NEUJhxNXBsyMuroJkXZ1YyM/8zuH2kZOp5wE.taLDt0e', 'Peter John', 'Resoles', 'Rueca', 'M', 'C5-Quirino, Nova., Quezon City', '0916-872-8941', '1993-06-21', 'storage/account/ZPe1Yeyo/420e390f458b732f5164277d392bd2c7.png', 7, 'i5RUgO93kETIFUmjpAhkw3YrMmI4aFcwb0pwbjlQdHZrcS9heDlma0d6eXNCelNXL2kxbkRoajh3YTQ9'),
+(2, 'dummy@yahoo.com', '$2y$10$OX6Z6Nf80NEUJhxNXBsyMuroJkXZ1YyM/8zuH2kZOp5wE.taLDt0e', 'Dummy', '', 'Account', 'M', NULL, NULL, NULL, NULL, 0, '');
 
 -- --------------------------------------------------------
 
@@ -684,7 +683,6 @@ CREATE TABLE `Doctors` (
   `photo` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `specialization` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `complete` varchar(1) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
-  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `access_token` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
@@ -692,71 +690,71 @@ CREATE TABLE `Doctors` (
 -- Dumping data for table `Doctors`
 --
 
-INSERT INTO `Doctors` (`doctor_id`, `email_address`, `password`, `first_name`, `middle_name`, `last_name`, `gender`, `address`, `contact_number`, `birthdate`, `photo`, `specialization`, `complete`, `created_at`, `access_token`) VALUES
-(1, 'rogel@gmail.com', '$2y$10$OX6Z6Nf80NEUJhxNXBsyMuroJkXZ1YyM/8zuH2kZOp5wE.taLDt0e', 'Rogel', 'E', 'Del Rosario', 'M', 'GMA Kamuning, Quezon City', '0906-338-8702', '1976-02-11', NULL, 'General Medical Practice', '1', '2019-01-31 14:57:58', NULL),
-(2, 'noni@gmail.com', '', 'Nullinon', '', 'Vergara', 'M', NULL, '', '09-02-1976', NULL, 'Oncology', '1', '2019-01-31 14:57:58', NULL),
-(3, 'jewelmarquez@yahoo.com', '', 'Jewel Bea', '', 'Marquez', 'F', NULL, '', '03-28-1976', NULL, 'General Medical Practice', '1', '2019-01-31 14:57:58', NULL),
-(4, 'krystalperez@gmail.com', '', 'Krystal', 'A', 'Perez', 'F', NULL, '', '09-29-1980', NULL, 'Anesthesia', '1', '2019-01-31 14:57:58', NULL),
-(5, 'alissacannon@yahoo.com', '', 'Alissa Wanda', '', 'Cannon', 'F', NULL, '', '03-17-1983', NULL, 'Cardiology', '1', '2019-01-31 14:57:58', NULL),
-(6, 'rowenabuchanan@yahoo.com', '', 'Rowena', 'B', 'Buchanan', 'F', NULL, '', '03-16-1972', NULL, 'Dermatology', '1', '2019-01-31 14:57:58', NULL),
-(7, 'valerialopez@gmail.com', '', 'Valeria Candace', '', 'Lopez', 'F', NULL, '', '10-19-1987', NULL, 'Emergency Medicine', '1', '2019-01-31 14:57:58', NULL),
-(8, 'brenttiu@yahoo.com', '', 'Brent', 'C', 'Tiu', 'M', NULL, '', '11-27-1970', NULL, 'Endocrinology', '1', '2019-01-31 14:57:58', NULL),
-(9, 'lucindasapangpalay@gmail.com', '', 'Lucinda', '', 'Sapangpalay', 'F', NULL, '', '06-13-1971', NULL, 'Family Medicine', '1', '2019-01-31 14:57:58', NULL),
-(10, 'goldiejuarez@outlook.com', '', 'Goldie', 'D', 'Juarez', 'F', NULL, '', '09-10-1973', NULL, 'Gastroenterology', '1', '2019-01-31 14:57:58', NULL),
-(11, 'petersontobias@gmail.com', '', 'Peterson', '', 'Tobias', 'M', NULL, '', '03-05-1985', NULL, 'Geatrics', '1', '2019-01-31 14:57:58', NULL),
-(12, 'josesuarez@yahoo.com', '', 'Jose', 'E', 'Suarez', 'M', NULL, '', '05-03-1974', NULL, 'General Surgery', '1', '2019-01-31 14:57:58', NULL),
-(13, 'wayneamar@gmail.com', '', 'Wayne Kyle', '', 'Amar', 'M', NULL, '', '03-13-1983', NULL, 'Hermatology', '1', '2019-01-31 14:57:58', NULL),
-(14, 'leonardopineda@yahoo.com', '', 'Leonardo', ' F', 'Pineda', 'M', NULL, '', '07-25-1985', NULL, 'Infectious Disease', '1', '2019-01-31 14:57:58', NULL),
-(15, 'esmeraldaestrella@yahoo.com', '', 'Esmeralda', 'Y', 'Estrella', 'F', NULL, '', '02-27-1974', NULL, 'Immunology', '1', '2019-01-31 14:57:58', NULL),
-(16, 'markandrew@gmail.com', '', 'Mark Kieran', 'G', 'Andrew', 'M', NULL, '', '08-10-1977', NULL, 'Nephrology', '1', '2019-01-31 14:57:58', NULL),
-(17, 'bartholomealba@outlook.com', '', 'Bartholome', '', 'Alba', 'M', NULL, '', '09-30-1971', NULL, 'Neurology', '1', '2019-01-31 14:57:58', NULL),
-(18, 'mejiawilkins@outlook.com', '', 'Mejia', 'H', 'Wilkins', 'M', NULL, '', '06-02-1986', NULL, 'Nuclear Medicine', '1', '2019-01-31 14:57:58', NULL),
-(19, 'roxiepatrick@outlook.com', '', 'Roxie', 'w', 'Patrick', 'F', NULL, '', '05-01-1980', NULL, 'Obstetrics And Gynecology', '1', '2019-01-31 14:57:58', NULL),
-(20, 'leepark@gmail.com', '', 'Lee', '', 'Park', 'M', NULL, '', '11-07-1981', NULL, 'Occupational Medicine', '1', '2019-01-31 14:57:58', NULL),
-(21, 'susanmercado@gmail.com', '', 'Susan', 'V', 'Mercado', 'F', NULL, '', '09-27-1981', NULL, 'Oncology', '1', '2019-01-31 14:57:58', NULL),
-(22, 'veronicayamamoto@outlook.com', '', 'Veronica', 'J', 'Yamamoto', 'F', NULL, '', '08-13-1979', NULL, 'Ophthalmology', '1', '2019-01-31 14:57:58', NULL),
-(23, 'gretalupita@yahoo.com', '', 'Greta', 'U', 'Lupita', 'F', NULL, '', '10-12-1987', NULL, 'Orthopedics', '1', '2019-01-31 14:57:58', NULL),
-(24, 'suzettedelima@outlook.com', '', 'Suzette', 'K', 'De Lima', 'F', NULL, '', '09-16-1972', NULL, 'Otorhinolaryngology', '1', '2019-01-31 14:57:58', NULL),
-(25, 'connerallen@outlook.com', '', 'Conner', 'T', 'Allen', 'M', NULL, '', '08-09-1984', NULL, 'Pathology', '1', '2019-01-31 14:57:58', NULL),
-(26, 'davidayala@yahoo.com', '', 'David', 'L', 'Ayala', 'M', NULL, '', '11-27-1988', NULL, 'Pediatrics', '1', '2019-01-31 14:57:58', NULL),
-(27, 'conchitagonzales@gmail.com', '', 'Conchita', 'S', 'Gonzales', 'F', NULL, '', '06-09-1972', NULL, 'Physical And Rehabilitation Medicine', '1', '2019-01-31 14:57:58', NULL),
-(28, 'milesdimaano@outlook.com', '', 'Miles', 'M', 'Dimaano', 'M', NULL, '', '05-02-1979', NULL, 'Psychiatry', '1', '2019-01-31 14:57:58', NULL),
-(29, 'kainsalangsang@outlook.com', '', 'Kian', 'R', 'Salangsang', 'M', NULL, '', '02-22-1988', NULL, 'Pulmonology', '1', '2019-01-31 14:57:58', NULL),
-(30, 'annatolentino@yahoo.com', '', 'Annalise', 'N', 'Tolentino', 'F', NULL, '', '05-03-1982', NULL, 'Radiology', '1', '2019-01-31 14:57:58', NULL),
-(31, 'christiandaniel@yahoo.com', '', 'Christian', '', 'Daniel', 'M', NULL, '', '08-10-1973', NULL, 'Rheumatology', '1', '2019-01-31 14:57:58', NULL),
-(32, 'nimrodtorres@outlook.com', '', 'Nimrod', 'O', 'Torres', 'M', NULL, '', '01-17-1987', NULL, 'Urology', '1', '2019-01-31 14:57:58', NULL),
-(33, 'orlandnilooban@outlook.com', '', 'Orland', 'P', 'Nilooban', 'M', NULL, '', '10-11-1970', NULL, 'Dentistry', '1', '2019-01-31 14:57:58', NULL),
-(34, 'jewelmarquez@yahoo.com', '', 'Jewel', 'A', 'Marquez', 'F', NULL, '', '05-05-1983', NULL, 'General Medical Practice', '1', '2019-01-31 14:57:58', NULL),
-(35, 'valenzuelacash@gmail.com', '', 'Valenzuela', 'B', 'Cash', 'M', NULL, '', '01-17-1980', NULL, 'Anesthesia', '1', '2019-01-31 14:57:58', NULL),
-(36, 'housebooker@yahoo.com', '', 'House', 'M', 'Booker', 'M', NULL, '', '09-30-1989', NULL, 'Cardiology', '1', '2019-01-31 14:57:58', NULL),
-(37, 'gretchenchavez@outlook.com', '', 'Gretchen', 'C', 'Chavez', 'F', NULL, '', '11-14-1985', NULL, 'Dermatology', '1', '2019-01-31 14:57:58', NULL),
-(38, 'peggyalvarez@outlook.com', '', 'Peggy Kate', '', 'Alvarez', 'F', NULL, '', '09-21-1973', NULL, 'Emergency Medicine', '1', '2019-01-31 14:57:58', NULL),
-(39, 'christinasexton@yahoo.com', '', 'Christina', 'E', 'Sexton', 'F', NULL, '', '03-22-1988', NULL, 'Endocrinology', '1', '2019-01-31 14:57:58', NULL),
-(40, 'kathiecastro@yahoo.com', '', 'Kathie Jess', '', 'Castro', 'F', NULL, '', '01-31-1981', NULL, 'Family Medicine', '1', '2019-01-31 14:57:58', NULL),
-(41, 'mccormickaguilar@outlook.com', '', 'Mccormick', 'L', 'Aguilar', 'M', NULL, '', '09-15-1988', NULL, 'Gastroenterology', '1', '2019-01-31 14:57:58', NULL),
-(42, 'potterbennett@gmail.com', '', 'Potter', 'F', 'Bennett', 'M', NULL, '', '11-08-1972', NULL, 'Geatrics', '1', '2019-01-31 14:57:58', NULL),
-(43, 'enidstevens@outlook.com', '', 'Enid Carlen', '', 'Stevens', 'F', NULL, '', '08-31-1989', NULL, 'General Surgery', '1', '2019-01-31 14:57:58', NULL),
-(44, 'terrybarker@gmail.com', '', 'Terry Ma', '', 'Barker', 'M', NULL, '', '06-08-1988', NULL, 'Hermatology', '1', '2019-01-31 14:57:58', NULL),
-(45, 'lizzieramos@outlook.com', '', 'Lizzie', 'P', 'Ramos', 'F', NULL, '', '02-10-1975', NULL, 'Infectious Disease', '1', '2019-01-31 14:57:58', NULL),
-(46, 'dorothybray@outlook.com', '', 'Dorothy', 'O', 'Bray', 'F', NULL, '', '07-14-1987', NULL, 'Immunology', '1', '2019-01-31 14:57:58', NULL),
-(47, 'lydiafranklin@outlook.com', '', 'Lydia', 'G', 'Franklin', 'F', NULL, '', '12-01-1981', NULL, 'Nephrology', '1', '2019-01-31 14:57:58', NULL),
-(48, 'bernardball@yahoo.com', '', 'Bernard Arthu', '', 'Ball', 'M', NULL, '', '02-04-1974', NULL, 'Neurology', '1', '2019-01-31 14:57:58', NULL),
-(49, 'mauraweaver@gmail.com', '', 'Maura', 'H', 'Weaver', 'F', NULL, '', '09-05-1977', NULL, 'Nuclear Medicine', '1', '2019-01-31 14:57:58', NULL),
-(50, 'nolaedwards@gmail.com', '', 'Nola Sally', '', 'Edwards', 'F', NULL, '', '02-24-1981', NULL, 'Obstetrics And Gynecology', '1', '2019-01-31 14:57:58', NULL),
-(51, 'thorntonmooney@yahoo.com', '', 'Thornton', 'I', 'Mooney', 'M', NULL, '', '01-05-1982', NULL, 'Occupational Medicine', '1', '2019-01-31 14:57:58', NULL),
-(52, 'jacquelineswanson@gmail.com', '', 'Jacqueline', 'R', 'Swanson', 'F', NULL, '', '04-17-1986', NULL, 'Oncology', '1', '2019-01-31 14:57:58', NULL),
-(53, 'melisapace@gmail.com', '', 'Melisa Hay', '', 'Pace', 'F', NULL, '', '09-23-1988', NULL, 'Ophthalmology', '1', '2019-01-31 14:57:58', NULL),
-(54, 'porterlancaster@gmail.com', '', 'Porter Bill', '', 'Lancaster', 'M', NULL, '', '12-30-1981', NULL, 'Orthopedics', '1', '2019-01-31 14:57:58', NULL),
-(55, 'christieunderwood@gmail.com', '', 'Christie', 'K', 'Underwood', 'F', NULL, '', '12-04-1989', NULL, 'Otorhinolaryngology', '1', '2019-01-31 14:57:58', NULL),
-(56, 'jewellrussell@outlook.com', '', 'Jewell Natasha', '', 'Russell', 'F', NULL, '', '11-23-1986', NULL, 'Pathology', '1', '2019-01-31 14:57:58', NULL),
-(57, 'allysonmendoza@yahoo.com', '', 'Allyson', 'S', 'Mendoza', 'F', NULL, '', '04-20-1972', NULL, 'Pediatrics', '1', '2019-01-31 14:57:58', NULL),
-(58, 'carverhatfield@yahoo.com', '', 'Carver', 'T', 'Hatfield', 'M', NULL, '', '11-04-1984', NULL, 'Physical And Rehabilitation Medicine', '1', '2019-01-31 14:57:58', NULL),
-(59, 'orrmelton@outlook.com', '', 'Orr Ken', '', 'Melton', 'M', NULL, '', '01-30-1973', NULL, 'Psychiatry', '1', '2019-01-31 14:57:58', NULL),
-(60, 'dianaperez@gmail.com', '', 'Diana Mellie', '', 'Perez', 'F', NULL, '', '05-04-1976', NULL, 'Pulmonology', '1', '2019-01-31 14:57:58', NULL),
-(61, 'jennymarshall@gmail.com', '', 'Jenny', 'U', 'Marshall', 'F', NULL, '', '12-01-1977', NULL, 'Radiology', '1', '2019-01-31 14:57:58', NULL),
-(62, 'rebekahrobinson@gmail.com', '', 'Rebekah', 'V', 'Robinson', 'F', NULL, '', '08-14-1979', NULL, 'Rheumatology', '1', '2019-01-31 14:57:58', NULL),
-(63, 'andreaalbert@gmail.com', '', 'Andrea Sam', '', 'Albert', 'F', NULL, '', '08-05-1974', NULL, 'Urology', '1', '2019-01-31 14:57:58', NULL),
-(64, 'gwenbrennan@outlook.com', '', 'Gwen Hayley', '', 'Brennan', 'F', NULL, '', '11-02-1988', NULL, 'Dentistry', '1', '2019-01-31 14:57:58', NULL);
+INSERT INTO `Doctors` (`doctor_id`, `email_address`, `password`, `first_name`, `middle_name`, `last_name`, `gender`, `address`, `contact_number`, `birthdate`, `photo`, `specialization`, `complete`, `access_token`) VALUES
+(1, 'rogel@gmail.com', '$2y$10$OX6Z6Nf80NEUJhxNXBsyMuroJkXZ1YyM/8zuH2kZOp5wE.taLDt0e', 'Rogel', 'E', 'Del Rosario', 'M', 'GMA Kamuning, Quezon City', '0906-338-8702', '1976-02-11', NULL, 'General Medical Practice', '1', NULL),
+(2, 'noni@gmail.com', '', 'Nullinon', '', 'Vergara', 'M', NULL, '', '09-02-1976', NULL, 'Oncology', '1', NULL),
+(3, 'jewelmarquez@yahoo.com', '', 'Jewel Bea', '', 'Marquez', 'F', NULL, '', '03-28-1976', NULL, 'General Medical Practice', '1', NULL),
+(4, 'krystalperez@gmail.com', '', 'Krystal', 'A', 'Perez', 'F', NULL, '', '09-29-1980', NULL, 'Anesthesia', '1', NULL),
+(5, 'alissacannon@yahoo.com', '', 'Alissa Wanda', '', 'Cannon', 'F', NULL, '', '03-17-1983', NULL, 'Cardiology', '1', NULL),
+(6, 'rowenabuchanan@yahoo.com', '', 'Rowena', 'B', 'Buchanan', 'F', NULL, '', '03-16-1972', NULL, 'Dermatology', '1', NULL),
+(7, 'valerialopez@gmail.com', '', 'Valeria Candace', '', 'Lopez', 'F', NULL, '', '10-19-1987', NULL, 'Emergency Medicine', '1', NULL),
+(8, 'brenttiu@yahoo.com', '', 'Brent', 'C', 'Tiu', 'M', NULL, '', '11-27-1970', NULL, 'Endocrinology', '1', NULL),
+(9, 'lucindasapangpalay@gmail.com', '', 'Lucinda', '', 'Sapangpalay', 'F', NULL, '', '06-13-1971', NULL, 'Family Medicine', '1', NULL),
+(10, 'goldiejuarez@outlook.com', '', 'Goldie', 'D', 'Juarez', 'F', NULL, '', '09-10-1973', NULL, 'Gastroenterology', '1', NULL),
+(11, 'petersontobias@gmail.com', '', 'Peterson', '', 'Tobias', 'M', NULL, '', '03-05-1985', NULL, 'Geatrics', '1', NULL),
+(12, 'josesuarez@yahoo.com', '', 'Jose', 'E', 'Suarez', 'M', NULL, '', '05-03-1974', NULL, 'General Surgery', '1', NULL),
+(13, 'wayneamar@gmail.com', '', 'Wayne Kyle', '', 'Amar', 'M', NULL, '', '03-13-1983', NULL, 'Hermatology', '1', NULL),
+(14, 'leonardopineda@yahoo.com', '', 'Leonardo', ' F', 'Pineda', 'M', NULL, '', '07-25-1985', NULL, 'Infectious Disease', '1', NULL),
+(15, 'esmeraldaestrella@yahoo.com', '', 'Esmeralda', 'Y', 'Estrella', 'F', NULL, '', '02-27-1974', NULL, 'Immunology', '1', NULL),
+(16, 'markandrew@gmail.com', '', 'Mark Kieran', 'G', 'Andrew', 'M', NULL, '', '08-10-1977', NULL, 'Nephrology', '1', NULL),
+(17, 'bartholomealba@outlook.com', '', 'Bartholome', '', 'Alba', 'M', NULL, '', '09-30-1971', NULL, 'Neurology', '1', NULL),
+(18, 'mejiawilkins@outlook.com', '', 'Mejia', 'H', 'Wilkins', 'M', NULL, '', '06-02-1986', NULL, 'Nuclear Medicine', '1', NULL),
+(19, 'roxiepatrick@outlook.com', '', 'Roxie', 'w', 'Patrick', 'F', NULL, '', '05-01-1980', NULL, 'Obstetrics And Gynecology', '1', NULL),
+(20, 'leepark@gmail.com', '', 'Lee', '', 'Park', 'M', NULL, '', '11-07-1981', NULL, 'Occupational Medicine', '1', NULL),
+(21, 'susanmercado@gmail.com', '', 'Susan', 'V', 'Mercado', 'F', NULL, '', '09-27-1981', NULL, 'Oncology', '1', NULL),
+(22, 'veronicayamamoto@outlook.com', '', 'Veronica', 'J', 'Yamamoto', 'F', NULL, '', '08-13-1979', NULL, 'Ophthalmology', '1', NULL),
+(23, 'gretalupita@yahoo.com', '', 'Greta', 'U', 'Lupita', 'F', NULL, '', '10-12-1987', NULL, 'Orthopedics', '1', NULL),
+(24, 'suzettedelima@outlook.com', '', 'Suzette', 'K', 'De Lima', 'F', NULL, '', '09-16-1972', NULL, 'Otorhinolaryngology', '1', NULL),
+(25, 'connerallen@outlook.com', '', 'Conner', 'T', 'Allen', 'M', NULL, '', '08-09-1984', NULL, 'Pathology', '1', NULL),
+(26, 'davidayala@yahoo.com', '', 'David', 'L', 'Ayala', 'M', NULL, '', '11-27-1988', NULL, 'Pediatrics', '1', NULL),
+(27, 'conchitagonzales@gmail.com', '', 'Conchita', 'S', 'Gonzales', 'F', NULL, '', '06-09-1972', NULL, 'Physical And Rehabilitation Medicine', '1', NULL),
+(28, 'milesdimaano@outlook.com', '', 'Miles', 'M', 'Dimaano', 'M', NULL, '', '05-02-1979', NULL, 'Psychiatry', '1', NULL),
+(29, 'kainsalangsang@outlook.com', '', 'Kian', 'R', 'Salangsang', 'M', NULL, '', '02-22-1988', NULL, 'Pulmonology', '1', NULL),
+(30, 'annatolentino@yahoo.com', '', 'Annalise', 'N', 'Tolentino', 'F', NULL, '', '05-03-1982', NULL, 'Radiology', '1', NULL),
+(31, 'christiandaniel@yahoo.com', '', 'Christian', '', 'Daniel', 'M', NULL, '', '08-10-1973', NULL, 'Rheumatology', '1', NULL),
+(32, 'nimrodtorres@outlook.com', '', 'Nimrod', 'O', 'Torres', 'M', NULL, '', '01-17-1987', NULL, 'Urology', '1', NULL),
+(33, 'orlandnilooban@outlook.com', '', 'Orland', 'P', 'Nilooban', 'M', NULL, '', '10-11-1970', NULL, 'Dentistry', '1', NULL),
+(34, 'jewelmarquez@yahoo.com', '', 'Jewel', 'A', 'Marquez', 'F', NULL, '', '05-05-1983', NULL, 'General Medical Practice', '1', NULL),
+(35, 'valenzuelacash@gmail.com', '', 'Valenzuela', 'B', 'Cash', 'M', NULL, '', '01-17-1980', NULL, 'Anesthesia', '1', NULL),
+(36, 'housebooker@yahoo.com', '', 'House', 'M', 'Booker', 'M', NULL, '', '09-30-1989', NULL, 'Cardiology', '1', NULL),
+(37, 'gretchenchavez@outlook.com', '', 'Gretchen', 'C', 'Chavez', 'F', NULL, '', '11-14-1985', NULL, 'Dermatology', '1', NULL),
+(38, 'peggyalvarez@outlook.com', '', 'Peggy Kate', '', 'Alvarez', 'F', NULL, '', '09-21-1973', NULL, 'Emergency Medicine', '1', NULL),
+(39, 'christinasexton@yahoo.com', '', 'Christina', 'E', 'Sexton', 'F', NULL, '', '03-22-1988', NULL, 'Endocrinology', '1', NULL),
+(40, 'kathiecastro@yahoo.com', '', 'Kathie Jess', '', 'Castro', 'F', NULL, '', '01-31-1981', NULL, 'Family Medicine', '1', NULL),
+(41, 'mccormickaguilar@outlook.com', '', 'Mccormick', 'L', 'Aguilar', 'M', NULL, '', '09-15-1988', NULL, 'Gastroenterology', '1', NULL),
+(42, 'potterbennett@gmail.com', '', 'Potter', 'F', 'Bennett', 'M', NULL, '', '11-08-1972', NULL, 'Geatrics', '1', NULL),
+(43, 'enidstevens@outlook.com', '', 'Enid Carlen', '', 'Stevens', 'F', NULL, '', '08-31-1989', NULL, 'General Surgery', '1', NULL),
+(44, 'terrybarker@gmail.com', '', 'Terry Ma', '', 'Barker', 'M', NULL, '', '06-08-1988', NULL, 'Hermatology', '1', NULL),
+(45, 'lizzieramos@outlook.com', '', 'Lizzie', 'P', 'Ramos', 'F', NULL, '', '02-10-1975', NULL, 'Infectious Disease', '1', NULL),
+(46, 'dorothybray@outlook.com', '', 'Dorothy', 'O', 'Bray', 'F', NULL, '', '07-14-1987', NULL, 'Immunology', '1', NULL),
+(47, 'lydiafranklin@outlook.com', '', 'Lydia', 'G', 'Franklin', 'F', NULL, '', '12-01-1981', NULL, 'Nephrology', '1', NULL),
+(48, 'bernardball@yahoo.com', '', 'Bernard Arthu', '', 'Ball', 'M', NULL, '', '02-04-1974', NULL, 'Neurology', '1', NULL),
+(49, 'mauraweaver@gmail.com', '', 'Maura', 'H', 'Weaver', 'F', NULL, '', '09-05-1977', NULL, 'Nuclear Medicine', '1', NULL),
+(50, 'nolaedwards@gmail.com', '', 'Nola Sally', '', 'Edwards', 'F', NULL, '', '02-24-1981', NULL, 'Obstetrics And Gynecology', '1', NULL),
+(51, 'thorntonmooney@yahoo.com', '', 'Thornton', 'I', 'Mooney', 'M', NULL, '', '01-05-1982', NULL, 'Occupational Medicine', '1', NULL),
+(52, 'jacquelineswanson@gmail.com', '', 'Jacqueline', 'R', 'Swanson', 'F', NULL, '', '04-17-1986', NULL, 'Oncology', '1', NULL),
+(53, 'melisapace@gmail.com', '', 'Melisa Hay', '', 'Pace', 'F', NULL, '', '09-23-1988', NULL, 'Ophthalmology', '1', NULL),
+(54, 'porterlancaster@gmail.com', '', 'Porter Bill', '', 'Lancaster', 'M', NULL, '', '12-30-1981', NULL, 'Orthopedics', '1', NULL),
+(55, 'christieunderwood@gmail.com', '', 'Christie', 'K', 'Underwood', 'F', NULL, '', '12-04-1989', NULL, 'Otorhinolaryngology', '1', NULL),
+(56, 'jewellrussell@outlook.com', '', 'Jewell Natasha', '', 'Russell', 'F', NULL, '', '11-23-1986', NULL, 'Pathology', '1', NULL),
+(57, 'allysonmendoza@yahoo.com', '', 'Allyson', 'S', 'Mendoza', 'F', NULL, '', '04-20-1972', NULL, 'Pediatrics', '1', NULL),
+(58, 'carverhatfield@yahoo.com', '', 'Carver', 'T', 'Hatfield', 'M', NULL, '', '11-04-1984', NULL, 'Physical And Rehabilitation Medicine', '1', NULL),
+(59, 'orrmelton@outlook.com', '', 'Orr Ken', '', 'Melton', 'M', NULL, '', '01-30-1973', NULL, 'Psychiatry', '1', NULL),
+(60, 'dianaperez@gmail.com', '', 'Diana Mellie', '', 'Perez', 'F', NULL, '', '05-04-1976', NULL, 'Pulmonology', '1', NULL),
+(61, 'jennymarshall@gmail.com', '', 'Jenny', 'U', 'Marshall', 'F', NULL, '', '12-01-1977', NULL, 'Radiology', '1', NULL),
+(62, 'rebekahrobinson@gmail.com', '', 'Rebekah', 'V', 'Robinson', 'F', NULL, '', '08-14-1979', NULL, 'Rheumatology', '1', NULL),
+(63, 'andreaalbert@gmail.com', '', 'Andrea Sam', '', 'Albert', 'F', NULL, '', '08-05-1974', NULL, 'Urology', '1', NULL),
+(64, 'gwenbrennan@outlook.com', '', 'Gwen Hayley', '', 'Brennan', 'F', NULL, '', '11-02-1988', NULL, 'Dentistry', '1', NULL);
 
 --
 -- Indexes for dumped tables

@@ -113,4 +113,49 @@ class Doctor extends Model
 
 		return $result;
 	}
+
+	/**
+     * Fetch doctor's data: name, photo, specialization, clinics
+     */
+
+	public static function getDoctor(int $docId)
+	{
+		$data = Doctor::select(
+			'first_name',
+			'middle_name',
+			'last_name',
+			'photo',
+			'specialization'
+		)
+		->where('doctor_id', $docId)
+		->first();
+
+		if (empty($data)) {
+			return null;
+		}
+
+		$fname = $data->first_name;
+		$mname = $data->middle_name;
+		$lname = $data->last_name;
+		$fullname = formatName($fname, $mname, $lname);
+		$photo = getPhoto($data->photo);
+		$spec = ucwords($data->specialization);
+		
+		$data = Clinic::where('doctor_id', $docId)->get();
+		$clinics = $data->isNotEmpty() ? $data->toArray() : [];
+
+		foreach ($clinics as $k => $v) {
+			$clinicId = $v['clinic_id'];
+			$clinics[$k]['clinic_id'] = encrypt($clinicId);
+			$sched = $v['schedule'];
+			$clinics[$k]['schedule'] = json_decode($sched);
+		}
+
+		return [
+			'name' => $fullname,
+			'photo' => $photo,
+			'spec' => $spec,
+			'clinics' => $clinics
+		];
+	}
 }

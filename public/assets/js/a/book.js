@@ -114,31 +114,24 @@ $(function(){
 
 	/* book button clicked */
 
-	/*$(document).on('click', '.result-item .book', function(e){
+	$(document).on('click', '.result-item .book', function(e){
 		$('#book-form input[name="for_other"]').prop('checked', false);
 		$('#book-form .for-other').hide();
 		$('#book-form')[0].reset();
-		$.toast('Fetching data. Please wait...', 'processing');
 
-		config.ajax.url = config.base_url + '/getdoctor';
-		config.ajax.data = {
-			uid: $(this).closest('.result-item').data('uid'),
-			loc: $(this).closest('.result-item').data('area')
-		};
+		config.ajax.url = config.baseUrl + '/getdoctor';
+		config.ajax.data = { id: $(this).closest('.result-item').data('id') };
 
-		$.ajax(config.ajax).done(function(resp){
-			$('#toast').fadeOut();
-			$('#book-modal .doctor .photo img').attr('src', resp.photo);
-			$('#book-modal .doctor .info .name').text(resp.name);
-			$('#book-modal .doctor .info .field').text(resp.specialization);
-			$('#book-modal .booking-details ul').html(resp.html_clinics);
+		$.ajax(config.ajax).done(function(data){
+			$('#book-modal .doctor .photo img').attr('src', data.photo);
+			$('#book-modal .doctor .info .name').text(data.name);
+			$('#book-modal .doctor .info .field').text(data.spec);
+			$('#book-modal .booking-details ul').html(data.clinics);
 			$('html').addClass('no-scroll');
 			$('#book-modal').fadeIn();
 			$('#book-form  div.error').hide();
-		}).fail(function(){
-			$.toast('An application error has occurred', 'error', true);
 		});
-	});*/
+	});
 
 
 	/* book for other */
