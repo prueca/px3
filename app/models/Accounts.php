@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Model as Eloquent;
 
-class Account extends Model
+class Accounts extends Eloquent
 {
 	public $timestamps = false;
 	protected $table = 'Accounts';
@@ -17,7 +17,7 @@ class Account extends Model
 	public static function checkCred($email, $pass)
 	{
 		$col = ['account_id', 'first_name', 'middle_name', 'last_name', 'email_address', 'password'];
-		$data = Account::select($col)->where(['email_address' => $email])->first();
+		$data = Accounts::select($col)->where(['email_address' => $email])->first();
 
 		if (null === $data || !password_verify($pass, $data->password)) {
 			return false;
@@ -30,7 +30,7 @@ class Account extends Model
 		$fullname = formatName($fname, $mname, $lname);
 		$accToken = encrypt("$acctId|$fullname");
 
-		Account::where(['account_id' => $acctId])->update([
+		Accounts::where(['account_id' => $acctId])->update([
 			'access_token' => $accToken
 		]);
 
@@ -45,7 +45,7 @@ class Account extends Model
 
 	public static function register(array $data)
 	{
-		$emailExists = Account::where(['email_address' => $data['email_address']])->exists();
+		$emailExists = Accounts::where(['email_address' => $data['email_address']])->exists();
 
 		if ($emailExists) {
 			return ['err' => 'Email address already exists'];

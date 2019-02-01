@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Model as Eloquent;
 
-class Appointment extends Model
+class Appointments extends Eloquent
 {
 	const CREATED_AT = 'date_booked';
     const UPDATED_AT = null;
@@ -17,7 +17,7 @@ class Appointment extends Model
 
 	public static function countTodaysAppts(int $acctId)
 	{
-		return Appointment::select(['schedule', 'status'])
+		return Appointments::select(['schedule', 'status'])
 		->where(['booked_by' => $acctId, 'status' => 'Settled', 'schedule' => date('Y-m-d')])
 		->count();
 	}
@@ -28,7 +28,7 @@ class Appointment extends Model
 
 	public static function getAppts(int $acctId, $offset = 0, string $stat = 'all')
 	{
-		$query = Appointment::select(
+		$query = Appointments::select(
 			'a.appointment_id',
 			'a.clinic_id',
 			'a.schedule',

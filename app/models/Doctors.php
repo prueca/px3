@@ -2,10 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Model as Eloquent;
 use \App\Models\Clinic;
 
-class Doctor extends Model
+class Doctors extends Eloquent
 {
 	public $timestamps = false;
 	protected $table = 'Doctors';
@@ -17,7 +17,7 @@ class Doctor extends Model
 
 	public static function matchDoc(string $area, int $offset, string $spec, string $srvc)
 	{
-		$query = Doctor::select(
+		$query = Doctors::select(
 			'doctor_id',
 			'first_name',
 			'middle_name',
@@ -36,7 +36,7 @@ class Doctor extends Model
 		$spec = strtolower($spec);
 
 		if ($spec != 'doctor' && !in_array($srvc, $genericSrvcs)) {
-			$query = Doctor::select(
+			$query = Doctors::select(
 				'd.doctor_id',
 				'd.first_name',
 				'd.middle_name',
@@ -58,7 +58,7 @@ class Doctor extends Model
 				->whereRaw('MATCH(`barangay`, `city`) AGAINST(? IN NATURAL LANGUAGE MODE)', [$area]);
 			});
 		} else if ($spec != 'doctor') {
-			$query = Doctor::select(
+			$query = Doctors::select(
 				'doctor_id',
 				'first_name',
 				'middle_name',
@@ -74,7 +74,7 @@ class Doctor extends Model
 				->whereRaw('MATCH(`barangay`, `city`) AGAINST(? IN NATURAL LANGUAGE MODE)', [$area]);
 			});
 		} else if (!in_array($srvc, $genericSrvcs)) {
-			$query = Doctor::select(
+			$query = Doctors::select(
 				'd.doctor_id',
 				'd.first_name',
 				'd.middle_name',
@@ -106,7 +106,7 @@ class Doctor extends Model
 
 		foreach ($result as $i => $data) {
 			$docId = $data['doctor_id'];
-			$result[$i]['clinics'] = Clinic::select('name', 'street_address', 'barangay', 'city')
+			$result[$i]['clinics'] = Clinics::select('name', 'street_address', 'barangay', 'city')
 			->where('doctor_id', $docId)
 			->get()->toArray();
 		}
@@ -120,7 +120,7 @@ class Doctor extends Model
 
 	public static function getDoctor(int $docId)
 	{
-		$data = Doctor::select(
+		$data = Doctors::select(
 			'first_name',
 			'middle_name',
 			'last_name',
@@ -141,7 +141,7 @@ class Doctor extends Model
 		$photo = getPhoto($data->photo);
 		$spec = ucwords($data->specialization);
 		
-		$data = Clinic::where('doctor_id', $docId)->get();
+		$data = Clinics::where('doctor_id', $docId)->get();
 		$clinics = $data->isNotEmpty() ? $data->toArray() : [];
 
 		foreach ($clinics as $k => $v) {

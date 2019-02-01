@@ -4,10 +4,10 @@ namespace App\Controllers;
 
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
-use \App\Models\Account;
-use \App\Models\Appointment;
-use \App\Models\Doctor;
-use \App\Models\Clinic;
+use \App\Models\Accounts;
+use \App\Models\Appointments;
+use \App\Models\Doctors;
+use \App\Models\Clinics;
 
 class AccountController
 {
@@ -25,15 +25,15 @@ class AccountController
 		$acctId = $request->getAttribute('id');
 		$acctName = $request->getAttribute('name');
 		$col = ['birthdate', 'gender', 'photo', 'reward_points'];
-		$acct = Account::select($col)->where('account_id', $acctId)->first();
+		$acct = Accounts::select($col)->where('account_id', $acctId)->first();
 		$acct->name = $acctName;
 		$acct->age = calcAge($acct->birthdate);
 		$acct->gender = $acct->gender == 'M' ? 'Male' : 'Female';
 		$acct->photo = getPhoto($acct->photo);
 
 		// appointments data
-		$todaysAppts = Appointment::countTodaysAppts($acctId);
-		$apptsArr = Appointment::getAppts($acctId);
+		$todaysAppts = Appointments::countTodaysAppts($acctId);
+		$apptsArr = Appointments::getAppts($acctId);
 		$pagination = getPagination($apptsArr['total'], 1);
 		unset($apptsArr['total']);
 
@@ -67,7 +67,7 @@ class AccountController
     	$offset = ($page - 1) * 10;
     	$stat = $post['filter'];
 
-    	$apptsArr = Appointment::getAppts($acctId, $offset, $stat);
+    	$apptsArr = Appointments::getAppts($acctId, $offset, $stat);
 		$pagination = getPagination($apptsArr['total'], $page);
 		unset($apptsArr['total']);
 
@@ -130,7 +130,7 @@ class AccountController
     		$offset = (int) decrypt($offset);
     	}
 
-    	$searchResult = Doctor::matchDoc($area, $offset, $spec, $srvc);
+    	$searchResult = Doctors::matchDoc($area, $offset, $spec, $srvc);
     	$html = '';
     	$ctr = 0;
 
@@ -196,7 +196,7 @@ class AccountController
 			return $response->withJson(['err' => 'Missing required input']);
 		}
 
-        $data = Clinic::distinct('barangay', 'city')
+        $data = Clinics::distinct('barangay', 'city')
         ->whereRaw('MATCH(`barangay`, `city`) AGAINST(? IN NATURAL LANGUAGE MODE)', [$area])
         ->get(['barangay', 'city']);
 
@@ -236,7 +236,7 @@ class AccountController
 			return $response->withJson(['err' => 'Invalid input']);
 		}
 
-		$data = Doctor::getDoctor($docId);
+		$data = Doctors::getDoctor($docId);
 		$clinics = $data['clinics'];
 		$htmlClinics = '';
 

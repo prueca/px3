@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Model as Eloquent;
 
-class Clinic extends Model
+class Clinics extends Eloquent
 {
 	public $timestamps = false;
 	protected $table = 'Clinics';

@@ -10,3 +10,4 @@ Feb. 02, 2019
 • Removed timestamps (created_at, updated_at) from database
 • Moved database folder to app
 • Get doctor data upon clicking "Book appointment"
+• Sync model naming to table naming

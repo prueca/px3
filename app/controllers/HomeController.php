@@ -4,7 +4,7 @@ namespace App\Controllers;
 
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
-use \App\Models\Account;
+use \App\Models\Accounts;
 
 class HomeController
 {
@@ -55,9 +55,9 @@ class HomeController
     	}
 
     	if ($type == 'a') {
-    		$result = Account::checkCred($email, $pass);
+    		$result = Accounts::checkCred($email, $pass);
     	} else if ($type == 'd') {
-    		$result = Doctor::checkCred($email, $pass);
+    		$result = Doctors::checkCred($email, $pass);
     	}
 
     	if ($result === false) {
@@ -105,7 +105,7 @@ class HomeController
         }
 
         if ($post['type'] == 'a') {
-            $result = Account::register([
+            $result = Accounts::register([
                 'email_address' => $post['email'],
                 'first_name' => $post['fname'],
                 'middle_name' => $post['mname'],
@@ -114,7 +114,7 @@ class HomeController
                 'password' => $post['pass'],
             ]);
         } else if ($post['type'] == 'd') {
-            $result = Doctor::register([
+            $result = Doctors::register([
                 'email_address' => $post['email'],
                 'first_name' => $post['fname'],
                 'middle_name' => $post['mname'],
