@@ -52,7 +52,7 @@ class Accounts extends Eloquent
 		}
 
 		$data['password'] = password_hash($data['password'], PASSWORD_BCRYPT);
-		$newAcct = new Account;
+		$newAcct = new Accounts;
 
 		foreach ($data as $k => $v) {
 			$newAcct->$k = $data[$k];
