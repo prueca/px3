@@ -11,3 +11,5 @@ Feb. 02, 2019
 • Moved database folder to app
 • Get doctor data upon clicking "Book appointment"
 • Sync model naming to table naming
+• Save only account_id and type in access token cookie
+• Save acctName in cookie

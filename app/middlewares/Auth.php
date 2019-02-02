@@ -22,12 +22,11 @@ class Auth
 	{
 		$access = false;
 		$token = cookie('accToken');
-		$type = cookie('acctType');
 
-		if (isset($token, $type) && ($data = decrypt($token)) !== false) {
+		if (isset($token) && ($data = decrypt($token)) !== false) {
 			$data = explode('|', $data);
 			$id = $data[0];
-			$name = $data[1];
+			$type = $data[1];
 			$db = $this->db;
 
 			if ($type == 'a') {
@@ -45,7 +44,7 @@ class Auth
 				$access = true;
 				$request = $request
 				->withAttribute('id', $id)
-				->withAttribute('name', $name);
+				->withAttribute('type', $type);
 			}
 		}
 

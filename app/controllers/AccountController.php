@@ -23,10 +23,9 @@ class AccountController
 
 		// active account data
 		$acctId = $request->getAttribute('id');
-		$acctName = $request->getAttribute('name');
+		$acctName = cookie('acctName');
 		$col = ['birthdate', 'gender', 'photo', 'reward_points'];
 		$acct = Accounts::select($col)->where('account_id', $acctId)->first();
-		$acct->name = $acctName;
 		$acct->age = calcAge($acct->birthdate);
 		$acct->gender = $acct->gender == 'M' ? 'Male' : 'Female';
 		$acct->photo = getPhoto($acct->photo);
@@ -86,14 +85,10 @@ class AccountController
 			return $response->withJson(['err' => 'Unauthorized access']);
 		}
 
-	    // active account data
-	    $acctId = $request->getAttribute('id');
-	    $acctName = $request->getAttribute('name');
-
 		$this->view->render($response, 'a/search.twig', [
 			'pageType' => 'a',
 			'loggedIn' => true,
-			'acctName' => $acctName,
+			'acctName' => cookie('acctName'),
 			'js' => [
 				url('/assets/js/a/book.js'),
 				url('/assets/js/jquery-ui-1.12.1.custom/jquery-ui.min.js')
