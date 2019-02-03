@@ -13,3 +13,6 @@ Feb. 02, 2019
 • Sync model naming to table naming
 • Save only account_id and type in access token cookie
 • Save acctName in cookie
+
+Feb. 03, 2019
+• Book appointment. Not yet redirecting to confirmation

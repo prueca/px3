@@ -17,10 +17,6 @@ class AccountController
 
 	public function myaccount($request, $response, $args)
 	{
-		if (!$request->getAttribute('access')) {
-			return $response->withJson(['err' => 'Unauthorized access']);
-		}
-
 		// active account data
 		$acctId = $request->getAttribute('id');
 		$acctName = cookie('acctName');
@@ -56,10 +52,6 @@ class AccountController
 
 	public function getAppts($request, $response, $args)
 	{
-		if (!$request->getAttribute('access')) {
-			return $response->withJson(['err' => 'Unauthorized access']);
-		}
-
     	$post = $request->getParsedBody();    	
 		$acctId = $request->getAttribute('id');
 		$page = (int) $post['page'];
@@ -81,10 +73,6 @@ class AccountController
 
 	public function search($request, $response, $args)
 	{
-		if (!$request->getAttribute('access')) {
-			return $response->withJson(['err' => 'Unauthorized access']);
-		}
-
 		$this->view->render($response, 'a/search.twig', [
 			'pageType' => 'a',
 			'loggedIn' => true,
@@ -107,10 +95,6 @@ class AccountController
 
 	public function matchDoc($request, $response, $args)
 	{
-		if (!$request->getAttribute('access')) {
-			return $response->withJson(['err' => 'Unauthorized access']);
-		}
-
     	$post = $request->getParsedBody();
     	$spec = $post['spec'];
     	$srvc = $post['srvc'];
@@ -180,10 +164,6 @@ class AccountController
 
     public function matchArea($request, $response, $args)
     {
-    	if (!$request->getAttribute('access')) {
-			return $response->withJson(['err' => 'Unauthorized access']);
-		}
-
 		$post = $request->getParsedBody();
 		$area = $post['area'];
 
@@ -216,10 +196,6 @@ class AccountController
 
     public function getDoctor($request, $response, $args)
     {
-    	if (!$request->getAttribute('access')) {
-			return $response->withJson(['err' => 'Unauthorized access']);
-		}
-
 		$post = $request->getParsedBody();
 		$docId = $post['id'];
 
@@ -271,5 +247,59 @@ class AccountController
 
 		$data['clinics'] = $htmlClinics;
 		return $response->withJson($data);
+    }
+
+    /**
+     * Book appointment
+     */
+
+    public function bookAppt($request, $response, $args)
+    {
+    	$post = $request->getParsedBody();
+    	$data = [];
+
+    	if (!isset($post['clinic'], $post['schedule'], $post['purpose'])) {
+    		$data['err'] = 'Missing required input';
+    	} else {
+    		$acctId = $request->getAttribute('id');
+
+    		if (isset($post['for_other']) && !isset(
+    			$post['first_name'],
+    			$post['middle_name'],
+	    		$post['last_name'],
+	    		$post['address'],
+	    		$post['birthdate'],
+	    		$post['gender'],
+	    		$post['email_address']
+    		)) {
+    			$data['err'] = 'Missing required input';
+	    	} else if (!isset($post['for_other'])) {
+	    		$acct = Accounts::select([
+	    			'first_name',
+	    			'middle_name',
+	    			'last_name',
+	    			'address',
+	    			'birthdate',
+	    			'gender',
+	    			'email_address',
+	    		])
+	    		->where('account_id', $acctId)
+	    		->first()
+	    		->toArray();
+	    		$post = array_merge($acct, $post);
+	    	}
+
+	    	$clinicId = decrypt($post['clinic']);
+    		unset($post['clinic']);
+
+    		$post['clinic_id'] = $clinicId;
+    		$post['booked_by'] = $acctId;
+
+	    	$appt = new Appointments;
+    		$appt->fill($post)->save();
+    		$data['appt'] = $appt->id;
+    	}
+
+    	return $response->withJson($data);
     }
 }

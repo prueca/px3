@@ -38,9 +38,9 @@ class Auth
 			}
 
 			$cond['access_token'] = $token;
-			$result = $db->table($tbl)->where($cond)->count();
+			$result = $db->table($tbl)->where($cond)->exists();
 
-			if ($result == 1) {
+			if ($result) {
 				$access = true;
 				$request = $request
 				->withAttribute('id', $id)
@@ -48,11 +48,13 @@ class Auth
 			}
 		}
 
-		$request = $request->withAttribute('access', $access);
-
-		if (!$access && $request->isGet()) {
-			$uri = $request->getUri()->withPath($this->router->pathFor('home'));
-			$response = $response->withRedirect($uri, 307);
+		if (!$access) {
+			if ($request->isGet()) {
+				$uri = $request->getUri()->withPath($this->router->pathFor('home'));
+				$response = $response->withRedirect($uri, 307);
+			} else {
+				$response = $response->withJson(['err' => 'Unauthorized access']);
+			}
 		} else {
 			$response = $next($request, $response);
 		}

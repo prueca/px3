@@ -123,6 +123,13 @@ $(function(){
 		config.ajax.data = { id: $(this).closest('.result-item').data('id') };
 
 		$.ajax(config.ajax).done(function(data){
+			if (data.err) {
+				alert(data.err);
+				return;
+			}
+
+			var purpose = $('input[type="hidden"][name="srvc"]').val() + '.';
+			$('#book-form textarea[name="purpose"]').val(purpose);
 			$('#book-modal .doctor .photo img').attr('src', data.photo);
 			$('#book-modal .doctor .info .name').text(data.name);
 			$('#book-modal .doctor .info .field').text(data.spec);
@@ -136,84 +143,97 @@ $(function(){
 
 	/* book for other */
 
-	/*$('#book-modal input[name="for_other"]').click(function(){
+	$('#book-modal input[name="for_other"]').click(function(){
 		if ($(this).is(':checked')) {
 			$('#book-modal .for-other').slideDown();
 		} else {
 			$('#book-modal .for-other').slideUp();
 		}
-	});*/
+	});
 
 
 	/* change gender */
 
-	/*$('#book-form .gen-opt').click(function(){
+	$('#book-form .gen-opt').click(function(){
 		var gender = this.dataset.gender;
 		$('#book-form input[name="gender"]').val(gender);
 		$('#book-form .gen-opt.active').removeClass('active');
 		$(this).addClass('active');
-	});*/
+	});
 
 
 	/* submit information */
 
-	/*$('#book-form').submit(function(e){
+	$('#book-form').submit(function(e){
 		e.preventDefault();
 		$('#book-form  div.error').hide();
 
 		var has_error = false;
-		var data = new FormData(this);
+		var data = {
+			clinic: $('#book-form input[name="clinic"]:checked').val(),
+			schedule: $('#book-form input[name="schedule"]').val(),
+			purpose: $('#book-form textarea[name="purpose"]').val(),
+			for_other: $('#book-form input[name="for_other"]:checked').val()
+		};
 
-		if (!data.get('clinic')) {
+		if (!data.clinic) {
 			has_error = true;
 			$('#book-form .clinic .error').show();
 		}
 
-		if (!data.get('schedule')) {
+		if (!data.schedule) {
 			has_error = true;
 			$('#book-form .sched .error').show();
 		}
 
-		if (!data.get('purpose')) {
+		if (!data.purpose) {
 			has_error = true;
 			$('#book-form .purpose .error').show();
 		}
 
 		if ($('#book-form input[name="for_other"]').is(':checked')) {
-			if (!data.get('first_name')) {
+			data.first_name = $('#book-form input[name="first_name"]').val();
+			data.middle_name = $('#book-form input[name="middle_name"]').val();
+			data.last_name = $('#book-form input[name="last_name"]').val();
+			data.address = $('#book-form input[name="address"]').val();
+			data.birthdate = $('#book-form input[name="birthdate"]').val();
+			data.gender = $('#book-form input[name="gender"]').val();
+			data.email_address = $('#book-form input[name="email_address"]').val();
+
+			if (!data.first_name) {
 				has_error = true;
 				$('#book-form .fname .error').show();
 			}
 
-			if (!data.get('middle_name')) {
+			if (!data.middle_name) {
 				has_error = true;
 				$('#book-form .mname .error').show();
 			}
 
-			if (!data.get('last_name')) {
+			if (!data.last_name) {
 				has_error = true;
 				$('#book-form .lname .error').show();
 			}
 
-			if (!data.get('address')) {
+			if (!data.address) {
 				has_error = true;
 				$('#book-form .add .error').show();
 			}
 
-			if (!data.get('birthdate')) {
+			if (!data.birthdate) {
 				has_error = true;
 				$('#book-form .bdate .error').show();
 			}
 
-			if (!data.get('gender')) {
+			if (!data.gender) {
 				has_error = true;
 				$('#book-form .gen .error').show();
 			}
 
-			if (!data.get('email_address')) {
+			if (!data.email_address) {
 				has_error = true;
 				$('#book-form .email .error').text('Please provide an input').show();
-			} else if (!data.get('email_address').match(/^\S+@\S+\.\S+/)) {
+			} else if (!data.email_address.match(/^\S+@\S+\.\S+/)) {
 				has_error = true;
 				$('#book-form .email .error').text('Please enter a valid email address').show();
 			}
@@ -223,22 +243,20 @@ $(function(){
 			return false;
 		}
 
-		config.ajax.url = config.base_url + '/book';
-		config.ajax.contentType = false;
-		config.ajax.processData = false;
+		config.ajax.url = config.baseUrl + '/book';
 		config.ajax.data = data;
-
 		$('#book-modal').fadeOut();
-		$.toast('Saving data. Please wait...', 'processing');
 
-		$.ajax(config.ajax).done(function(resp){
-			if (resp.error) {
-				$.toast(resp.error, 'error');
-				return;
+		$.ajax(config.ajax).done(function(data){
+			console.log(data);
+			return false;
+
+			if (data.err) {
+				alert(data.err);
+			} else {
+				window.location.href = config.baseUrl + '/confirm/' + data.appt;
 			}
-
-			window.location.href = config.base_url + '/confirm/' + resp.appointment;
 		});
-	});*/
+	});
 
 });

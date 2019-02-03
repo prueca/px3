@@ -1,6 +1,7 @@
 <?php
 
 // AccountController 
+$app->post('/book', 'AccountController:bookAppt')->add($ci['auth']);
 $app->post('/getdoctor', 'AccountController:getDoctor')->add($ci['auth']);
 $app->post('/matcharea', 'AccountController:matchArea')->add($ci['auth']);
 $app->post('/matchdoc', 'AccountController:matchDoc')->add($ci['auth']);
