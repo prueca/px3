@@ -260,4 +260,24 @@ class AccountController
     	$data = Appointments::bookAppt($acctId, $post);
     	return $response->withJson($data);
     }
+
+    /**
+     * Confirm appointment
+     */
+
+    public function confirmAppt($request, $response, $args)
+    {
+    	// GDPN7D14
+    	$apptId = $args['appt'];
+		$appt = Appointments::fetchAppt($apptId);
+		// return $response->withJson($appt);
+		
+		$this->view->render($response, 'a/confirm.twig', [
+			'pageType' => 'a',
+			'loggedIn' => true,
+			'acctName' => cookie('acctName'),
+			'appt' => $appt,
+			'css' => [url('/assets/css/a/confirm.css')],
+		]);
+    }
 }

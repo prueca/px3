@@ -6,6 +6,7 @@ $app->post('/getdoctor', 'AccountController:getDoctor')->add($ci['auth']);
 $app->post('/matcharea', 'AccountController:matchArea')->add($ci['auth']);
 $app->post('/matchdoc', 'AccountController:matchDoc')->add($ci['auth']);
 $app->post('/getappts', 'AccountController:getAppts')->add($ci['auth']);
+$app->get('/confirm/{appt}', 'AccountController:confirmAppt')->add($ci['auth']);
 $app->get('/search', 'AccountController:search')->add($ci['auth']);
 $app->get('/myaccount', 'AccountController:myaccount')->add($ci['auth']);
 

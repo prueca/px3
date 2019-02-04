@@ -1,0 +1,262 @@
+@import '../variables.scss';
+
+#section-1 {
+    margin: 30px 0;
+
+    .progress {
+        text-align: center;
+
+        > div {
+            width: 90px;
+            display: inline-block;
+            color: #ccc;
+
+            .step-icon {
+                width: 40px;
+                height: 40px;
+                margin-bottom: 8px;
+                display: inline-block;
+                border: thin solid #ccc;
+                border-radius: 50%;
+                line-height: 40px;
+                position: relative;
+            }
+
+            .step-desc {
+                vertical-align: top;
+                line-height: 1.6;
+                text-align: center;
+                font-size: 0.9em;
+
+                .step-no {
+                    font-size: 0.85em;
+                }
+            }
+
+            &.active  {
+                color: $primary-color;
+
+                .step-icon {
+                    border: none;
+                    background: $gradient;
+                    color: #fff;
+                }
+            }
+        }
+    }
+
+    .book-code {
+        margin-top: 30px;
+        text-align: center;
+
+        label {
+            font-weight: bold;
+        }
+
+        > div {
+            color: $green;
+            font-size: 2.5em;
+            margin-top: 15px;
+        }
+    }
+}
+
+@media (min-width: 640px) {
+    #section-1 {   
+        &:after {
+            content: '';
+            display: block;
+            clear: both;
+        }
+
+        .progress {
+            text-align: left;
+            float: right;
+
+            > div {
+                width: 115px;
+                text-align: center;
+            }
+        }
+
+        .book-code {
+            margin-top: 0;
+            text-align: left;
+        }
+    }   
+}
+
+#section-2 {
+    > div {
+        margin: 30px 0;
+
+        h3 {
+            text-align: center;
+        }
+
+       .photo-wrapper {
+            width: 100px;
+            height: 100px;
+            overflow: hidden;
+            position: relative;
+            margin: auto;
+            border-radius: 100%;
+
+            img {
+                width: inherit;
+                height: auto;
+            }
+       }
+       
+       .data {
+            text-align: center;
+
+            .name {
+                margin: 15px 0 8px;
+                font-weight: bold;
+                font-size: 1.5em;
+
+                & ~ div {
+                    line-height: 1.6em;
+                    font-size: 0.9em;
+                }
+            }
+       }
+    }
+}
+
+@media (min-width: 640px) {
+    #section-2 {
+        border-top: thin solid #ddd;
+        border-bottom: thin solid #ddd;
+
+        &:after {
+            content: '';
+            display: block;
+            clear: both;
+        }
+
+        > div {
+            width: 49%;
+            vertical-align: top;
+
+            &.data-doctor {
+                float: left;
+            }
+
+            &.data-patient {
+                float: right;
+            }
+
+            h3 {
+                text-align: left;
+            }
+
+            .photo-wrapper {
+                display: inline-block;
+            }
+
+            .data {
+                text-align: left;
+
+                .name {
+                    margin: 8px 0;
+                }
+            }
+        }
+    }   
+}
+
+@media (min-width: 768px) {
+    #section-2 > div {
+        .photo-wrapper {
+            margin-right: 30px;
+            vertical-align: top;
+        }
+
+        .data {
+            width: calc(100% - 145px);
+            display: inline-block;
+        }
+    }
+}
+
+#section-3 {
+    padding: 15px 0;
+
+    .main-details, .other-details {
+       > div {
+            margin-bottom: 15px;
+            line-height: 2em;
+
+            label {
+                font-weight: bold;
+                color: $primary-color;
+            }
+       }
+    }
+}
+
+@media (min-width: 768px) {
+    #section-3 {
+        &:after {
+            content: '';
+            display: block;
+            clear: both;
+        }
+
+        .main-details {
+            width: 49%;
+            float: left;
+        }
+
+        .other-details {
+            width: 45%;
+            float: right;
+        }
+    }
+}
+
+#section-4 {
+    .btn {
+        display: block;
+        width: 100%;
+        padding: 12px;
+        box-sizing: border-box;
+    }
+
+    .cancel {
+        display: inline-block;
+        margin-top: 15px;
+        cursor: pointer;
+    }
+
+    .edit-details {
+        display: inline-block;
+        margin-top: 15px;
+        margin-right: 15px;
+    }
+}
+
+@media (min-width: 640px) {
+    #section-4 {
+        padding-top: 30px;
+        border-top: thin solid #ddd;
+        text-align: left;
+
+        .btn {
+            width: auto;
+            display: inline-block;
+        }
+
+        .cancel {
+            float: right;
+            margin-right: 15px;
+        }
+
+        .edit-details {
+            float: right;
+            margin-right: 0;
+        }
+    }
+}

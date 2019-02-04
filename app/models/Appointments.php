@@ -148,9 +148,131 @@ class Appointments extends Eloquent
 
     	$appt = new Appointments;
 		$appt->fill($data)->save();
-		$result['appt'] = $appt->id;
+		$apptId = $appt->id;
+
+		$salt = cookie('accToken');
+		$char = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+		$hashids = new \Hashids\Hashids($salt, 8, $char);
+		$apptId = $hashids->encode($apptId);
+
+		$result['appt'] = $apptId;
 		$result['succ'] = true;
 
     	return $result;
+	}
+
+	/**
+	 * Get appointment detials for confirmation and viewing
+	 */
+
+	public static function fetchAppt(string $apptId)
+	{
+		$salt = cookie('accToken');
+		$char = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+		$hashids = new \Hashids\Hashids($salt, 8, $char);
+		$apptId = $hashids->decode($apptId);
+
+		if (empty($apptId)) {
+			return null;
+		}
+
+		$apptId = $apptId[0];
+		$data = Appointments::where('appointment_id', $apptId)
+		->join('Clinics', 'Clinics.clinic_id', '=', 'Appointments.clinic_id')
+		->join('Doctors', 'Doctors.doctor_id', '=', 'Clinics.doctor_id')
+		->join('Accounts', 'Accounts.account_id', '=', 'Appointments.booked_by')
+		->first([
+			'Appointments.first_name as pat_fname',
+			'Appointments.middle_name as pat_mname',
+			'Appointments.last_name as pat_lname',
+			'Appointments.schedule',
+			'Appointments.purpose',
+			'Appointments.address as pat_add',
+			'Appointments.birthdate',
+			'Appointments.gender',
+			'Appointments.email_address',
+			'Appointments.date_booked',
+			'Appointments.status',
+			'Clinics.name as clinic',
+			'Clinics.street_address',
+			'Clinics.barangay',
+			'Clinics.city',
+			'Clinics.schedule as clinic_hrs',
+			'Doctors.doctor_id',
+			'Doctors.first_name as doc_fname',
+			'Doctors.middle_name as doc_mname',
+			'Doctors.last_name as doc_lname',
+			'Doctors.photo as doc_photo',
+			'Doctors.specialization',
+			'Accounts.first_name as bookedby_fname',
+			'Accounts.middle_name as bookedby_mname',
+			'Accounts.last_name as bookedby_lname',
+			'Accounts.email_address as bookedby_email',
+		]);
+
+		if (empty($data)) {
+			return null;
+		}
+
+		$data = $data->toArray();
+
+		$fname = $data['doc_fname'];
+		$mname = $data['doc_mname'];
+		$lname = $data['doc_lname'];
+		$fullname = formatName($fname, $mname, $lname);
+		$data['doctor'] = $fullname;
+		$data['doc_photo'] = getPhoto($data['doc_photo']);
+
+		$fname = $data['pat_fname'];
+		$mname = $data['pat_mname'];
+		$lname = $data['pat_lname'];
+		$fullname = formatName($fname, $mname, $lname);
+		$data['patient'] = $fullname;
+		// $data['pat_photo'] = getPhoto($data['pat_photo']);
+
+		$fname = $data['bookedby_fname'];
+		$mname = $data['bookedby_mname'];
+		$lname = $data['bookedby_lname'];
+		$fullname = formatName($fname, $mname, $lname);
+		$data['bookedby_name'] = $fullname;
+
+		$clinicAdd = $data['street_address'] . ', ';
+		$brgy = $data['barangay'];
+		$city = $data['city'];
+
+		if ($brgy) {
+			$clinicAdd .= "$brgy, ";
+		}
+
+		$clinicAdd .= $city;
+		$data['clinic_add'] = $clinicAdd;
+
+		$data['schedule'] = date('l, F d, Y', strtotime($data['schedule']));
+		$data['date_booked'] = date('F d, Y h:m:s A', strtotime($data['date_booked']));
+		
+		$data['gender'] = $data['gender'] == 'M' ? 'Male' : 'Female';
+		$data['age'] = calcAge($data['birthdate']);
+		$data['clinic_hrs'] = json_decode($data['clinic_hrs'], true);
+
+		$data['appointment_id'] = $hashids->encode($apptId);
+		$data['doctor_id'] = $hashids->encode($data['doctor_id']);
+
+		unset(
+			$data['doc_fname'],
+			$data['doc_mname'],
+			$data['doc_lname'],
+			$data['pat_fname'],
+			$data['pat_mname'],
+			$data['pat_lname'],
+			$data['bookedby_fname'],
+			$data['bookedby_mname'],
+			$data['bookedby_lname'],
+			$data['street_address'],
+			$data['barangay'],
+			$data['city'],
+			$data['birthdate']
+		);
+
+		return $data;
 	}
 }

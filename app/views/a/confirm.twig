@@ -1,0 +1,115 @@
+{% extends 'templates/master.twig' %}
+
+{% block content %}
+<div class="center">
+    <div id="section-1">
+    	<div class="progress">
+			<div class="active">
+				<div class="step-icon">
+					<i class="fas fa-user-md"></i>
+				</div>
+				<div class="step-desc">
+					<div class="step-no">Step 1</div>
+					Find a doctor
+				</div>
+			</div>
+			<div class="active">
+				<div class="step-icon">
+					<i class="fas fa-check"></i>
+				</div>
+				<div class="step-desc">
+					<div class="step-no">Step 2</div>
+					Confirmation
+				</div>
+			</div>
+			<div class="">
+				<div class="step-icon">
+					<i class="fas fa-credit-card"></i>
+				</div>
+				<div class="step-desc">
+					<div class="step-no">Step 3</div>
+					Payment
+				</div>
+			</div>
+		</div>
+		<div class="book-code">
+			<label>Book Code</label>
+			<div>{{ appt.appointment_id }}</div>
+		</div>
+    </div>
+    <div id="section-2">
+		<div class="data-doctor">
+			<div class="photo-wrapper">
+				<img src="{{ appt.doc_photo }}">
+			</div>
+			<div class="data">
+				<div class="name">{{ appt.doctor }}</div>
+				<div>{{ appt.specialization }}</div>
+				<div>{{ appt.clinic }}</div>
+			</div>
+		</div>	
+		<div class="data-patient">
+			<div class="photo-wrapper">
+				<img src="{{ appt.pat_photo }}">
+			</div>
+			<div class="data">
+				<div class="name">{{ appt.patient }}</div>
+				<div>{{ 'Age '~appt.age~', '~appt.gender }}</div>
+				<div>{{ appt.pat_add }}</div>
+			</div>
+		</div>
+    </div>
+    <div id="section-3">
+    	<div class="main-details">
+    		<h3>Booking Information</h3>
+	    	<div>
+	    		<label>Location</label>
+	    		<div>{{ appt.clinic~', '~appt.clinic_add }}</div>
+	    	</div>
+	    	<div>
+	    		<label>Schedule</label>
+	    		<div>{{ appt.schedule }}</div>
+	    	</div>
+	    	<div>
+	    		<label>Clinic Hours</label>
+	    		<div>
+	    			{% for hr in appt.clinic_hrs %}
+	    				<div>{{ hr['day'] ~ ' ' ~ hr['opening'] ~ ' - ' ~ hr['closing'] }}</div>
+	    			{% endfor %}
+	    		</div>
+	    	</div>
+	    	<div>
+	    		<label>Purpose / Health Condition</label>
+	    		<div>{{ appt.purpose }}</div>
+	    	</div>
+    	</div>
+    	<div class="other-details">
+    		<h3>Other Details</h3>
+	    	<div>
+	    		<label>Booked by</label>
+	    		<div>{{ appt.bookedby_name }}</div>
+	    		<div>{{ appt.bookedby_email }}</div>
+	    	</div>
+	    	<div>
+	    		<label>Date booked</label>
+	    		<div>{{ appt.date_booked }}</div>
+	    	</div>
+	    	<div>
+	    		<label>Status</label>
+	    		<div>{{ appt.status }}</div>
+	    	</div>
+    	</div>
+    </div>
+	<div id="section-4">
+		<input type="hidden" name="doctor" value="{{ appt.doctor_id }}">
+		<input type="hidden" name="appointment" value="{{ appt.appointment_id }}">
+		<a class="btn proceed" href="{{ base_url()~'/payment' }}">Proceed to Payment</a>
+		<a class="edit-details toggle-modal" href="#" data-modal="#modal-book">
+			<i class="fas fa-fw fa-edit"></i> Edit Details
+		</a>
+		<a class="cancel" href="{{ base_url()~'/cancelappt' }}">
+			<i class="fas fa-fw fa-user-slash"></i> Cancel Booking
+		</a>
+	</div>
+</div>
+{% endblock %}

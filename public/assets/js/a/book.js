@@ -248,9 +248,6 @@ $(function(){
 		$('#book-modal').fadeOut();
 
 		$.ajax(config.ajax).done(function(data){
-			console.log(data);
-			return false;
-
 			if (data.err) {
 				alert(data.err);
 			} else {
