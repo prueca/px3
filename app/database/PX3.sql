@@ -73,7 +73,7 @@ CREATE TABLE `Appointments` (
   `email_address` varchar(255) NOT NULL,
   `booked_by` int(11) NOT NULL,
   `date_booked` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `status` varchar(30) NOT NULL DEFAULT 'For settlement'
+  `status` varchar(30) NOT NULL DEFAULT 'Booked'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --

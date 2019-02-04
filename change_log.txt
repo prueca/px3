@@ -17,4 +17,6 @@ Feb. 02, 2019
 Feb. 03, 2019
 • Book appointment. Not yet redirecting to confirmation
 • Book code move to Appointments model
+
+Feb. 04, 2019
 • Dynamic confirmation page

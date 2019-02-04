@@ -193,6 +193,7 @@ class Appointments extends Eloquent
 			'Appointments.email_address',
 			'Appointments.date_booked',
 			'Appointments.status',
+			'Appointments.for_other',
 			'Clinics.name as clinic',
 			'Clinics.street_address',
 			'Clinics.barangay',
@@ -208,6 +209,7 @@ class Appointments extends Eloquent
 			'Accounts.middle_name as bookedby_mname',
 			'Accounts.last_name as bookedby_lname',
 			'Accounts.email_address as bookedby_email',
+			'Accounts.photo as bookedby_photo',
 		]);
 
 		if (empty($data)) {
@@ -228,7 +230,13 @@ class Appointments extends Eloquent
 		$lname = $data['pat_lname'];
 		$fullname = formatName($fname, $mname, $lname);
 		$data['patient'] = $fullname;
-		// $data['pat_photo'] = getPhoto($data['pat_photo']);
+		$data['pat_photo'] = url('/assets/img/icon_user.png');
+
+		if ($data['for_other'] == 0) {
+			$photo = $data['bookedby_photo'];
+			$photo = getPhoto($photo);
+			$data['pat_photo'] = $photo;
+		}
 
 		$fname = $data['bookedby_fname'];
 		$mname = $data['bookedby_mname'];
@@ -270,7 +278,9 @@ class Appointments extends Eloquent
 			$data['street_address'],
 			$data['barangay'],
 			$data['city'],
-			$data['birthdate']
+			$data['birthdate'],
+			$data['for_other'],
+			$data['bookedby_photo']
 		);
 
 		return $data;
