@@ -22,6 +22,8 @@ $(function(){
 
 		config.ajax.data = post;
 		config.ajax.url = config.baseUrl + '/matchdoc';
+		config.ajax.contentType = 'application/x-www-form-urlencoded; charset=UTF-8';
+		config.ajax.processData = true;
 
 		matching = $.ajax(config.ajax).done(function(data){
 			$('#section-2 .results').html(data.searchResult || "");
@@ -62,6 +64,8 @@ $(function(){
 
 		config.ajax.data = post;
 		config.ajax.url = config.baseUrl + '/matchdoc';
+		config.ajax.contentType = 'application/x-www-form-urlencoded; charset=UTF-8';
+		config.ajax.processData = true;
 
 		matching = $.ajax(config.ajax).done(function(data){
 			$('#section-2 .results').append(data.searchResult || "");
@@ -121,6 +125,8 @@ $(function(){
 
 		config.ajax.url = config.baseUrl + '/getdoctor';
 		config.ajax.data = { id: $(this).closest('.result-item').data('id') };
+		config.ajax.contentType = 'application/x-www-form-urlencoded; charset=UTF-8';
+		config.ajax.processData = true;
 
 		$.ajax(config.ajax).done(function(data){
 			if (data.err) {
@@ -162,6 +168,20 @@ $(function(){
 	});
 
 
+	/* select photo */
+
+	$('#book-form input[name="photo"]').change(function(){
+		var reader = new FileReader();
+		var file = this.files[0];
+		var types = ['image/jpg', 'image/jpeg', 'image/png'];
+
+		if (types.indexOf(file['type']) < 0) {
+			alert('Invalid file type');
+			return false;
+		}
+	});
+
+
 	/* submit information */
 
 	$('#book-form').submit(function(e){
@@ -192,51 +212,55 @@ $(function(){
 		}
 
 		if ($('#book-form input[name="for_other"]').is(':checked')) {
-			data.first_name = $('#book-form input[name="first_name"]').val();
-			data.middle_name = $('#book-form input[name="middle_name"]').val();
-			data.last_name = $('#book-form input[name="last_name"]').val();
-			data.address = $('#book-form input[name="address"]').val();
-			data.birthdate = $('#book-form input[name="birthdate"]').val();
-			data.gender = $('#book-form input[name="gender"]').val();
-			data.email_address = $('#book-form input[name="email_address"]').val();
+			var fname = $('#book-form input[name="first_name"]').val();
+			var mname = $('#book-form input[name="middle_name"]').val();
+			var lname = $('#book-form input[name="last_name"]').val();
+			var add = $('#book-form input[name="address"]').val();
+			var bdate = $('#book-form input[name="birthdate"]').val();
+			var gen = $('#book-form input[name="gender"]').val();
+			var email = $('#book-form input[name="email_address"]').val();
 
-			if (!data.first_name) {
+			if (!fname) {
 				has_error = true;
 				$('#book-form .fname .error').show();
 			}
 
-			if (!data.middle_name) {
+			if (!mname) {
 				has_error = true;
 				$('#book-form .mname .error').show();
 			}
 
-			if (!data.last_name) {
+			if (!lname) {
 				has_error = true;
 				$('#book-form .lname .error').show();
 			}
 
-			if (!data.address) {
+			if (!add) {
 				has_error = true;
 				$('#book-form .add .error').show();
 			}
 
-			if (!data.birthdate) {
+			if (!bdate) {
 				has_error = true;
 				$('#book-form .bdate .error').show();
 			}
 
-			if (!data.gender) {
+			if (!gen) {
 				has_error = true;
 				$('#book-form .gen .error').show();
 			}
 
-			if (!data.email_address) {
+			if (!email) {
 				has_error = true;
 				$('#book-form .email .error').text('Please provide an input').show();
-			} else if (!data.email_address.match(/^\S+@\S+\.\S+/)) {
+			} else if (!email.match(/^\S+@\S+\.\S+/)) {
 				has_error = true;
 				$('#book-form .email .error').text('Please enter a valid email address').show();
 			}
+
+			data = new FormData(this);
+			config.ajax.contentType = false;
+			config.ajax.processData = false;
 		}
 
 		if (has_error) {

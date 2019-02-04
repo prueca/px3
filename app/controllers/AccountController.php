@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
+use Slim\Http\UploadedFile;
 use \App\Models\Accounts;
 use \App\Models\Appointments;
 use \App\Models\Doctors;
@@ -257,6 +258,12 @@ class AccountController
     {
     	$post = $request->getParsedBody();
     	$acctId = $request->getAttribute('id');
+    	$uploadedFiles = $request->getUploadedFiles();
+
+    	if (isset($uploadedFiles['photo'])) {
+    		$post['photo'] = $uploadedFiles['photo'];
+    	}
+
     	$data = Appointments::bookAppt($acctId, $post);
     	return $response->withJson($data);
     }
@@ -267,10 +274,9 @@ class AccountController
 
     public function confirmAppt($request, $response, $args)
     {
-    	// GDPN7D14
+    	// ORM5ZO4E
     	$apptId = $args['appt'];
 		$appt = Appointments::fetchAppt($apptId);
-		// return $response->withJson($appt);
 		
 		$this->view->render($response, 'a/confirm.twig', [
 			'pageType' => 'a',

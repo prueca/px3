@@ -211,3 +211,23 @@ function getPagination(int $itemCount, int $page)
 
 	return $btns;
 }
+
+
+/**
+ * Moves the uploaded file to upload directory
+ */
+
+function moveUploadedFile(string $directory, \Slim\Http\UploadedFile $uploadedFile)
+{
+    $extension = pathinfo($uploadedFile->getClientFilename(), PATHINFO_EXTENSION);
+    $basename = bin2hex(random_bytes(8));
+    $filename = sprintf('%s.%0.8s', $basename, $extension);
+    $directory = "../app/storage/$directory";
+
+    if (!file_exists($directory)) {
+		mkdir($directory, 0777, true);
+	}
+
+    $uploadedFile->moveTo($directory . DIRECTORY_SEPARATOR . $filename);
+    return $filename;
+}
