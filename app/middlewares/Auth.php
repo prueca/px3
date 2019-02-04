@@ -21,7 +21,7 @@ class Auth
 	public function __invoke($request, $response, $next)
 	{
 		$access = false;
-		$token = cookie('accToken');
+		$token = session('accToken');
 
 		if (isset($token) && ($data = decrypt($token)) !== false) {
 			$data = explode('|', $data);

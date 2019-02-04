@@ -1,6 +1,7 @@
 <?php
 
 date_default_timezone_set('Asia/Manila');
+ini_set('session.gc_maxlifetime', 1440); // 24 min
 session_start();
 
 require '../vendor/autoload.php';

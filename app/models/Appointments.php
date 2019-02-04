@@ -159,7 +159,7 @@ class Appointments extends Eloquent
 		$appt->fill($data)->save();
 		$apptId = $appt->id;
 
-		$salt = cookie('accToken');
+		$salt = session('accToken');
 		$char = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
 		$hashids = new \Hashids\Hashids($salt, 8, $char);
 		$apptId = $hashids->encode($apptId);
@@ -176,7 +176,7 @@ class Appointments extends Eloquent
 
 	public static function fetchAppt(string $apptId)
 	{
-		$salt = cookie('accToken');
+		$salt = session('accToken');
 		$char = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
 		$hashids = new \Hashids\Hashids($salt, 8, $char);
 		$apptId = $hashids->decode($apptId);

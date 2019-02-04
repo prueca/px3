@@ -20,7 +20,7 @@ class AccountController
 	{
 		// active account data
 		$acctId = $request->getAttribute('id');
-		$acctName = cookie('acctName');
+		$acctName = session('acctName');
 		$col = ['birthdate', 'gender', 'photo', 'reward_points'];
 		$acct = Accounts::select($col)->where('account_id', $acctId)->first();
 		$acct->age = calcAge($acct->birthdate);
@@ -77,7 +77,7 @@ class AccountController
 		$this->view->render($response, 'a/search.twig', [
 			'pageType' => 'a',
 			'loggedIn' => true,
-			'acctName' => cookie('acctName'),
+			'acctName' => session('acctName'),
 			'js' => [
 				url('/assets/js/a/book.js'),
 				url('/assets/js/jquery-ui-1.12.1.custom/jquery-ui.min.js')
@@ -274,14 +274,14 @@ class AccountController
 
     public function confirmAppt($request, $response, $args)
     {
-    	// ORM5ZO4E
+    	// WG7OOY7O
     	$apptId = $args['appt'];
 		$appt = Appointments::fetchAppt($apptId);
 		
 		$this->view->render($response, 'a/confirm.twig', [
 			'pageType' => 'a',
 			'loggedIn' => true,
-			'acctName' => cookie('acctName'),
+			'acctName' => session('acctName'),
 			'appt' => $appt,
 			'css' => [url('/assets/css/a/confirm.css')],
 		]);

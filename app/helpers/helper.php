@@ -65,6 +65,50 @@ function cookie(string $name, string $val = null, int $min = 0, string $path = '
 
 
 /*
+ * Set or unset session
+ */
+
+function session(string $data_name, $value = null)
+{
+	if (is_array($data_name)) {
+		foreach ($data_name as $key => $val) {
+			$_SESSION[$key] = $val;
+		} return;
+	}
+
+	$keys = explode('.', $data_name);
+
+	if ($value !== null) {
+		$temp = &$_SESSION;
+		$ctr = count($keys);
+
+		for ($i = 0; $i < $ctr; $i++) {
+			$key = $keys[$i];
+
+			if ($i == $ctr-1) {
+				$temp[$key] = $value;
+				return;
+			} 
+
+			if (!isset($temp[$key]) || !is_array($temp[$key])) {
+				$temp[$key] = [];
+			}
+
+			$temp = &$temp[$key];
+		}
+	}
+
+	$temp = $_SESSION;
+
+	foreach ($keys as $key) {
+		$temp = &$temp[$key];
+	}
+
+	return $temp;
+}
+
+
+/*
  * Encrypt string using openssl_encrypt
  */
 

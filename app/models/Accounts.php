@@ -34,8 +34,8 @@ class Accounts extends Eloquent
 			'access_token' => $accToken
 		]);
 
-		cookie('accToken', $accToken);
-		cookie('acctName', $fullname);
+		session('accToken', $accToken);
+		session('acctName', $fullname);
 		return url('/myaccount');
 	}
 

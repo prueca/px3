@@ -20,4 +20,5 @@ Feb. 03, 2019
 
 Feb. 04, 2019
 • Dynamic confirmation page
-• Add photo for booking for someone
+• Optional patient photo when booking for others
+• Used session instead of cookie for access token
