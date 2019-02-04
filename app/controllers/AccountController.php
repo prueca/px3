@@ -256,50 +256,8 @@ class AccountController
     public function bookAppt($request, $response, $args)
     {
     	$post = $request->getParsedBody();
-    	$data = [];
-
-    	if (!isset($post['clinic'], $post['schedule'], $post['purpose'])) {
-    		$data['err'] = 'Missing required input';
-    	} else {
-    		$acctId = $request->getAttribute('id');
-
-    		if (isset($post['for_other']) && !isset(
-    			$post['first_name'],
-    			$post['middle_name'],
-	    		$post['last_name'],
-	    		$post['address'],
-	    		$post['birthdate'],
-	    		$post['gender'],
-	    		$post['email_address']
-    		)) {
-    			$data['err'] = 'Missing required input';
-	    	} else if (!isset($post['for_other'])) {
-	    		$acct = Accounts::select([
-	    			'first_name',
-	    			'middle_name',
-	    			'last_name',
-	    			'address',
-	    			'birthdate',
-	    			'gender',
-	    			'email_address',
-	    		])
-	    		->where('account_id', $acctId)
-	    		->first()
-	    		->toArray();
-	    		$post = array_merge($acct, $post);
-	    	}
-
-	    	$clinicId = decrypt($post['clinic']);
-    		unset($post['clinic']);
-
-    		$post['clinic_id'] = $clinicId;
-    		$post['booked_by'] = $acctId;
-
-	    	$appt = new Appointments;
-    		$appt->fill($post)->save();
-    		$data['appt'] = $appt->id;
-    	}
-
+    	$acctId = $request->getAttribute('id');
+    	$data = Appointments::bookAppt($acctId, $post);
     	return $response->withJson($data);
     }
 }

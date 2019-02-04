@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model as Eloquent;
+use App\Models\Accounts;
+use App\Models\Clinics;
 
 class Appointments extends Eloquent
 {
@@ -69,5 +71,86 @@ class Appointments extends Eloquent
 
 		$result['total'] = $total;
 		return $result;
+	}
+
+	/**
+	 * Book appointment
+	 */
+
+	public static function bookAppt(int $acctId, array $data)
+	{
+		$result = ['succ' => false];
+		$now = time();
+
+		if (strtotime($data['schedule']) < $now && $data['schedule'] != date('Y-m-d', $now)) {
+			$result['err'] = 'Invalid schedule';
+			return $result;
+		}
+
+		if (!isset($data['clinic'], $data['schedule'], $data['purpose']) || (isset($data['for_other']) && !isset(
+			$data['first_name'],
+			$data['middle_name'],
+    		$data['last_name'],
+    		$data['address'],
+    		$data['birthdate'],
+    		$data['gender'],
+    		$data['email_address']
+		))) {
+    		$result['err'] = 'Missing required input';
+    		return $result;
+    	}
+
+    	$clinicId = decrypt($data['clinic']);
+		unset($data['clinic']);
+
+		$clinic = Clinics::select('schedule')
+		->where('clinic_id', $clinicId)
+		->first();
+
+		$clinicSched = json_decode($clinic->schedule, true);
+		$userSchedDay = strtolower(date('D', strtotime($data['schedule'])));
+		$clinicOpen = false;
+
+		foreach ($clinicSched as $sched) {
+			$clinicSchedDay = strtolower($sched['day']);
+			$closing = strtotime(date('Y-m-d').' '.$sched['closing']);
+			$today = $data['schedule'] == date('Y-m-d', $now);
+
+			if ($clinicSchedDay == $userSchedDay && !($today && $now > $closing)) {
+				$clinicOpen = true;
+				break;
+			}
+		}
+
+		if (!$clinicOpen) {
+			$result[err] =  'Clinic is closed on the preferred date';
+			return $result;
+		}
+
+    	if (!isset($data['for_other'])) {
+    		$acct = Accounts::select([
+    			'first_name',
+    			'middle_name',
+    			'last_name',
+    			'address',
+    			'birthdate',
+    			'gender',
+    			'email_address',
+    		])
+    		->where('account_id', $acctId)
+    		->first()
+    		->toArray();
+    		$data = array_merge($acct, $data);
+    	}
+
+		$data['clinic_id'] = $clinicId;
+		$data['booked_by'] = $acctId;
+
+    	$appt = new Appointments;
+		$appt->fill($data)->save();
+		$result['appt'] = $appt->id;
+		$result['succ'] = true;
+
+    	return $result;
 	}
 }

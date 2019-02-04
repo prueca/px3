@@ -16,3 +16,4 @@ Feb. 02, 2019
 
 Feb. 03, 2019
 • Book appointment. Not yet redirecting to confirmation
+• Book code move to Appointments model
