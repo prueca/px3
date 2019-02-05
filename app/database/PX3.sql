@@ -41,7 +41,7 @@ CREATE TABLE `Accounts` (
   `birthdate` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `photo` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `reward_points` int(11) NOT NULL DEFAULT '0',
-  `access_token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
+  `access_token` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --

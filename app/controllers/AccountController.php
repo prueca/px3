@@ -19,8 +19,8 @@ class AccountController
 	public function myaccount($request, $response, $args)
 	{
 		// active account data
-		$acctId = $request->getAttribute('id');
-		$acctName = session('acctName');
+		$acctId = session('acct.id');
+		$acctName = session('acct.name');
 		$col = ['birthdate', 'gender', 'photo', 'reward_points'];
 		$acct = Accounts::select($col)->where('account_id', $acctId)->first();
 		$acct->age = calcAge($acct->birthdate);
@@ -34,9 +34,6 @@ class AccountController
 		unset($apptsArr['total']);
 
 		$this->view->render($response, 'a/myaccount.twig', [
-			'pageType' => 'a',
-			'loggedIn' => true,
-			'acctName' => $acctName,
 			'acct' => $acct,
 			'appts' => $apptsArr,
 			'pagination' => $pagination,
@@ -54,7 +51,7 @@ class AccountController
 	public function getAppts($request, $response, $args)
 	{
     	$post = $request->getParsedBody();    	
-		$acctId = $request->getAttribute('id');
+		$acctId = session('acct.id');
 		$page = (int) $post['page'];
     	$offset = ($page - 1) * 10;
     	$stat = $post['filter'];
@@ -75,9 +72,6 @@ class AccountController
 	public function search($request, $response, $args)
 	{
 		$this->view->render($response, 'a/search.twig', [
-			'pageType' => 'a',
-			'loggedIn' => true,
-			'acctName' => session('acctName'),
 			'js' => [
 				url('/assets/js/a/book.js'),
 				url('/assets/js/jquery-ui-1.12.1.custom/jquery-ui.min.js')
@@ -257,7 +251,7 @@ class AccountController
     public function bookAppt($request, $response, $args)
     {
     	$post = $request->getParsedBody();
-    	$acctId = $request->getAttribute('id');
+    	$acctId = session('acct.id');
     	$uploadedFiles = $request->getUploadedFiles();
 
     	if (isset($uploadedFiles['photo'])) {
@@ -274,14 +268,11 @@ class AccountController
 
     public function confirmAppt($request, $response, $args)
     {
-    	// WG7OOY7O
+    	// QPG3KPG2
     	$apptId = $args['appt'];
 		$appt = Appointments::fetchAppt($apptId);
 		
 		$this->view->render($response, 'a/confirm.twig', [
-			'pageType' => 'a',
-			'loggedIn' => true,
-			'acctName' => session('acctName'),
 			'appt' => $appt,
 			'css' => [url('/assets/css/a/confirm.css')],
 		]);

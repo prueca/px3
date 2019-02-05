@@ -28,14 +28,19 @@ class Accounts extends Eloquent
 		$mname = $data->middle_name;
 		$lname = $data->last_name;
 		$fullname = formatName($fname, $mname, $lname);
-		$accToken = encrypt("$acctId|a");
+		$accToken = bin2hex(random_bytes(16));
 
 		Accounts::where(['account_id' => $acctId])->update([
 			'access_token' => $accToken
 		]);
 
-		session('accToken', $accToken);
-		session('acctName', $fullname);
+		session('acct', [
+			'type'  => 'a',
+			'id'	=> $acctId,
+			'name'  => $fullname,
+			'token' => $accToken,
+		]);
+
 		return url('/myaccount');
 	}
 

@@ -103,11 +103,11 @@
 	<div id="section-4">
 		<input type="hidden" name="doctor" value="{{ appt.doctor_id }}">
 		<input type="hidden" name="appointment" value="{{ appt.appointment_id }}">
-		<a class="btn proceed" href="{{ base_url()~'/payment' }}">Proceed to Payment</a>
+		<a class="btn proceed" href="{{ app.baseUrl~'/payment' }}">Proceed to Payment</a>
 		<a class="edit-details toggle-modal" href="#" data-modal="#modal-book">
 			<i class="fas fa-fw fa-edit"></i> Edit Details
 		</a>
-		<a class="cancel" href="{{ base_url()~'/cancelappt' }}">
+		<a class="cancel" href="{{ app.baseUrl~'/cancelappt' }}">
 			<i class="fas fa-fw fa-user-slash"></i> Cancel Booking
 		</a>
 	</div>

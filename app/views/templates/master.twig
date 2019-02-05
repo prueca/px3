@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>{{ config('app.name') }}</title>
+	<title>{{ app.name }}</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" type="text/css" href="{{ base_url()~'/assets/css/fontawesome-free-5.2.0-web/css/all.min.css' }}">
-	<link rel="stylesheet" type="text/css" href="{{ base_url()~'/assets/css/common.css' }}">
+	<link rel="stylesheet" type="text/css" href="{{ app.baseUrl~'/assets/css/fontawesome-free-5.2.0-web/css/all.min.css' }}">
+	<link rel="stylesheet" type="text/css" href="{{ app.baseUrl~'/assets/css/common.css' }}">
 
 	{# styles #}
 	{% if css %}
@@ -16,7 +16,11 @@
 <body>
 	
 	{# header #}
-	{% include "#{pageType}/header.twig" %}
+	{% if session.acct.type %}
+		{% include session.acct.type~'/header.twig' %}
+	{% else %}
+		{% include 'a/header.twig' %}
+	{% endif %}
 
 	{# page content #}
 	{% block content %}
@@ -45,12 +49,12 @@
 	</div>
 
 	{# scripts #}
-	<script type="text/javascript" src="{{ base_url()~'/assets/js/jquery-3.3.1.min.js' }}"></script>
-	<script type="text/javascript" src="{{ base_url()~'/assets/js/common.js' }}"></script>
+	<script type="text/javascript" src="{{ app.baseUrl~'/assets/js/jquery-3.3.1.min.js' }}"></script>
+	<script type="text/javascript" src="{{ app.baseUrl~'/assets/js/common.js' }}"></script>
 	<script type="text/javascript">
 		config = {
-		    baseUrl: "{{ base_url() }}",
-			sessionExpiry: JSON.parse("{{ config('app.sessionExpiry') }}"),
+		    baseUrl: "{{ app.baseUrl }}",
+			sessionExpiry: JSON.parse("{{ app.sessionExpiry }}"),
 			ajax: {
 				type: 'POST',
 		        dataType: 'JSON',

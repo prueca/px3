@@ -5,18 +5,14 @@
  */
 
 $ci['view'] = function ($ci) {
-    $view = new \Slim\Views\Twig('../app/views', [
-        'cache' => false
-    ]);
+    $view = new \Slim\Views\Twig('../app/views', ['cache' => false ]);
+    $env = $view->getEnvironment();
 
-    $router = $ci->get('router');
-    $uri = \Slim\Http\Uri::createFromEnvironment(new \Slim\Http\Environment($_SERVER));
-    $view->addExtension(new Slim\Views\TwigExtension($router, $uri));
+    // session
+    $env->addGlobal('session', $_SESSION);
 
-    // config function
-    $view->getEnvironment()->addFunction(new Twig_SimpleFunction('config', function(string $name) {
-       return config($name);
-    }));
+    // app config
+    $env->addGlobal('app', $ci['app']);
 
     return $view;
 };

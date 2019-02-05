@@ -20,15 +20,12 @@ class Auth
 
 	public function __invoke($request, $response, $next)
 	{
+		$id = session('acct.id');
+		$type = session('acct.type');
+		$token = session('acct.token');
 		$access = false;
-		$token = session('accToken');
 
-		if (isset($token) && ($data = decrypt($token)) !== false) {
-			$data = explode('|', $data);
-			$id = $data[0];
-			$type = $data[1];
-			$db = $this->db;
-
+		if (isset($id, $type, $token)) {
 			if ($type == 'a') {
 				$tbl = 'Accounts';
 				$cond = ['account_id' => $id];
@@ -38,23 +35,14 @@ class Auth
 			}
 
 			$cond['access_token'] = $token;
-			$result = $db->table($tbl)->where($cond)->exists();
-
-			if ($result) {
-				$access = true;
-				$request = $request
-				->withAttribute('id', $id)
-				->withAttribute('type', $type);
-			}
+			$access = $this->db->table($tbl)->where($cond)->exists();
 		}
 
-		if (!$access) {
-			if ($request->isGet()) {
-				$uri = $request->getUri()->withPath($this->router->pathFor('home'));
-				$response = $response->withRedirect($uri, 307);
-			} else {
-				$response = $response->withJson(['err' => 'Unauthorized access']);
-			}
+		if (!$access && $request->isGet()) {
+			$uri = $request->getUri()->withPath($this->router->pathFor('home'));
+			$response = $response->withRedirect($uri, 307);
+		} else if (!$access) {
+			$response = $response->withJson(['err' => 'Unauthorized access']);
 		} else {
 			$response = $next($request, $response);
 		}

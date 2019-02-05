@@ -2,7 +2,6 @@ $(function(){
 	$('#login-form').submit(function(e){
 		e.preventDefault();
 
-		var url = $(this).prop('action');
 		var email = $('input[name="email"]').val();
 		var pass = $('input[name="pass"]').val();
 		var type = $('input[name="type"]').val();
@@ -19,7 +18,7 @@ $(function(){
 			return;
 		}
 
-		config.ajax.url = url;
+		config.ajax.url = config.baseUrl + '/login';
 		config.ajax.data = {
 			email: email,
 			pass: pass,
