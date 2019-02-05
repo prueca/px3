@@ -123,7 +123,7 @@ class Appointments extends Eloquent
 		}
 
 		if (!$clinicOpen) {
-			$result[err] =  'Clinic is closed on the preferred date';
+			$result['err'] =  'Clinic is closed on the preferred date';
 			return $result;
 		}
 
@@ -142,14 +142,11 @@ class Appointments extends Eloquent
     		->first()
     		->toArray();
     		$data = array_merge($acct, $data);
+    		
     	} else if (!empty($data['photo'])) {
-			$file = $data['photo'];
-
-			if ($file->getError() === UPLOAD_ERR_OK) {
-				$directory = 'appt';
-		        $filename = moveUploadedFile($directory, $file);
-		        $data['photo'] = "storage/$directory/$filename";
-		    }
+			$directory = 'appt';
+	        $filename = moveUploadedFile($directory, $data['photo']);
+	        $data['photo'] = "storage/$directory/$filename";
 		}
 
 		$data['clinic_id'] = $clinicId;

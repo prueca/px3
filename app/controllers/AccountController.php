@@ -253,9 +253,10 @@ class AccountController
     	$post = $request->getParsedBody();
     	$acctId = session('acct.id');
     	$uploadedFiles = $request->getUploadedFiles();
+    	$photo = $uploadedFiles['photo'];
 
-    	if (isset($uploadedFiles['photo'])) {
-    		$post['photo'] = $uploadedFiles['photo'];
+    	if ($photo->getError() === UPLOAD_ERR_OK) {
+    		$post['photo'] = $photo;
     	}
 
     	$data = Appointments::bookAppt($acctId, $post);
@@ -268,9 +269,12 @@ class AccountController
 
     public function confirmAppt($request, $response, $args)
     {
-    	// QPG3KPG2
     	$apptId = $args['appt'];
 		$appt = Appointments::fetchAppt($apptId);
+
+		if (empty($appt)) {
+			return $response->withJson(['err' => 'Invalid code']);
+		}
 		
 		$this->view->render($response, 'a/confirm.twig', [
 			'appt' => $appt,
