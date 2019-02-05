@@ -1,0 +1,102 @@
+{% extends 'templates/master.twig' %}
+
+{% block content %}
+<div class="center">
+	<form id="edit-form">
+		<div id="section-1">
+			<div class="errors">
+				<p>Something went wrong</p>
+				<ul>
+					<li>Invalid file type of photo</li>
+					<li>Missing name</li>
+					<li>Missing address</li>
+					<li>Missing contact number</li>
+					<li>Missing birthdate</li>
+				</ul>
+			</div>
+			<h3>Edit your information</h3>
+			<p>Name, address, contact number and birthdate are required</p>
+			<div class="preview">
+				<img src="{{ acct.photo }}">
+			</div>
+			<div class="file-browser">
+				<div class="browse btn">
+					Browse photo <input type="file" name="photo">
+				</div>
+				<div class="filename">Click to change photo</div>
+			</div>
+		</div>
+		<div id="section-2">
+			<div class="form-group">
+				<div class="form-wrapper">
+					<label>Enter first name</label>
+					<div class="input-wrapper">
+						<input type="text" name="first_name" value="{{ acct.first_name }}" placeholder="First name">
+					</div>
+				</div>
+				<div class="form-wrapper">
+					<label>Enter middle name</label>
+					<div class="input-wrapper">
+						<input type="text" name="middle_name" value="{{ acct.middle_name }}" placeholder="Middle name">
+					</div>
+				</div>
+				<div class="form-wrapper">
+					<label>Enter last name</label>
+					<div class="input-wrapper">
+						<input type="text" name="last_name" value="{{ acct.last_name }}" placeholder="Last name">
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="form-wrapper">
+					<label>Enter address</label>
+					<div class="input-wrapper">
+						<input type="text" name="address" value="{{ acct.address }}" placeholder="Complete address">
+					</div>
+				</div>
+				<div class="form-wrapper">
+					<label>Enter contact number</label>
+					<div class="input-wrapper">
+						<input type="text" name="contact_number" value="{{ acct.contact_number }}" placeholder="Mobile number">
+					</div>
+				</div>
+				<div class="form-wrapper">
+					<label>Enter birthdate</label>
+					<div class="input-wrapper">
+						<input type="date" name="birthdate" value="{{ acct.birthdate }}">
+					</div>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="form-wrapper">
+					<label>Select gender</label>
+					<div class="gen-opt {{ acct.gender == 'M' ? 'active' : '' }}" data-gender="M">
+						<img src="{{ app.baseUrl ~ '/assets/img/icon_male.png' }}">
+						<span>Male</span>
+					</div>
+					<div class="gen-opt {{ acct.gender == 'F' ? 'active' : '' }}" data-gender="F">
+						<img src="{{ app.baseUrl ~ '/assets/img/icon_female.png' }}">
+						<span>Female</span>
+					</div>
+					<input type="hidden" name="gender" value="{{ acct.gender }}">
+				</div>
+				<div class="form-wrapper">
+					<div class="email-pass-section">
+						<div>
+							<label>Email address</label>
+							<div class="plain-txt">{{ acct.email_address }}</div>
+							<a href="#">Change email address</a>
+						</div>
+						<div>
+							<label>Password</label>
+							<div class="plain-txt">••••••••••••••••••••</div>
+							<a href="#">Change password</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<button class="btn update" type="submit">Update profile</button>
+		</div>
+	</form>
+</div>
+{% endblock %}

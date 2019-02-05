@@ -27,3 +27,6 @@ Feb. 05, 2019
 • Save active account data to session
 • Renamed folders "a" to "acct" and "d" to "dr"
 • Logout function
+• Myaccount edit page
+• 20 min session expiry
+• Myaccount update function

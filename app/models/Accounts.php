@@ -8,6 +8,7 @@ class Accounts extends Eloquent
 {
 	public $timestamps = false;
 	protected $table = 'Accounts';
+	protected $primaryKey = 'account_id';
 	protected $guarded = ['account_id'];
 
 	/**
@@ -64,5 +65,55 @@ class Accounts extends Eloquent
 		}
 
 		return $newAcct->save();
+	}
+
+	/**
+	 * Update account
+	 */
+
+	public static function updateAcct(int $acctId, array $data)
+	{
+		if (!isset(
+			$data['first_name'],
+			$data['middle_name'],
+			$data['last_name'],
+			$data['gender'],
+			$data['address'],
+			$data['contact_number'],
+			$data['birthdate']
+		)) {
+			return ['err' => 'Missing required input'];
+		}
+
+		$acct = Accounts::where('account_id', $acctId)->first();
+
+		if (empty($acct)) {
+			return ['err' => 'Account not found'];
+		}
+
+		$acct->first_name = $data['first_name'];
+		$acct->middle_name = $data['middle_name'];
+		$acct->last_name = $data['last_name'];
+		$acct->gender = $data['gender'];
+		$acct->address = $data['address'];
+		$acct->contact_number = $data['contact_number'];
+		$acct->birthdate = $data['birthdate'];
+
+		if (!empty($data['photo'])) {
+			$directory = 'acct';
+	        $filename = moveUploadedFile($directory, $data['photo']);
+	        $acct->photo = "storage/$directory/$filename";
+		}
+
+		if (!$acct->save()) {
+			return ['err' => 'Account update failed'];
+		}
+
+		$fname = $acct->first_name;
+		$mname = $acct->middle_name;
+		$lname = $acct->last_name;
+		$fullname = formatName($fname, $mname, $lname);
+		session('acct.name', $fullname);
+		return true;
 	}
 }

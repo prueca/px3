@@ -66,6 +66,32 @@
 		        }
 			}
 		};
+
+		{# session expiry #}
+		{% if session.acct %}
+			var idleTime = 0;
+
+			$(document).ready(function(){
+			    // increment the idle time counter every minute
+			    setInterval(function(){
+			    	idleTime = idleTime + 1;
+
+				    if (idleTime > config.sessionExpiry) { // 20 minutes
+				        alert('Your session has expired');
+				        window.location.href = config.baseUrl + '/logout';
+				    }
+			    }, 60000);
+
+			    // zero the idle timer on the following events
+			    $(this).keydown(function(){
+			    	idleTime = 0;
+			    }).scroll(function(){
+			    	idleTime = 0;
+			    }).click(function(){
+			    	idleTime = 0;
+			    });
+			});
+		{% endif %}
 	</script>
 	
 	{% if js %}

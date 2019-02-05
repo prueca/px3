@@ -281,4 +281,40 @@ class AccountController
 			'css' => [url('/assets/css/acct/confirm.css')],
 		]);
     }
+
+    /**
+     * Myaccount edit page
+     */
+
+    public function editAcct($request, $response, $args)
+    {
+    	$acctId = session('acct.id');
+    	$acct = Accounts::where('account_id', $acctId)->first();
+    	$acct->photo = getPhoto($acct->photo);
+
+    	$this->view->render($response, 'acct/myaccount_edit.twig', [
+    		'acct' => $acct,
+    		'css' => [url('/assets/css/acct/myaccount_edit.css')],
+    		'js' => [url('/assets/js/acct/myaccount_edit.js')],
+    	]);
+    }
+
+    /**
+     * Update myaccount
+     */
+
+    public function updateAcct($request, $response, $args)
+    {
+    	$post = $request->getParsedBody();
+    	$uploadedFiles = $request->getUploadedFiles();
+    	$photo = $uploadedFiles['photo'];
+
+    	if ($photo->getError() === UPLOAD_ERR_OK) {
+    		$post['photo'] = $photo;
+    	}
+
+    	$acctId = session('acct.id');
+    	$data = Accounts::updateAcct($acctId, $post);
+    	return $response->withJson($data);
+    }
 }

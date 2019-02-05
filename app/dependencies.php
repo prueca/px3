@@ -7,13 +7,8 @@
 $ci['view'] = function ($ci) {
     $view = new \Slim\Views\Twig('../app/views', ['cache' => false ]);
     $env = $view->getEnvironment();
-
-    // session
     $env->addGlobal('session', $_SESSION);
-
-    // app config
     $env->addGlobal('app', $ci['app']);
-
     return $view;
 };
 
