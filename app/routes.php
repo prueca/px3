@@ -1,6 +1,13 @@
 <?php
 
 /**
+ * DoctorController
+ */
+
+$app->get('/d/myaccount', 'DoctorController:myaccount')->add($ci['auth']);
+$app->get('/d', 'DoctorController:home')->add($ci['csrf']);
+
+/**
  * AccountController
  */
 

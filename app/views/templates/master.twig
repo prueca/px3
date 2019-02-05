@@ -16,7 +16,7 @@
 <body>
 	
 	{# header #}
-	{% if session.acct.type == 'd' %}
+	{% if session.acct.type == 'd' or pagetype == 'd' %}
 		{% include 'dr/header.twig' %}
 	{% else %}
 		{% include 'acct/header.twig' %}

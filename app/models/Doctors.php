@@ -9,7 +9,62 @@ class Doctors extends Eloquent
 {
 	public $timestamps = false;
 	protected $table = 'Doctors';
+	protected $primaryKey = 'doctor_id';
 	protected $guarded = ['doctor_id'];
+
+	/**
+	 * Create new account
+	 */
+
+	public static function register(array $data)
+	{
+		$emailExists = Doctors::where(['email_address' => $data['email_address']])->exists();
+
+		if ($emailExists) {
+			return ['err' => 'Email address already exists'];
+		}
+
+		$data['password'] = password_hash($data['password'], PASSWORD_BCRYPT);
+		$newDoc = new Doctors;
+
+		foreach ($data as $k => $v) {
+			$newDoc->$k = $data[$k];
+		}
+
+		return $newDoc->save();
+	}
+
+	/**
+	 * Check login credentials
+	 */
+
+	public static function checkCred($email, $pass)
+	{
+		$col = ['doctor_id', 'first_name', 'middle_name', 'last_name', 'email_address', 'password'];
+		$doc = Doctors::select($col)->where(['email_address' => $email])->first();
+
+		if (null === $doc || !password_verify($pass, $doc->password)) {
+			return false;
+		}
+
+		$docId = $doc->doctor_id;
+		$fname = $doc->first_name;
+		$mname = $doc->middle_name;
+		$lname = $doc->last_name;
+		$fullname = formatName($fname, $mname, $lname);
+		$accToken = bin2hex(random_bytes(16));
+		$doc->access_token = $accToken;
+		$doc->save();
+
+		session('acct', [
+			'type'  => 'd',
+			'id'	=> $docId,
+			'name'  => $fullname,
+			'token' => $accToken,
+		]);
+
+		return url('/d/myaccount');
+	}
 
 	/**
 	 * Search matching doctor

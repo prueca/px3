@@ -1,0 +1,109 @@
+@import '../variables.scss';
+
+#section-1 {
+	margin-top: 30px;
+	text-align: center;
+
+	img {
+		width: 100%;
+		height: auto;
+	}
+}
+
+@media (min-width: 768px) {
+	#section-1 {
+		width: 50%;
+		float: left;
+	}
+}
+
+#section-2 {
+	margin-top: 15px;
+	text-align: center;
+
+	> p {
+		font-weight: bold;
+	}
+	a {
+		font-weight: bold;
+	}
+	input[name=email] {
+		margin-bottom: 15px;
+	}
+	button,
+	input[type="submit"] {
+		padding: 12px 0;
+	}
+}
+
+@media (min-width: 768px) {
+	#section-2 {
+		width: 40%;
+		margin-top: 40px;
+		float: right;
+	}
+}
+
+/* sign up modal */
+
+#register-modal .modal-box {
+	width: 300px;
+
+	.modal-content {
+		max-height: 95vh;
+
+		h3 {
+			text-align: center;
+		}
+		label {
+			display: inline-block;
+			margin: 15px 0px 8px;
+			font-size: 0.9em;
+			color: #888;
+
+			&:first-of-type {
+				margin-top: 0;
+			}
+		}
+		.input-wrapper {
+			margin: 0;
+		}
+		input[type=radio] {
+			margin-left: 15px;
+		}
+		.img-wrapper {
+			text-align: center;
+			margin-bottom: 15px;
+		}
+		.extra-padding {
+			padding: 0px 15px 15px;
+		}
+		.btn-group {
+			margin: 15px 0px;
+			text-align: center;
+
+			button,
+			input[type="button"],
+			input[type="submit"] {
+				width: 100px;
+				margin: 0px 4px;
+			}
+		}
+		.err {
+			display: block;
+			margin-top: 4px;
+			color: $red;
+			font-size: 0.85em;
+		}
+	}
+}
+
+@media (min-width: 640px) {
+	#register-modal .modal-box {
+		width: 520px;
+
+		.modal-content {
+			max-height: 90vh;
+		}
+	}
+}

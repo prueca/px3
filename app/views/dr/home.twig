@@ -1,0 +1,92 @@
+{% extends 'templates/master.twig' %}
+
+{% block content %}
+<input type="hidden" name="csrfname" value="{{ token['name'] }}">
+<input type="hidden" name="csrfvalue" value="{{ token['val'] }}">
+<input type="hidden" name="type" value="d">
+
+<div class="center">
+    <div id="section-1">
+    	<h3>Join our community of medical professionals!</h3>
+    	<p>Sign up and be part of our team</p>
+    	<img src="{{ app.baseUrl ~ '/assets/img/filler.png' }}">
+    </div>
+	<div id="section-2">
+		<div id="sign-in">
+		<img src="{{ app.baseUrl ~ '/assets/img/icon_doctor.png' }}">
+		<p>Sign in and start checking for patients</p>
+		<form id="login-form">
+			<div class="input-wrapper">
+				<input type="text" name="email" placeholder="Enter email address">
+			</div>
+			<div class="input-wrapper">
+				<input type="password" name="pass" placeholder="Enter password">
+			</div>
+			<p>Don't have account? Click <a class="toggle-modal" data-modal="#register-modal" href="">here</a> to sign up</p>
+			<input class="btn" type="submit" value="Sign In">
+			<p>Forgot password? <a href="">Click</a> to recover</p>
+		</form>
+	</div>
+	</div>
+</div>
+<div id="register-modal" class="modal-overlay">
+	<div class="modal-box">
+		<div class="modal-content">
+			<a class="modal-close" href="#"><i class="fas fa-times-circle"></i></a>
+			<div class="extra-padding">
+				<h3>Create an account</h3>
+				<div class="img-wrapper">
+					<img src="{{ app.baseUrl ~ '/assets/img/icon_patient.png' }}">
+				</div>
+				<form id="register-form" type="POST" action="{{ app.baseUrl ~ '/register' }}">
+					<label>First name</label>
+					<div class="input-wrapper">
+						<input type="text" name="fname" placeholder="Enter first name">
+					</div>
+					<span class="err"></span>
+
+					<label>Middle name</label>
+					<div class="input-wrapper">
+						<input type="text" name="mname" placeholder="Enter middle name">
+					</div>
+					<span class="err"></span>
+
+					<label>Last name</label>
+					<div class="input-wrapper">
+						<input type="text" name="lname" placeholder="Enter last name">
+					</div>
+					<span class="err"></span>
+
+					<label>Email address</label>
+					<div class="input-wrapper">
+						<input type="text" name="email" placeholder="Enter email address">
+					</div>
+					<span class="err"></span>
+
+					<label>Password</label>
+					<div class="input-wrapper">
+						<input type="password" name="pass" placeholder="Enter password">
+					</div>
+					<span class="err"></span>
+
+					<label>Confirm password</label>
+					<div class="input-wrapper">
+						<input type="password" name="confirm_pass" placeholder="Re-type password">
+					</div>
+					<span class="err"></span>
+
+					<label>Gender</label>
+					<input type="radio" name="gen" value="M" checked> Male
+					<input type="radio" name="gen" value="F"> Female
+					<span class="err"></span>
+
+					<div class="btn-group">
+						<input class="btn cancel modal-cancel" data-modal="#register-modal" type="button" value="Cancel">
+						<input class="btn submit" type="submit" value="Register">
+					</div>
+		    	</form>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

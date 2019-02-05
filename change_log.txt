@@ -30,3 +30,4 @@ Feb. 05, 2019
 • Myaccount edit page
 • 20 min session expiry
 • Myaccount update function
+• Doctors' homepage

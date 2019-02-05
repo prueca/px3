@@ -11,6 +11,7 @@ class Appointments extends Eloquent
 	const CREATED_AT = 'date_booked';
     const UPDATED_AT = null;
 	protected $table = 'Appointments';
+	protected $primaryKey = 'appointment_id';
 	protected $guarded = ['appointment_id', 'date_booked'];
 
 	/**
@@ -154,7 +155,7 @@ class Appointments extends Eloquent
 
     	$appt = new Appointments;
 		$appt->fill($data)->save();
-		$apptId = $appt->id;
+		$apptId = $appt->appointment_id;
 
 		$salt = session('acct.token');
 		$char = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';

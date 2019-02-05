@@ -69,3 +69,10 @@ $ci['AccountController'] = function($ci) {
     $ctrl->view = $ci['view'];
     return $ctrl;
 };
+
+$ci['DoctorController'] = function($ci) {
+    $ctrl = new \App\Controllers\DoctorController();
+    $ctrl->app = $ci['app'];
+    $ctrl->view = $ci['view'];
+    return $ctrl;
+};

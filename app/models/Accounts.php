@@ -18,22 +18,20 @@ class Accounts extends Eloquent
 	public static function checkCred($email, $pass)
 	{
 		$col = ['account_id', 'first_name', 'middle_name', 'last_name', 'email_address', 'password'];
-		$data = Accounts::select($col)->where(['email_address' => $email])->first();
+		$acct = Accounts::select($col)->where(['email_address' => $email])->first();
 
-		if (null === $data || !password_verify($pass, $data->password)) {
+		if (null === $acct || !password_verify($pass, $acct->password)) {
 			return false;
 		}
 
-		$acctId = $data->account_id;
-		$fname = $data->first_name;
-		$mname = $data->middle_name;
-		$lname = $data->last_name;
+		$acctId = $acct->account_id;
+		$fname = $acct->first_name;
+		$mname = $acct->middle_name;
+		$lname = $acct->last_name;
 		$fullname = formatName($fname, $mname, $lname);
 		$accToken = bin2hex(random_bytes(16));
-
-		Accounts::where(['account_id' => $acctId])->update([
-			'access_token' => $accToken
-		]);
+		$acct->access_token = $accToken;
+		$acct->save();
 
 		session('acct', [
 			'type'  => 'a',
