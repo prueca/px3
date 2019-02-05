@@ -13,4 +13,5 @@ $app->get('/myaccount', 'AccountController:myaccount')->add($ci['auth']);
 // HomeController 
 $app->post('/register', 'HomeController:register')->add($ci['csrf']);
 $app->post('/login', 'HomeController:login')->add($ci['csrf']);
+$app->get('/logout', 'HomeController:logout')->add($ci['auth']);
 $app->get('/', 'HomeController:home')->add($ci['csrf'])->setName('home');

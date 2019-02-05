@@ -5,6 +5,7 @@ namespace App\Controllers;
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
 use \App\Models\Accounts;
+use \App\Models\Doctors;
 
 class HomeController
 {
@@ -131,5 +132,26 @@ class HomeController
         }
 
         return $response->withJson($data);
+    }
+
+    /**
+     * Logout function
+     */
+
+    public function logout($request, $response, $args)
+    {
+        $id = session('acct.id');
+        $type = session('acct.type');
+        unset($_SESSION['acct']);
+
+        if ($type == 'a') {
+            Accounts::where('account_id', $id)->update(['access_token' => '']);
+            $uri = config('app.baseUrl');
+        } else if ($type == 'd') {
+            Doctors::where('doctor_id', $id)->update(['access_token' => '']);
+            $uri = config('app.baseUrl').'/d';
+        }
+
+        return $response->withRedirect($uri);
     }
 }

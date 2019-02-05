@@ -12,7 +12,7 @@
 	    <div class="desktop-nav">
 	    	{% if session.acct %}
 	    		<a href="{{ app.baseUrl~'/search' }}"><i class="fab fa-fw fa-medrt"></i> Book Appointment</a>
-		    	<a href="{{ app.baseUrl~'/signout' }}" class="signout"><i class="fas fa-fw fa-sign-out-alt"></i></a>
+		    	<a href="{{ app.baseUrl~'/logout' }}" class="logout"><i class="fas fa-fw fa-sign-out-alt"></i></a>
 	    	{% else %}
 	    		<a href="{{ app.baseUrl }}">Home</a>
 	    		<a href="{{ app.baseUrl~'/d' }}">I'm a Doctor</a>
@@ -35,7 +35,7 @@
 		<div><a href="{{ app.baseUrl~'/search' }}"><i class="fab fa-fw fa-medrt"></i> Book Appointment</a></div>
 		<div><a href="{{ app.baseUrl~'/myaccount' }}"><i class="fas fa-fw fa-user-circle"></i> My Account</a></div>
 		<div><a href="{{ app.baseUrl~'/myaccount/edit' }}"><i class="fas fa-fw fa-user-edit"></i> Edit Account</a></div>
-		<div><a href="{{ app.baseUrl~'/signout' }}"><i class="fas fa-fw fa-sign-out-alt"></i> Sign Out</a></div>
+		<div><a href="{{ app.baseUrl~'/logout' }}"><i class="fas fa-fw fa-sign-out-alt"></i> Sign Out</a></div>
 	{% else %}
 		<div><a href="#"><i class="fas fa-fw fa-home"></i> Home</a></div>
 		<div><a href="#"><i class="fas fa-fw fa-user-md"></i> I'm a Doctor</a></div>
