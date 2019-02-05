@@ -17,9 +17,9 @@ class HomeController
 	    $tokenName = $request->getAttribute('csrf_name');
 	    $tokenVal = $request->getAttribute('csrf_value');
 
-		$this->view->render($response, 'a/home.twig', [
+		$this->view->render($response, 'acct/home.twig', [
 			'pageType' => 'a',
-			'css' => [url('/assets/css/a/home.css')],
+			'css' => [url('/assets/css/acct/home.css')],
 			'js' => [
                 url('/assets/js/login.js'),
                 url('/assets/js/register.js'),

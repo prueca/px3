@@ -33,14 +33,14 @@ class AccountController
 		$pagination = getPagination($apptsArr['total'], 1);
 		unset($apptsArr['total']);
 
-		$this->view->render($response, 'a/myaccount.twig', [
+		$this->view->render($response, 'acct/myaccount.twig', [
 			'acct' => $acct,
 			'appts' => $apptsArr,
 			'pagination' => $pagination,
 			'todaysAppts' => $todaysAppts,
 			'active' => 1,
-			'css' => [url('/assets/css/a/myaccount.css')],
-			'js' => [url('/assets/js/a/myaccount.js')],
+			'css' => [url('/assets/css/acct/myaccount.css')],
+			'js' => [url('/assets/js/acct/myaccount.js')],
 		]);
 	}
 
@@ -60,8 +60,8 @@ class AccountController
 		$pagination = getPagination($apptsArr['total'], $page);
 		unset($apptsArr['total']);
 
-		$data['appts'] = $this->view->fetch('a/appts.twig', ['appts' => $apptsArr]);
-		$data['pagination'] = $this->view->fetch('a/pagination.twig', ['pagination' => $pagination, 'active' => $page]);
+		$data['appts'] = $this->view->fetch('acct/appts.twig', ['appts' => $apptsArr]);
+		$data['pagination'] = $this->view->fetch('acct/pagination.twig', ['pagination' => $pagination, 'active' => $page]);
 		return $response->withJson($data);
 	}
 
@@ -71,14 +71,14 @@ class AccountController
 
 	public function search($request, $response, $args)
 	{
-		$this->view->render($response, 'a/search.twig', [
+		$this->view->render($response, 'acct/search.twig', [
 			'js' => [
-				url('/assets/js/a/book.js'),
+				url('/assets/js/acct/book.js'),
 				url('/assets/js/jquery-ui-1.12.1.custom/jquery-ui.min.js')
 			],
 			'css' => [
-				url('/assets/css/a/search.css'),
-				url('/assets/css/a/book_modal.css'),
+				url('/assets/css/acct/search.css'),
+				url('/assets/css/acct/book_modal.css'),
 				url('/assets/js/jquery-ui-1.12.1.custom/jquery-ui.min.css')
 			],
 		]);
@@ -142,7 +142,7 @@ class AccountController
 			$result['locations'] = $loc;
 			$result['photo'] = getPhoto($result['photo']);
 			$result['doctor_id'] = encrypt($result['doctor_id']);
-			$html .= $this->view->fetch('a/search_item.twig', $result);
+			$html .= $this->view->fetch('acct/search_item.twig', $result);
 			$offset = $result['doctor_id'];
 			$ctr++;
 		}
@@ -276,9 +276,9 @@ class AccountController
 			return $response->withJson(['err' => 'Invalid code']);
 		}
 		
-		$this->view->render($response, 'a/confirm.twig', [
+		$this->view->render($response, 'acct/confirm.twig', [
 			'appt' => $appt,
-			'css' => [url('/assets/css/a/confirm.css')],
+			'css' => [url('/assets/css/acct/confirm.css')],
 		]);
     }
 }

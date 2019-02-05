@@ -16,10 +16,10 @@
 <body>
 	
 	{# header #}
-	{% if session.acct.type %}
-		{% include session.acct.type~'/header.twig' %}
+	{% if session.acct.type == 'd' %}
+		{% include 'dr/header.twig' %}
 	{% else %}
-		{% include 'a/header.twig' %}
+		{% include 'acct/header.twig' %}
 	{% endif %}
 
 	{# page content #}

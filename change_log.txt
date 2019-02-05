@@ -25,3 +25,4 @@ Feb. 04, 2019
 
 Feb. 05, 2019
 • Save active account data to session
+• Renamed folders." a" to "acct" and "d" to "dr"

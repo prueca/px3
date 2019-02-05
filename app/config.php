@@ -18,5 +18,5 @@ $config['app']['name'] = "Comfort'NCure";
 $config['app']['baseUrl'] = 'http://localhost/px3/public';
 $config['app']['sessionExpiry'] = 20;
 
-$config['app']['sass']['compile'] = false;
+$config['app']['sass']['compile'] = true;
 $config['app']['sass']['minified'] = true;
