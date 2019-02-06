@@ -61,4 +61,40 @@ class DoctorController
 	    	'css' => [url('/assets/css/dr/myaccount.css')],
 	    ]);
     }
+
+    /**
+     * Myaccount edit page
+     */
+
+    public function editAcct($request, $response, $args)
+    {
+    	$docId = session('acct.id');
+    	$acct = Doctors::where('doctor_id', $docId)->first();
+    	$acct->photo = getPhoto($acct->photo);
+
+    	$this->view->render($response, 'dr/myaccount_edit.twig', [
+    		'acct' => $acct,
+    		'css' => [url('/assets/css/dr/myaccount_edit.css')],
+    		'js' => [url('/assets/js/dr/myaccount_edit.js')],
+    	]);
+    }
+
+    /**
+     * Update myaccount
+     */
+
+    public function updateAcct($request, $response, $args)
+    {
+    	$post = $request->getParsedBody();
+    	$uploadedFiles = $request->getUploadedFiles();
+    	$photo = $uploadedFiles['photo'];
+
+    	if ($photo->getError() === UPLOAD_ERR_OK) {
+    		$post['photo'] = $photo;
+    	}
+
+    	$docId = session('acct.id');
+    	$data = Doctors::updateAcct($docId, $post);
+    	return $response->withJson($data);
+    }
 }

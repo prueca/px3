@@ -37,3 +37,5 @@ Feb. 06, 2019
 • Moved dependency binding in controller constructor
 • Used DB facade in Auth middleware
 • Page accessibility check
+• Doctors' myaccount edit page
+• Moved auth to group route

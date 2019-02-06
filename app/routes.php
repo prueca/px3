@@ -5,17 +5,12 @@
  */
 
 $app->group('', function (\Slim\App $app) use ($ci) {
-	$app->get('/d/myaccount/update', 'DoctorController:updateAcct')
-	->add($ci['auth']);
-
-	$app->get('/d/myaccount/edit', 'DoctorController:editAcct')
-	->add($ci['auth']);
-
-	$app->get('/d/myaccount', 'DoctorController:myaccount')
-	->add($ci['auth'])
-	->setName('drMyacct');
+	$app->post('/d/myaccount/update', 'DoctorController:updateAcct');
+	$app->get('/d/myaccount/edit', 'DoctorController:editAcct');
+	$app->get('/d/myaccount', 'DoctorController:myaccount')->setName('drMyacct');
 })
-->add($ci['dtype']);
+->add($ci['dtype'])
+->add($ci['auth']);
 
 $app->get('/d', 'DoctorController:home')
 ->add($ci['csrf']);
@@ -26,38 +21,19 @@ $app->get('/d', 'DoctorController:home')
  */
 
 $app->group('', function (\Slim\App $app) use ($ci) {
-	$app->post('/myaccount/update', 'AccountController:updateAcct')
-	->add($ci['auth']);
-
-	$app->post('/book', 'AccountController:bookAppt')
-	->add($ci['auth']);
-
-	$app->post('/getdoctor', 'AccountController:getDoctor')
-	->add($ci['auth']);
-
-	$app->post('/matcharea', 'AccountController:matchArea')
-	->add($ci['auth']);
-
-	$app->post('/matchdoc', 'AccountController:matchDoc')
-	->add($ci['auth']);
-
-	$app->post('/getappts', 'AccountController:getAppts')
-	->add($ci['auth']);
-
-	$app->get('/myaccount/edit', 'AccountController:editAcct')
-	->add($ci['auth']);
-
-	$app->get('/confirm/{appt}', 'AccountController:confirmAppt')
-	->add($ci['auth']);
-
-	$app->get('/search', 'AccountController:search')
-	->add($ci['auth']);
-
-	$app->get('/myaccount', 'AccountController:myaccount')
-	->add($ci['auth'])
-	->setName('myacct');
+	$app->post('/myaccount/update', 'AccountController:updateAcct');
+	$app->post('/book', 'AccountController:bookAppt');
+	$app->post('/getdoctor', 'AccountController:getDoctor');
+	$app->post('/matcharea', 'AccountController:matchArea');
+	$app->post('/matchdoc', 'AccountController:matchDoc');
+	$app->post('/getappts', 'AccountController:getAppts');
+	$app->get('/myaccount/edit', 'AccountController:editAcct');
+	$app->get('/confirm/{appt}', 'AccountController:confirmAppt');
+	$app->get('/search', 'AccountController:search');
+	$app->get('/myaccount', 'AccountController:myaccount')->setName('myacct');
 })
-->add($ci['atype']);
+->add($ci['atype'])
+->add($ci['auth']);
 
 
 /**

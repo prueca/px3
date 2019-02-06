@@ -19,9 +19,13 @@ class IsDoctor
 
 	public function __invoke($request, $response, $next)
 	{
-		if (session('acct.type') === 'a') {
+		$type = session('acct.type');
+
+		if ($type === 'a' && $request->isGet()) {
 			$uri = $request->getUri()->withPath($this->router->pathFor('myacct'));
 			$response = $response->withRedirect($uri, 307);
+		} else if ($type == 'a') {
+			$response = $response->withJson(['err' => 'Unauthorized access']);
 		} else {
 			$response = $next($request, $response);
 		}

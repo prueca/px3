@@ -19,9 +19,13 @@ class IsAccount
 
 	public function __invoke($request, $response, $next)
 	{
-		if (session('acct.type') === 'd') {
+		$type = session('acct.type');
+
+		if ($type === 'd' && $request->isGet()) {
 			$uri = $request->getUri()->withPath($this->router->pathFor('drMyacct'));
 			$response = $response->withRedirect($uri, 307);
+		} else if ($type == 'd') {
+			$response = $response->withJson(['err' => 'Unauthorized access']);
 		} else {
 			$response = $next($request, $response);
 		}
