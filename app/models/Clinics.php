@@ -29,7 +29,7 @@ class Clinics extends Eloquent
 		foreach ($data as $k => $v) {
 			$sched = json_decode($v['schedule'], true);
 			$data[$k]['schedule'] = $sched;
-			$loc = $v['name'] . ', ';
+			$loc = $v['name'] . ', ' . $v['street_address'] . ', ';
 
 			if (!empty($v['barangay'])) {
 				$loc .= $v['barangay'] . ', ';
