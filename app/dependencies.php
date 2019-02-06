@@ -38,6 +38,24 @@ $ci['auth'] = function ($ci) {
 
 
 /**
+ * IsAccount middleware
+ */
+
+$ci['atype'] = function ($ci) {
+    return new \App\Middlewares\IsAccount($ci);
+};
+
+
+/**
+ * IsDoctor middleware
+ */
+
+$ci['dtype'] = function ($ci) {
+    return new \App\Middlewares\IsDoctor($ci);
+};
+
+
+/**
  * Eloquent ORM
  */
 

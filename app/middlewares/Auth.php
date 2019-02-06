@@ -16,7 +16,7 @@ class Auth
 	}
 
 	/**
-	 * Middleware for validating access
+	 * Middleware for validating access token
 	 */
 
 	public function __invoke($request, $response, $next)
