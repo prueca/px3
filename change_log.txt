@@ -35,3 +35,4 @@ Feb. 05, 2019
 Feb. 06, 2019
 • Doctors' myaccount page
 • Moved dependency binding in controller constructor
+• Used DB facade in Auth middleware
