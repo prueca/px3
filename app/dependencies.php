@@ -22,7 +22,7 @@ $capsule->addConnection($ci['settings']['db']);
 $capsule->setAsGlobal();
 $capsule->bootEloquent();
 
-$ci['db'] = function($ci) use ($capsule) {
+$ci['db'] = function ($ci) use ($capsule) {
     return $capsule;
 };
 
@@ -31,7 +31,7 @@ $ci['db'] = function($ci) use ($capsule) {
  * Middlewares
  */
 
-$ci['csrf'] = function($ci) {
+$ci['csrf'] = function ($ci) {
     $guard = new \Slim\Csrf\Guard;
     $guard->setPersistentTokenMode(false);
     $guard->setFailureCallable(function ($request, $response, $next) {
@@ -58,14 +58,14 @@ $ci['dtype'] = function ($ci) {
  * Controllers
  */
 
-$ci['HomeController'] = function($ci) {
+$ci['HomeController'] = function ($ci) {
 	return new \App\Controllers\HomeController($ci);
 };
 
-$ci['AccountController'] = function($ci) {
+$ci['AccountController'] = function ($ci) {
     return new \App\Controllers\AccountController($ci);
 };
 
-$ci['DoctorController'] = function($ci) {
+$ci['DoctorController'] = function ($ci) {
     return new \App\Controllers\DoctorController($ci);
 };
