@@ -14,7 +14,21 @@ $ci['view'] = function ($ci) {
 
 
 /**
- * CSRF middleware
+ * Eloquent ORM
+ */
+
+$capsule = new \Illuminate\Database\Capsule\Manager;
+$capsule->addConnection($ci['settings']['db']);
+$capsule->setAsGlobal();
+$capsule->bootEloquent();
+
+$ci['db'] = function($ci) use ($capsule) {
+    return $capsule;
+};
+
+
+/**
+ * Middlewares
  */
 
 $ci['csrf'] = function($ci) {
@@ -27,45 +41,16 @@ $ci['csrf'] = function($ci) {
     return $guard;
 };
 
-
-/**
- * Auth middleware
- */
-
 $ci['auth'] = function ($ci) {
     return new \App\Middlewares\Auth($ci);
 };
-
-
-/**
- * IsAccount middleware
- */
 
 $ci['atype'] = function ($ci) {
     return new \App\Middlewares\IsAccountType($ci);
 };
 
-
-/**
- * IsDoctor middleware
- */
-
 $ci['dtype'] = function ($ci) {
     return new \App\Middlewares\IsDoctorType($ci);
-};
-
-
-/**
- * Eloquent ORM
- */
-
-$capsule = new \Illuminate\Database\Capsule\Manager;
-$capsule->addConnection($ci['settings']['db']);
-$capsule->setAsGlobal();
-$capsule->bootEloquent();
-
-$ci['db'] = function($ci) use ($capsule) {
-    return $capsule;
 };
 
 
