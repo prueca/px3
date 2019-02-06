@@ -56,23 +56,13 @@ $ci['db'] = function($ci) use ($capsule) {
  */
 
 $ci['HomeController'] = function($ci) {
-	$ctrl = new \App\Controllers\HomeController();
-	$ctrl->app = $ci['app'];
-	$ctrl->view = $ci['view'];
-	$ctrl->csrf = $ci['csrf'];
-    return $ctrl;
+	return new \App\Controllers\HomeController($ci);
 };
 
 $ci['AccountController'] = function($ci) {
-    $ctrl = new \App\Controllers\AccountController();
-    $ctrl->app = $ci['app'];
-    $ctrl->view = $ci['view'];
-    return $ctrl;
+    return new \App\Controllers\AccountController($ci);
 };
 
 $ci['DoctorController'] = function($ci) {
-    $ctrl = new \App\Controllers\DoctorController();
-    $ctrl->app = $ci['app'];
-    $ctrl->view = $ci['view'];
-    return $ctrl;
+    return new \App\Controllers\DoctorController($ci);
 };

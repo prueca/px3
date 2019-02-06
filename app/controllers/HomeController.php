@@ -9,6 +9,17 @@ use \App\Models\Doctors;
 
 class HomeController
 {
+    /**
+     * Bind dependencies
+     */
+
+    public function __construct(\Slim\Container $ci)
+    {
+        $this->app = $ci['app'];
+        $this->view = $ci['view'];
+        $this->csrf = $ci['csrf'];
+    }
+    
 	/**
 	 * Home page
 	 */

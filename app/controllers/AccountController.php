@@ -13,6 +13,16 @@ use \App\Models\Clinics;
 class AccountController
 {
 	/**
+	 * Bind dependencies
+	 */
+
+	public function __construct(\Slim\Container $ci)
+	{
+		$this->app = $ci['app'];
+    	$this->view = $ci['view'];
+	}
+
+	/**
 	 * Myaccount page
 	 */
 
