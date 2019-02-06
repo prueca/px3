@@ -2,6 +2,8 @@
 
 namespace App\Middlewares;
 
+use Illuminate\Database\Capsule\Manager as DB;
+
 class Auth
 {
 	/**
@@ -11,7 +13,6 @@ class Auth
 	public function __construct($ci)
 	{
 		$this->router = $ci['router'];
-		$this->db = $ci['db'];
 	}
 
 	/**
@@ -35,7 +36,7 @@ class Auth
 			}
 
 			$cond['access_token'] = $token;
-			$access = $this->db->table($tbl)->where($cond)->exists();
+			$access = DB::table($tbl)->where($cond)->exists();
 		}
 
 		if (!$access && $request->isGet()) {
