@@ -42,7 +42,7 @@ $ci['auth'] = function ($ci) {
  */
 
 $ci['atype'] = function ($ci) {
-    return new \App\Middlewares\IsAccount($ci);
+    return new \App\Middlewares\IsAccountType($ci);
 };
 
 
@@ -51,7 +51,7 @@ $ci['atype'] = function ($ci) {
  */
 
 $ci['dtype'] = function ($ci) {
-    return new \App\Middlewares\IsDoctor($ci);
+    return new \App\Middlewares\IsDoctorType($ci);
 };
 
 

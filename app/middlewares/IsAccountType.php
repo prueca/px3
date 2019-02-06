@@ -2,7 +2,7 @@
 
 namespace App\Middlewares;
 
-class IsAccount
+class IsAccountType
 {
 	/**
 	 * Bind dependencies

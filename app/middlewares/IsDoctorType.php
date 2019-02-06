@@ -2,7 +2,7 @@
 
 namespace App\Middlewares;
 
-class IsDoctor
+class IsDoctorType
 {
 	/**
 	 * Bind dependencies
