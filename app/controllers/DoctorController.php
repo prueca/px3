@@ -4,6 +4,8 @@ namespace App\Controllers;
 
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
+use \App\Models\Doctors;
+use \App\Models\Clinics;
 
 class DoctorController
 {
@@ -36,6 +38,16 @@ class DoctorController
 
     public function myaccount($request, $response, $args)
     {
-	    echo 'Myaccount page';
+    	$docId = session('acct.id');
+    	$acct = Doctors::getAcct($docId);
+    	$meta = Doctors::getMeta($docId);
+    	$clinics = Clinics::getClinics($docId);
+
+	    $this->view->render($response, 'dr/myaccount.twig', [
+	    	'acct' => $acct,
+	    	'meta' => $meta,
+	    	'clinics' => $clinics,
+	    	'css' => [url('/assets/css/dr/myaccount.css')],
+	    ]);
     }
 }

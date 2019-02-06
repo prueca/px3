@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model as Eloquent;
+use Illuminate\Database\Capsule\Manager as DB;
 use \App\Models\Clinics;
 
 class Doctors extends Eloquent
@@ -212,5 +213,58 @@ class Doctors extends Eloquent
 			'spec' => $spec,
 			'clinics' => $clinics
 		];
+	}
+
+	/**
+     * Fetch doctor's account data
+     */
+
+	public static function getAcct(int $docId)
+	{
+		$data = Doctors::where('doctor_id', $docId)->first([
+			'specialization',
+			'first_name',
+			'middle_name',
+			'last_name',
+			'gender',
+			'birthdate',
+			'contact_number',
+			'email_address',
+		]);
+
+		if (empty($data)) {
+			return null;
+		}
+
+		$age = calcAge($data->birthdate);
+		$data->age = $age;
+		$gen = strtolower($data->gender) == 'm' ? 'Male' : 'Female';
+		$data->gen = $gen;
+		$data->photo = getPhoto($data->photo);
+
+		return $data->toArray();
+	}
+
+	/**
+     * Fetch doctor's meta data
+     */
+
+	public static function getMeta(int $docId)
+	{
+		$sql = DB::table('DoctorMeta')
+		->select([
+			'meta_key',
+			'meta_value',
+			'meta_id',
+			'doctor_id',
+		])
+		->where('doctor_id', $docId)
+		->toSql();
+
+		$stmt = DB::connection()->getPdo()->prepare($sql);
+		$stmt->execute([$docId]);
+		$data = $stmt->fetchAll(\PDO::FETCH_GROUP|\PDO::FETCH_ASSOC);
+
+		return $data;
 	}
 }

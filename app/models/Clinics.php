@@ -11,4 +11,34 @@ class Clinics extends Eloquent
 	protected $primaryKey = 'clinic_id';
 	protected $guarded = ['clinic_id'];
 	protected $searchable = ['street_address', 'barangay', 'city'];
+
+	/**
+     * Fetch doctor's Clinics
+     */
+
+	public static function getClinics(int $docId)
+	{
+		$data = Clinics::where('doctor_id', $docId)->get();
+
+		if ($data->isEmpty()) {
+			return null;
+		}
+
+		$data = $data->toArray();
+
+		foreach ($data as $k => $v) {
+			$sched = json_decode($v['schedule'], true);
+			$data[$k]['schedule'] = $sched;
+			$loc = $v['name'] . ', ';
+
+			if (!empty($v['barangay'])) {
+				$loc .= $v['barangay'] . ', ';
+			}
+
+			$loc .= $v['city'];
+			$data[$k]['location'] = $loc;
+		}
+
+		return $data;
+	}
 }

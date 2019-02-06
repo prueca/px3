@@ -1,0 +1,93 @@
+{% extends 'templates/master.twig' %}
+
+{% block content %}
+<div class="center">
+	<div id="section-1">
+		<div class="photo-wrapper">
+			<img src="{{ acct.photo }}">
+		</div>
+		<div class="float-right">
+			<div class="active-acct">
+				<div class="name">{{ session.acct.name }} <a class="edit-acct" href="{{ app.baseUrl ~ '/d/myaccount/edit' }}"><i class="fas fa-pencil-alt"></i></a></div>
+				<div class="spec">General Medical Practitioner</div>
+				<div class="age-gen">{{ acct.age ~ ' yrs. old, ' ~ acct.gen }}</div>
+			</div>
+			<div class="notifs">
+				<div class="notif-item">
+					<span>3</span>
+					<a href="">Appointments</a>
+				</div>
+				<div class="notif-item">
+					<span>21</span>
+					<a href="">Inbox</a>
+				</div>
+				<div class="notif-item">
+					<span>10</span>
+					<a href="">Rating</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="section-2">
+		<h3>Account Details</h3>
+		<div>
+			<label>Contact Number</label>
+			<div>{{ acct.contact_number }}</div>
+		</div>
+		<div>
+			<label>Email Address</label>
+			<div>{{ acct.email_address }}</div>
+		</div>
+	</div>
+	<div id="section-3">
+		<h3>Specialized in Health Conditions</h3>
+		{% if meta.condition %}
+			<ul>
+			{% for elem in meta.condition %}
+				<li>{{ elem.meta_value }}</li>
+			{% endfor %}
+			</ul>
+		{% else %}
+			<div class="no-data">No data found</div>
+		{% endif %}
+	</div>	
+	<div id="section-4">
+		<div class="col">
+			<h3>Hospital Affiliations</h3>
+			{% if meta.affiliate %}
+				<ul>
+				{% for elem in meta.affiliate %}
+					<li>{{ elem.meta_value }}</li>
+				{% endfor %}
+				</ul>
+			{% else %}
+				<div class="no-data">No data found</div>
+			{% endif %}
+		</div>
+		<div class="col">
+			<h3>Services and Treatments</h3>
+			{% if meta.service %}
+				<ul>
+				{% for elem in meta.service %}
+					<li>{{ elem.meta_value }}</li>
+				{% endfor %}
+				</ul>
+			{% else %}
+				<div class="no-data">No data found</div>
+			{% endif %}
+		</div>
+	</div>
+	<div id="section-5">
+		<h3>Clinic Locations</h3>
+		{% if clinics %}
+			<ul>
+			{% for elem in clinics %}
+				<li>{{ elem.location }}</li>
+			{% endfor %}
+			</ul>
+		{% else %}
+			<div class="no-data">No data found</div>
+		{% endif %}
+	</div>
+</div>
+{% endblock %}
