@@ -22,7 +22,7 @@
 		<div class="col cond">
 			<h4>Specialized in Health Conditions</h4>
 			<div class="list">
-				{{ conditions|raw }}
+				{{ meta.condition|raw }}
 				<div class="input-wrapper new-item">
 					<input type="text" name="item-value" placeholder="Enter condition">
 					<a class="save-item" data-type="condition" href="#"><i class="fas fa-save"></i></a>
@@ -33,7 +33,7 @@
 		<div class="col srvcs">
 			<h4>Services and Treatments</h4>
 			<div class="list">
-				{{ services|raw }}
+				{{ meta.service|raw }}
 				<div class="input-wrapper new-item">
 					<input type="text" name="item-value" placeholder="Enter service or treatment">
 					<a class="save-item" data-type="service" href="#"><i class="fas fa-save"></i></a>
@@ -44,7 +44,7 @@
 		<div class="col affiliates">
 			<h4>Hospital Affiliations</h4>
 			<div class="list">
-				{{ affiliates|raw }}
+				{{ meta.affiliate|raw }}
 				<div class="input-wrapper new-item">
 					<input type="text" name="item-value" placeholder="Enter hospital">
 					<a class="save-item" data-type="affiliate" href="#"><i class="fas fa-save"></i></a>

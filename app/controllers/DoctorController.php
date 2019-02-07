@@ -108,9 +108,7 @@ class DoctorController
         $clinics = Clinics::getClinics($docId);
         $meta = Doctors::getMeta($docId);
         $htmlClinics = '';
-        $htmlSrvcs = '';
-        $htmlAffil = '';
-        $htmlConds = '';
+        $htmlMeta = [];
 
         if (!empty($clinics)) {
             foreach ($clinics as $k => $v) {
@@ -119,34 +117,22 @@ class DoctorController
             }
         }
 
-        if (!empty($meta['service'])) {
-            foreach ($meta['service'] as $k => $v) {
-                $v['meta_id'] = encrypt($v['meta_id']);
-                $htmlSrvcs = $this->view->fetch('dr/list_item.twig', $v);
-            }
-        }
+        if (!empty($meta)) {
+            foreach ($meta as $type => $arr) {
+                $htmlMeta[$type] = '';
 
-        if (!empty($meta['affiliate'])) {
-            foreach ($meta['affiliate'] as $k => $v) {
-                $v['meta_id'] = encrypt($v['meta_id']);
-                $htmlAffil = $this->view->fetch('dr/list_item.twig', $v);
+                foreach ($arr as $k => $v) {
+                    $v['meta_id'] = encrypt($v['meta_id']);
+                    $htmlMeta[$type] .= $this->view->fetch('dr/list_item.twig', $v);
+                }
             }
-        }
-
-        if (!empty($meta['condition'])) {
-            foreach ($meta['condition'] as $k => $v) {
-                $v['meta_id'] = encrypt($v['meta_id']);
-                $htmlConds = $this->view->fetch('dr/list_item.twig', $v);
-            }
-        }        
+        }      
 
         $this->view->render($response, 'dr/profile_edit.twig', [
             'js' => [url('/assets/js/dr/profile_edit.js')],
             'css' => [url('/assets/css/dr/profile_edit.css')],
             'clinics' => $htmlClinics,
-            'conditions' => $htmlConds,
-            'services' => $htmlSrvcs,
-            'affiliates' => $htmlAffil,
+            'meta' => $htmlMeta,
         ]);
     }
 }
