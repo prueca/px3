@@ -41,16 +41,12 @@ $ci['csrf'] = function ($ci) {
     return $guard;
 };
 
-$ci['auth'] = function ($ci) {
-    return new \App\Middlewares\Auth($ci);
+$ci['authAcct'] = function ($ci) {
+    return new \App\Middlewares\AuthAcct($ci);
 };
 
-$ci['atype'] = function ($ci) {
-    return new \App\Middlewares\IsAccountType($ci);
-};
-
-$ci['dtype'] = function ($ci) {
-    return new \App\Middlewares\IsDoctorType($ci);
+$ci['authDoc'] = function ($ci) {
+    return new \App\Middlewares\AuthDoc($ci);
 };
 
 

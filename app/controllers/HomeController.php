@@ -152,14 +152,14 @@ class HomeController
     {
         $id = session('acct.id');
         $type = session('acct.type');
+        $uri = config('app.baseUrl');
         unset($_SESSION['acct']);
 
-        if ($type == 'a') {
+        if ($id !== null && $type == 'a') {
             Accounts::where('account_id', $id)->update(['access_token' => '']);
-            $uri = config('app.baseUrl');
-        } else if ($type == 'd') {
+        } else if ($id !== null && $type == 'd') {
             Doctors::where('doctor_id', $id)->update(['access_token' => '']);
-            $uri = config('app.baseUrl').'/d';
+            $uri .= '/d';
         }
 
         return $response->withRedirect($uri);

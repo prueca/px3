@@ -9,8 +9,7 @@ $app->group('', function (\Slim\App $app) use ($ci) {
 	$app->get('/d/myaccount/edit', 'DoctorController:editAcct');
 	$app->get('/d/myaccount', 'DoctorController:myaccount')->setName('drMyacct');
 })
-->add($ci['dtype'])
-->add($ci['auth']);
+->add($ci['authDoc']);
 
 $app->get('/d', 'DoctorController:home')
 ->add($ci['csrf']);
@@ -32,8 +31,7 @@ $app->group('', function (\Slim\App $app) use ($ci) {
 	$app->get('/search', 'AccountController:search');
 	$app->get('/myaccount', 'AccountController:myaccount')->setName('myacct');
 })
-->add($ci['atype'])
-->add($ci['auth']);
+->add($ci['authAcct']);
 
 
 /**
@@ -46,8 +44,7 @@ $app->post('/register', 'HomeController:register')
 $app->post('/login', 'HomeController:login')
 ->add($ci['csrf']);
 
-$app->get('/logout', 'HomeController:logout')
-->add($ci['auth']);
+$app->get('/logout', 'HomeController:logout');
 
 $app->get('/', 'HomeController:home')
 ->add($ci['csrf'])
