@@ -6,6 +6,7 @@
 
 $app->group('', function (\Slim\App $app) use ($ci) {
 	$app->post('/d/myaccount/update', 'DoctorController:updateAcct');
+	$app->get('/d/profile/edit', 'DoctorController:editProfile');
 	$app->get('/d/myaccount/edit', 'DoctorController:editAcct');
 	$app->get('/d/myaccount', 'DoctorController:myaccount')->setName('drMyacct');
 })

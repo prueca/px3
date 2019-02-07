@@ -1,0 +1,15 @@
+<div class="list-item" data-id="{{ clinic.clinic_id }}">
+	<div class="name">{{ clinic.name }}</div>
+	<div class="loc">{{ clinic.location }}</div>
+	<div class="sched">
+		<ul>
+		{% for sched in clinic.schedule %}
+			<li>{{ sched.day ~ ' ' ~ sched.opening ~ ' - ' ~ sched.closing }}</li>
+		{% endfor %}
+		</ul>
+	</div>
+	<div class="actions">
+		<a class="edit" href="#"><i class="fas fa-fw fa-edit"></i> Edit</a>
+		<a class="delete" href="#"><i class="fas fa-fw fa-trash"></i> Delete</a>
+	</div>
+</div>

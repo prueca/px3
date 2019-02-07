@@ -97,4 +97,56 @@ class DoctorController
     	$data = Doctors::updateAcct($docId, $post);
     	return $response->withJson($data);
     }
+
+    /**
+     * Profile edit page
+     */
+
+    public function editProfile($request, $response, $args)
+    {
+        $docId = session('acct.id');
+        $clinics = Clinics::getClinics($docId);
+        $meta = Doctors::getMeta($docId);
+        $htmlClinics = '';
+        $htmlSrvcs = '';
+        $htmlAffil = '';
+        $htmlConds = '';
+
+        if (!empty($clinics)) {
+            foreach ($clinics as $k => $v) {
+                $v['clinic_id'] = encrypt($v['clinic_id']);
+                $htmlClinics .= $this->view->fetch('dr/clinic_item.twig', ['clinic' => $v]);
+            }
+        }
+
+        if (!empty($meta['service'])) {
+            foreach ($meta['service'] as $k => $v) {
+                $v['meta_id'] = encrypt($v['meta_id']);
+                $htmlSrvcs = $this->view->fetch('dr/list_item.twig', $v);
+            }
+        }
+
+        if (!empty($meta['affiliate'])) {
+            foreach ($meta['affiliate'] as $k => $v) {
+                $v['meta_id'] = encrypt($v['meta_id']);
+                $htmlAffil = $this->view->fetch('dr/list_item.twig', $v);
+            }
+        }
+
+        if (!empty($meta['condition'])) {
+            foreach ($meta['condition'] as $k => $v) {
+                $v['meta_id'] = encrypt($v['meta_id']);
+                $htmlConds = $this->view->fetch('dr/list_item.twig', $v);
+            }
+        }        
+
+        $this->view->render($response, 'dr/profile_edit.twig', [
+            'js' => [url('/assets/js/dr/profile_edit.js')],
+            'css' => [url('/assets/css/dr/profile_edit.css')],
+            'clinics' => $htmlClinics,
+            'conditions' => $htmlConds,
+            'services' => $htmlSrvcs,
+            'affiliates' => $htmlAffil,
+        ]);
+    }
 }

@@ -39,3 +39,7 @@ Feb. 06, 2019
 • Page accessibility check
 • Doctors' myaccount edit page
 • Moved auth to group route
+
+Feb. 07, 2019
+• Fixed authentication
+• Static profile edit page

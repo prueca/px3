@@ -1,0 +1,135 @@
+{% extends 'templates/master.twig' %}
+
+{% block content %}
+<div class="center">
+	<div id="section-1">
+		<h3>Edit profile information</h3>
+		<p>These are the information available to patients viewing your profile</p>
+		<h4>Specialization</h4>
+		<div class="input-wrapper spec">
+			<input type="text" name="spec" placeholder="Enter your specialization">
+			<a class="save" href="#"><i class="fas fa-save"></i></a>
+		</div>
+	</div>
+	<div id="section-2">
+		<div>
+			<h4>Clinic Locations</h4>
+			<a class="add-clinic toggle-modal" data-modal="#modal-clinic"><i class="fas fa-fw fa-plus-square"></i> Add Clinic</a>
+		</div>
+		<div class="list">{{ clinics|raw }}</div>
+	</div>
+	<div id="section-3">
+		<div class="col cond">
+			<h4>Specialized in Health Conditions</h4>
+			<div class="list">
+				{{ conditions|raw }}
+				<div class="input-wrapper new-item">
+					<input type="text" name="item-value" placeholder="Enter condition">
+					<a class="save-item" data-type="condition" href="#"><i class="fas fa-save"></i></a>
+					<a class="clear-field" href="#"><i class="fas fa-times-circle"></i></a>
+				</div>
+			</div>
+		</div>
+		<div class="col srvcs">
+			<h4>Services and Treatments</h4>
+			<div class="list">
+				{{ services|raw }}
+				<div class="input-wrapper new-item">
+					<input type="text" name="item-value" placeholder="Enter service or treatment">
+					<a class="save-item" data-type="service" href="#"><i class="fas fa-save"></i></a>
+					<a class="clear-field" href="#"><i class="fas fa-times-circle"></i></a>
+				</div>
+			</div>
+		</div>
+		<div class="col affiliates">
+			<h4>Hospital Affiliations</h4>
+			<div class="list">
+				{{ affiliates|raw }}
+				<div class="input-wrapper new-item">
+					<input type="text" name="item-value" placeholder="Enter hospital">
+					<a class="save-item" data-type="affiliate" href="#"><i class="fas fa-save"></i></a>
+					<a class="clear-field" href="#"><i class="fas fa-times-circle"></i></a>
+				</div>
+			</div>
+		</div>
+	</div>	
+</div>
+<div id="clinic-modal" class="modal-overlay">
+	<div class="modal-box">
+		<div class="modal-content">
+			<a class="modal-close" data-modal="#modal-clinic"><i class="fas fa-times-circle"></i></a>
+			<div class="extra-padding">
+				<h2>Clinic Information</h2>
+				<div class="note">Fields with asterisk (<span class="req">*</span>) are required</div>
+				<form id="clinic-form">
+					<input type="hidden" name="clinic">
+					<label>Clinic name <span class="req">*</span></label>
+					<div class="input-wrapper">
+						<input type="text" name="name" placeholder="Enter name">
+					</div>
+					<div class="err name"></div>
+
+					<label>Street address <span class="req">*</span></label>
+					<div class="input-wrapper">
+						<input type="text" name="street_address" placeholder="Enter street address">
+					</div>
+					<div class="err street-add"></div>
+
+					<div class="inline-form">
+						<div>
+							<label>Barangay</label>
+							<div class="input-wrapper">
+								<input type="text" name="barangay" placeholder="Enter barangay">
+							</div>
+							<div class="err brgy"></div>
+						</div>
+						<div>
+							<label>City <span class="req">*</span></label>
+							<div class="input-wrapper">
+								<input type="text" name="city" placeholder="Enter city">
+							</div>
+							<div class="err city"></div>
+						</div>
+					</div>
+
+					<div class="sched-picker">
+						<label>Schedule <span class="req">*</span></label>
+						<div class="input-wrapper">
+							<select class="day">
+								<option value="Sun">Sunday</option>
+								<option value="Mon">Monday</option>
+								<option value="Tue">Tuesday</option>
+								<option value="Wed">Wednesday</option>
+								<option value="Fri">Friday</option>
+								<option value="Sat">Saturda</option>
+							</select>
+						</div>
+						<div class="time-picker">
+							<label>Opening <span class="req">*</span></label>
+							<div class="input-wrapper">
+								<input type="time" class="opening">
+							</div>
+							<label>Closing <span class="req">*</span></label>
+							<div class="input-wrapper">
+								<input type="time" class="closing">
+							</div>
+						</div>
+
+						<a class="add-sched" href="#"><i class="fas fa-fw fa-plus-square"></i> Add schedule</a>
+						<div class="err sched"></div>
+						
+						<div class="set-sched">
+							<div class="list"></div>
+						</div>
+					</div>
+
+					<div class="btn-group">
+						<button type="button" class="btn modal-cancel" data-modal="#modal-clinic">Cancel</button>
+						<button type="submit" class="btn submit">Submit</button>
+					</div>
+		    	</form>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}
