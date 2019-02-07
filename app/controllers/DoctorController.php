@@ -126,13 +126,12 @@ class DoctorController
                     $htmlMeta[$type] .= $this->view->fetch('dr/list_item.twig', $v);
                 }
             }
-        }      
+        }
 
         $this->view->render($response, 'dr/profile_edit.twig', [
             'js' => [url('/assets/js/dr/profile_edit.js')],
             'css' => [url('/assets/css/dr/profile_edit.css')],
-            'clinics' => $htmlClinics,
-            'meta' => $htmlMeta,
+            'html' => ['meta' => $htmlMeta, 'clinic' => $htmlClinics],
         ]);
     }
 }

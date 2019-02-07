@@ -16,13 +16,13 @@
 			<h4>Clinic Locations</h4>
 			<a class="add-clinic toggle-modal" data-modal="#modal-clinic"><i class="fas fa-fw fa-plus-square"></i> Add Clinic</a>
 		</div>
-		<div class="list">{{ clinics|raw }}</div>
+		<div class="list">{{ html.clinic|raw }}</div>
 	</div>
 	<div id="section-3">
 		<div class="col cond">
 			<h4>Specialized in Health Conditions</h4>
 			<div class="list">
-				{{ meta.condition|raw }}
+				{{ html.meta.condition|raw }}
 				<div class="input-wrapper new-item">
 					<input type="text" name="item-value" placeholder="Enter condition">
 					<a class="save-item" data-type="condition" href="#"><i class="fas fa-save"></i></a>
@@ -33,7 +33,7 @@
 		<div class="col srvcs">
 			<h4>Services and Treatments</h4>
 			<div class="list">
-				{{ meta.service|raw }}
+				{{ html.meta.service|raw }}
 				<div class="input-wrapper new-item">
 					<input type="text" name="item-value" placeholder="Enter service or treatment">
 					<a class="save-item" data-type="service" href="#"><i class="fas fa-save"></i></a>
@@ -44,7 +44,7 @@
 		<div class="col affiliates">
 			<h4>Hospital Affiliations</h4>
 			<div class="list">
-				{{ meta.affiliate|raw }}
+				{{ html.meta.affiliate|raw }}
 				<div class="input-wrapper new-item">
 					<input type="text" name="item-value" placeholder="Enter hospital">
 					<a class="save-item" data-type="affiliate" href="#"><i class="fas fa-save"></i></a>
