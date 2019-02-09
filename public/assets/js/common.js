@@ -55,7 +55,8 @@ $(function(){
 		}
 	};
 
-	$(document).on('click', '#toast .close', function(){
+	$(document).on('click', '#toast .close', function(e){
+		e.preventDefault();
 		$(this).closest('div').fadeOut(400, function(){
 			this.remove();
 		});
