@@ -26,6 +26,37 @@ $(function(){
   		if (match) return decodeURIComponent(match[2]);
 	}
 
+	/* toast a message */
+
+	$.toast = function(txt, succ = true, autohide = true) {
+		var heading = '<i class="fas fa-fw fa-check-circle"></i> Success';
+		var type = 'succ';
+
+		if (!succ) {
+			heading = '<i class="fas fa-fw fa-exclamation-circle"></i> Failed';
+			type = 'err';
+		}
+
+		var html = '' +
+		'<div class="'+ type +'">' +
+			'<div class="heading">'+ heading +'</div>' +
+			'<div class="text">'+ txt +'</div>' +
+			'<a class="close" href="#"><i class="fas fa-fw fa-times"></i></a>' +
+		'</div>';
+
+		html = $(html).appendTo('#toast');
+
+		if (autohide) {
+			setTimeout(function(){
+				html.fadeOut();
+			}, 2000);
+		}
+	};
+
+	$(document).on('click', '#toast .close', function(){
+		$(this).closest('div').fadeOut();
+	});
+
 	/* toggle nav menu */
 
 	$('#header .toggle-menu').click(function(){

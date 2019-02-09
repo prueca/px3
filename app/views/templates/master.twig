@@ -39,14 +39,16 @@
 	    <p class="copyright">All Rights Reserved © {{ "now"|date("Y") }}</p>
 	</div>
 
-	{# message overlay #}
-
+	{# loading overlay #}
 	<div id="loading-message">
 		<div class="message-container">
 			<p class="message">In progress. Please wait...</p>
 			<div class="loading"></div>
 		</div>
 	</div>
+
+	{# toast message #}
+	<div id="toast"></div>
 
 	{# scripts #}
 	<script type="text/javascript" src="{{ app.baseUrl~'/assets/js/jquery-3.3.1.min.js' }}"></script>

@@ -26,6 +26,8 @@ $(function(){
 
 			if (data.err) {
 				alert(data.err);
+			} else {
+				$.toast('Request has been successful');
 			}
 		});
 	});

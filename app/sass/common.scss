@@ -365,92 +365,6 @@ input[type="time"] {
 }
 
 
-/* toast */
-
-#toast {
-    width: 90vw;
-    margin: auto;
-    top: 80px;
-    left: 0;
-    right: 0;
-    padding: 12px 18px;
-    position: fixed;
-    box-shadow: $shadow;
-    border-radius: 32px;
-    box-sizing: border-box;
-    color: #fff;
-    cursor: pointer;
-    z-index: 2;
-    display: none;
-
-    .icon {
-        float: left;
-        padding: 4px;
-        border-radius: 100%;
-        background:#fff;
-        display: none;
-    }
-
-    .text {
-        width: calc(100% - 35px);
-        float: right;
-        line-height: 1.6;
-        text-align: center;
-    }
-
-    &.success {
-        background: $green;
-
-        .icon.success {
-            display: inline-block;
-            color: $green;
-        }
-    }
-
-    &.info {
-        background: $blue;
-
-        .icon.info {
-            display: inline-block;
-            color: $blue;
-        }
-    }
-
-    &.warning {
-        background: $brown;
-
-        .icon.warning {
-            display: inline-block;
-            color: $brown;
-        }
-    }
-
-    &.error {
-        background: $red;
-
-        .icon.error {
-            display: inline-block;
-            color: $red;
-        }
-    }
-
-    &.processing {
-        background: $blue;
-
-        .icon.processing {
-            display: inline-block;
-            color: $blue;
-        }
-    }
-}
-
-@media (min-width: 520px) {
-    #toast {
-        width: 300px;
-    }
-}
-
-
 /* loading message */
 
 #loading-message {
@@ -508,4 +422,50 @@ input[type="time"] {
     80% { left: 50%;}
     95% {left: 120%;}
     to {left: 100%;}
+}
+
+
+/* toast container */
+
+#toast {
+    width: 265px;
+    position: fixed;
+    top: 90px;
+    left: 0;
+    right: 0;
+    margin: auto;
+    
+    > div {
+        position: relative;
+        margin-bottom: 15px;
+        padding: 15px;
+        background: $gradient;
+        border-radius: 4px;
+        box-shadow: 0 10px 25px rgba(154, 196, 232, 0.5);
+        color: #fff;
+
+        .heading i {
+            display: inline-block;
+            margin-right: 4px;
+        }
+
+        .text {
+            margin-top: 8px;
+            font-size: 0.9em;
+        }
+
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 10px;
+            color: #fff;
+        }
+    }
+}
+
+@media (min-width: 640px) {
+    #toast {
+        left: initial;
+        right: 5%;
+    }
 }
