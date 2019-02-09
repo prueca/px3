@@ -48,13 +48,17 @@ $(function(){
 
 		if (autohide) {
 			setTimeout(function(){
-				html.fadeOut();
+				html.fadeOut(400, function(){
+					html.remove();
+				});
 			}, 2000);
 		}
 	};
 
 	$(document).on('click', '#toast .close', function(){
-		$(this).closest('div').fadeOut();
+		$(this).closest('div').fadeOut(400, function(){
+			this.remove();
+		});
 	});
 
 	/* toggle nav menu */
