@@ -113,7 +113,7 @@ class DoctorController
         if (!empty($clinics)) {
             foreach ($clinics as $k => $v) {
                 $v['clinic_id'] = encrypt($v['clinic_id']);
-                $htmlClinics .= $this->view->fetch('dr/clinic_item.twig', ['clinic' => $v]);
+                $htmlClinics .= $this->view->fetch('dr/clinic_item.twig', $v);
             }
         }
 

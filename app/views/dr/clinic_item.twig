@@ -1,9 +1,9 @@
-<div class="list-item" data-id="{{ clinic.clinic_id }}">
-	<div class="name">{{ clinic.name }}</div>
-	<div class="loc">{{ clinic.location }}</div>
+<div class="list-item" data-id="{{ clinic_id }}">
+	<div class="name">{{ name }}</div>
+	<div class="loc">{{ location }}</div>
 	<div class="sched">
 		<ul>
-		{% for sched in clinic.schedule %}
+		{% for sched in schedule %}
 			<li>{{ sched.day ~ ' ' ~ sched.opening ~ ' - ' ~ sched.closing }}</li>
 		{% endfor %}
 		</ul>
