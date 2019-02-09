@@ -107,6 +107,11 @@ class DoctorController
         $docId = session('acct.id');
         $clinics = Clinics::getClinics($docId);
         $meta = Doctors::getMeta($docId);
+        $spec = Doctors::select('specialization')
+        ->where('doctor_id', $docId)
+        ->first()
+        ->specialization;
+
         $htmlClinics = '';
         $htmlMeta = [];
 
@@ -132,6 +137,36 @@ class DoctorController
             'js' => [url('/assets/js/dr/profile_edit.js')],
             'css' => [url('/assets/css/dr/profile_edit.css')],
             'html' => ['meta' => $htmlMeta, 'clinic' => $htmlClinics],
+            'spec' => $spec
         ]);
+    }
+
+    /**
+     * Update specialization
+     */
+
+    public function updateSpec($request, $response, $args)
+    {
+        $docId = session('acct.id');
+        $doc = Doctors::select('doctor_id', 'specialization')
+        ->where('doctor_id', $docId)
+        ->first();
+
+        if (empty($doc)) {
+            return $response->withJson([
+                'err' => 'Account not found'
+            ]);
+        }
+
+        $post = $request->getParsedBody();
+        $doc->specialization = $post['spec'];
+
+        if (!$doc->save()) {
+            return $response->withJson([
+                'err' => 'Application error occurred'
+            ]);
+        }
+
+        return $response->withJson(['succ' => true]);
     }
 }
