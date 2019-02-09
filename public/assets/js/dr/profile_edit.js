@@ -27,7 +27,7 @@ $(function(){
 			if (data.err) {
 				alert(data.err);
 			} else {
-				$.toast('Request has been successful');
+				$.toast('Your profile has been updated');
 			}
 		});
 	});

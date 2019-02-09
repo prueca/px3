@@ -16,7 +16,7 @@ $(function(){
 		};
 
 		if (!post.area || !post.spec || !post.srvc) {
-			alert('Please fill up the search form');
+			$.toast('Please fill up the search form', 'info');
 			return;
 		}
 
@@ -35,7 +35,7 @@ $(function(){
 			} else {
 				$('.load-more').hide();
 				$('#section-2 .filler').fadeIn();
-				alert('No matching doctor');
+				$.toast('No matching doctor', 'info');
 			}
 
 			$('input[type="hidden"][name="offset"]').val(data.offset);
@@ -77,7 +77,7 @@ $(function(){
 				$('.load-more').show();
 			} else {
 				$('.load-more').hide();
-				alert('Reached end of search result');
+				$.toast('Reached end of search result', 'info');
 			}
 
 			$('input[type="hidden"][name="offset"]').val(data.offset);
@@ -130,7 +130,7 @@ $(function(){
 
 		$.ajax(config.ajax).done(function(data){
 			if (data.err) {
-				alert(data.err);
+				$.toast(data.err, 'err');
 				return;
 			}
 
@@ -176,7 +176,7 @@ $(function(){
 		var types = ['image/jpg', 'image/jpeg', 'image/png'];
 
 		if (types.indexOf(file['type']) < 0) {
-			alert('Invalid file type');
+			$.toast('Invalid file type', 'info');
 			return false;
 		}
 	});
@@ -273,7 +273,7 @@ $(function(){
 
 		$.ajax(config.ajax).done(function(data){
 			if (data.err) {
-				alert(data.err);
+				$.toast(data.err, 'err');
 			} else {
 				window.location.href = config.baseUrl + '/confirm/' + data.appt;
 			}

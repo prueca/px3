@@ -8,7 +8,7 @@ $(function(){
 		var types = ['image/jpg', 'image/jpeg', 'image/png'];
 
 		if (types.indexOf(file['type']) < 0) {
-			$.toast('Invalid file type.', 'error', true);
+			$.toast('Invalid file type', 'info');
 			return false;
 		}
 

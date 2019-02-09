@@ -28,13 +28,13 @@ $(function(){
 
 	/* toast a message */
 
-	$.toast = function(txt, succ = true, autohide = true) {
+	$.toast = function(txt, type = 'succ', autohide = true) {
 		var heading = '<i class="fas fa-fw fa-check-circle"></i> Success';
-		var type = 'succ';
 
-		if (!succ) {
+		if (type == 'err') {
 			heading = '<i class="fas fa-fw fa-exclamation-circle"></i> Failed';
-			type = 'err';
+		} else if (type == 'info') {
+			heading = '<i class="fas fa-fw fa-info-circle"></i> Information';
 		}
 
 		var html = '' +

@@ -16,7 +16,7 @@ $(function(){
 			ajax = null;
 
 			if (data.error) {
-				alert(data.err);
+				$.toast(data.err, 'err');
 			} else {
 				$('.appointments .list').html(data.appts);
 				$('.appointments .pagination').html(data.pagination);
@@ -36,7 +36,7 @@ $(function(){
 			ajax = null;
 			
 			if (data.error) {
-				alert(data.err);
+				$.toast(data.err, 'err');
 			} else if (data.appts == null) {
 				$('.appointments .list').html('<div class="no-data">No data found</div>');
 				$('.appointments .pagination').html('');
