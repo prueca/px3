@@ -14,7 +14,7 @@
 	<div id="section-2">
 		<div>
 			<h4>Clinic Locations</h4>
-			<a class="add-clinic toggle-modal" data-modal="#modal-clinic"><i class="fas fa-fw fa-plus-square"></i> Add Clinic</a>
+			<a class="add-clinic toggle-modal" data-modal="#clinic-modal"><i class="fas fa-fw fa-plus-square"></i> Add Clinic</a>
 		</div>
 		<div class="list">{{ html.clinic|raw }}</div>
 	</div>
@@ -57,7 +57,7 @@
 <div id="clinic-modal" class="modal-overlay">
 	<div class="modal-box">
 		<div class="modal-content">
-			<a class="modal-close" data-modal="#modal-clinic"><i class="fas fa-times-circle"></i></a>
+			<a class="modal-close" data-modal="#clinic-modal"><i class="fas fa-times-circle"></i></a>
 			<div class="extra-padding">
 				<h2>Clinic Information</h2>
 				<div class="note">Fields with asterisk (<span class="req">*</span>) are required</div>
@@ -124,7 +124,7 @@
 					</div>
 
 					<div class="btn-group">
-						<button type="button" class="btn modal-cancel" data-modal="#modal-clinic">Cancel</button>
+						<button type="button" class="btn modal-cancel" data-modal="#clinic-modal">Cancel</button>
 						<button type="submit" class="btn submit">Submit</button>
 					</div>
 		    	</form>

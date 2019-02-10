@@ -41,4 +41,44 @@ class Clinics extends Eloquent
 
 		return $data;
 	}
+
+	/**
+	 * Add clinic
+	 */
+
+	public static function addClinic(int $docId, array $data)
+	{
+		$sched = json_decode($data['schedule'], true);
+
+		foreach ($sched as $k => $v) {
+			$sched[$k]['opening'] = date('h:i A', strtotime($v['opening']));
+	    	$sched[$k]['closing'] = date('h:i A', strtotime($v['closing']));
+
+			foreach ($sched as $key => $val) {
+				if ($k != $key && $sched[$k] == $sched[$key]) {
+					return ['err' => 'Duplicate schedule'];
+				}
+			}
+		}
+
+		$data['schedule'] = json_encode($sched);
+		$data['doctor_id'] = $docId;
+
+		if (Clinics::where($data)->exists()) {
+			return ['err' => 'Clinic data already exists'];
+		}
+
+		$clinic = Clinics::create($data);
+		$clinic->clinic_id = encrypt($clinic->clinic_id);
+		$loc = $clinic->name . ', ' . $clinic->street_address . ', ';
+		
+		if (!empty($clinic->barangay)) {
+			$loc .= $clinic->barangay . ', ';
+		}
+
+		$loc .= $clinic->city;
+		$clinic->location = $loc;
+		$clinic->schedule = json_decode($clinic->schedule);
+		return $clinic->toArray();
+	}
 }

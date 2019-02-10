@@ -5,6 +5,8 @@
  */
 
 $app->group('', function (\Slim\App $app) use ($ci) {
+	$app->post('/d/clinic/get', 'DoctorController:getClinic');
+	$app->post('/d/clinic/add', 'DoctorController:addClinic');
 	$app->post('/d/update/spec', 'DoctorController:updateSpec');
 	$app->post('/d/myaccount/update', 'DoctorController:updateAcct');
 	$app->get('/d/profile/edit', 'DoctorController:editProfile');

@@ -1,6 +1,8 @@
 $(function(){
 
-	/* set and get cookie */
+	/**
+	 * set or get cookie
+	 */
 
 	$.cookie = function(name, val = null, min = null, path = '/') {
 		if (val !== null) {
@@ -26,7 +28,9 @@ $(function(){
   		if (match) return decodeURIComponent(match[2]);
 	}
 
-	/* toast a message */
+	/**
+	 * toast a message
+	 */
 
 	$.toast = function(txt, type = 'succ', autohide = true) {
 		var heading = '<i class="fas fa-fw fa-check-circle"></i> Success';
@@ -55,14 +59,16 @@ $(function(){
 		}
 	};
 
-	$(document).on('click', '#toast .close', function(e){
+	$('#toast').on('click', '.close', function(e){
 		e.preventDefault();
 		$(this).closest('div').fadeOut(400, function(){
 			this.remove();
 		});
 	});
 
-	/* toggle nav menu */
+	/**
+	 * toggle nav menu
+	 */
 
 	$('#header .toggle-menu').click(function(){
 		var left = $('#mobile-nav').css('left');
@@ -85,7 +91,9 @@ $(function(){
 	});
 
 
-	/* modal events */
+	/**
+	 * modal events
+	 */
 
 	$('.modal-overlay').click(function(e){
 		if (e.target === this) {

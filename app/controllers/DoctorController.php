@@ -169,4 +169,33 @@ class DoctorController
 
         return $response->withJson(['succ' => true]);
     }
+
+    /**
+     * Add clinic
+     */
+
+    public function addClinic($request, $response, $args)
+    {
+        $post = $request->getParsedBody();
+        $docId = session('acct.id');
+        $data = Clinics::addClinic($docId, $post);
+
+        if (!empty($data['err'])) {
+            return $response->withJson($data);
+        }
+
+        $html = $this->view->fetch('dr/clinic_item.twig', $data);
+        return $response->withJson(['html' => $html, 'append' => true, 'data' => $data]);
+    }
+
+    /**
+     * Add clinic
+     */
+
+    public function getClinic($request, $response, $args)
+    {
+        $post = $request->getParsedBody();
+        $clinicId = $post['id'];
+        $docId = session('acct.id');
+    }
 }

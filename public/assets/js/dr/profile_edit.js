@@ -4,7 +4,9 @@ $(function(){
 	var updatingSpec = null;
 	var schedArr = [];
 
-	/* udpate specialty  */
+	/**
+	 * udpate specialization
+	 */
 
 	$('#section-1 .spec .save').click(function(){
 		if (updatingSpec) {
@@ -33,7 +35,9 @@ $(function(){
 	});
 
 	
-	/* add or delete sched */	
+	/**
+	 * add or delete sched
+	 */
 
 	$('#clinic-modal').on('click', '.add-sched, .delete-sched', function(e){
 		e.preventDefault();
@@ -80,29 +84,35 @@ $(function(){
 	});
 
 
-	/* submit clinic info */
+	/**
+	 * submit clinic info
+	 */
 
 	$('#clinic-form').submit(function(e){
 		e.preventDefault();
-		var data = new FormData(this);
 		var has_error = false;
-		data.set('schedule', JSON.stringify(schedArr));
+		var data = {
+			name: $('#clinic-form input[name="name"]').val(),
+			street_address: $('#clinic-form input[name="street_address"]').val(),
+			city: $('#clinic-form input[name="city"]').val(),
+			schedule: JSON.stringify(schedArr)
+		};
 
-		if (!data.get('name')) {
+		if (!data.name) {
 			$('#clinic-modal .err.name').text('Please provide a name').show();
 			has_error = true;
 		} else {
 			$('#clinic-modal .err.name').hide();
 		}
 
-		if (!data.get('street_address')) {
+		if (!data.street_address) {
 			$('#clinic-modal .err.street-add').text('Please provide a street address').show();
 			has_error = true;
 		} else {
 			$('#clinic-modal .err.street-add').hide();
 		}
 
-		if (!data.get('city')) {
+		if (!data.city) {
 			$('#clinic-modal .err.city').text('Please provide a city').show();
 			has_error = true;
 		} else {
@@ -125,12 +135,10 @@ $(function(){
 
 		config.ajax.url = $(this).prop('action');
 		config.ajax.data = data;
-		config.ajax.processData = false;
-		config.ajax.contentType = false;
 
 		$.ajax(config.ajax).done(function(data){
 			if (data.err) {
-				alert(data.err);
+				$.toast(data.err, 'err');
 			} else {
 				if (data.append) {
 					$('#section-2 .list').append(data.html);
@@ -138,13 +146,15 @@ $(function(){
 					$(clinicItem).replaceWith(data.html);
 				}
 
-				alert('Profile updated successfully');
+				$.toast('Your profile has been updated');
 			}
 		});
 	});
 
 
-	/* edit clinic */
+	/**
+	 * edit clinic
+	 */
 
 	$('#section-2 .list').on('click', '.list-item .edit', function(e){
 		e.preventDefault();
@@ -154,7 +164,7 @@ $(function(){
 
 		$.ajax(config.ajax).done(function(data){
 			if (data.err) {
-				alert(data.err);
+				$.toast(data.err, 'err');
 				return;
 			}
 
@@ -184,7 +194,9 @@ $(function(){
 	});
 
 
-	/* change clinic-form url to add */
+	/**
+	 * change clinic-form url to add
+	 */
 
 	$('#section-2 .add-clinic').click(function(e){
 		e.preventDefault();
@@ -192,7 +204,9 @@ $(function(){
 	});
 
 
-	/* delete clinic */
+	/**
+	 * delete clinic
+	 */
 
 	$('#section-2 .list').on('click', '.list-item .delete', function(e){
 		e.preventDefault();
@@ -213,7 +227,9 @@ $(function(){
 	});
 
 
-	/* add list-item */
+	/**
+	 * add meta data
+	 */
 
 	$('.new-item .save-item').click(function(e){
 		e.preventDefault();
@@ -239,7 +255,9 @@ $(function(){
 	});
 
 
-	/* update list-item */
+	/**
+	 * update meta data
+	 */
 
 	$('#section-3 .list').on('click', '.list-item .save-item', function(e){
 		e.preventDefault();
@@ -264,7 +282,9 @@ $(function(){
 	});
 
 
-	/* delete list-item */
+	/**
+	 * delete meta data
+	 */
 
 	$('#section-3 .list').on('click', '.list-item .delete-item', function(e){
 		e.preventDefault();

@@ -48,3 +48,6 @@ Feb. 09, 2019
 • Update specialization
 • Replaced alert with toast message
 • Remove toast message dom after fade out
+
+Feb. 10, 2019
+• Create function for clinic
