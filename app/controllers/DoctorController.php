@@ -234,4 +234,22 @@ class DoctorController
         $html = $this->view->fetch('dr/clinic_item.twig', $data);
         return $response->withJson(['html' => $html]);
     }
+
+    /**
+     * Delete clinic
+     */
+
+    public function deleteClinic($request, $response, $args)
+    {
+        $post = $request->getParsedBody();
+        $clinicId = decrypt($post['id']);
+        $docId = session('acct.id');
+
+        $succ = Clinics::where([
+            'doctor_id' => $docId,
+            'clinic_id' => $clinicId,
+        ])->delete();
+
+        return $response->withJson(['succ' => $succ]);
+    }
 }

@@ -68,18 +68,18 @@ class Clinics extends Eloquent
 			return ['err' => 'Clinic data already exists'];
 		}
 
-		$clinic = Clinics::create($data);
-		$clinic->clinic_id = encrypt($clinic->clinic_id);
-		$loc = $clinic->name . ', ' . $clinic->street_address . ', ';
+		$clinic = Clinics::create($data)->toArray();
+		$clinic['clinic_id'] = encrypt($clinic['clinic_id']);
+		$loc = $clinic['name'] . ', ' . $clinic['street_address'] . ', ';
 		
-		if (!empty($clinic->barangay)) {
-			$loc .= $clinic->barangay . ', ';
+		if (!empty($clinic['barangay'])) {
+			$loc .= $clinic['barangay'] . ', ';
 		}
 
-		$loc .= $clinic->city;
-		$clinic->location = $loc;
-		$clinic->schedule = json_decode($clinic->schedule, true);
-		return $clinic->toArray();
+		$loc .= $clinic['city'];
+		$clinic['location'] = $loc;
+		$clinic['schedule'] = json_decode($clinic['schedule'], true);
+		return $clinic;
 	}
 
 	/**

@@ -54,3 +54,4 @@ Feb. 10, 2019
 
 Feb. 11, 2019
 • Update clinic
+• Delete clinic

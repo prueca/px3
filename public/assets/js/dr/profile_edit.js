@@ -196,6 +196,7 @@ $(function(){
 
 			$('#clinic-modal').fadeIn();
 			$('#clinic-form').prop('action', config.baseUrl + '/d/clinic/update');
+			$.toast('Your profile has been updated');
 		});
 	});
 
@@ -224,9 +225,10 @@ $(function(){
 
 			$.ajax(config.ajax).done(function(data){
 				if (data.err) {
-					alert(data.err);
+					$.toast(data.err, 'err');
 				} else {
-					clinicItem.remove();					
+					$.toast('Your profile has been updated');
+					clinicItem.remove();				
 				}
 			});
 		}
