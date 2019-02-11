@@ -8,7 +8,7 @@
 		</div>
 		<div class="float-right">
 			<div class="active-acct">
-				<div class="name">{{ acctName }}</div>
+				<div class="name">{{ session.acct.name }}</div>
 				<div class="age-gen">{{ acct.age }} years old, {{ acct.gender }}</div>
 				<a class="edit-acct" href="{{ app.baseUrl~'/myaccount/edit' }}"><i class="fas fa-fw fa-edit"></i> Edit account</a>
 			</div>
