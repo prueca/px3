@@ -91,12 +91,17 @@ $(function(){
 	$('#clinic-form').submit(function(e){
 		e.preventDefault();
 		var has_error = false;
+		var clinic = $('#clinic-form input[name="clinic"]').val();
 		var data = {
 			name: $('#clinic-form input[name="name"]').val(),
 			street_address: $('#clinic-form input[name="street_address"]').val(),
 			city: $('#clinic-form input[name="city"]').val(),
 			schedule: JSON.stringify(schedArr)
 		};
+
+		if (clinic) {
+			data.clinic = clinic;
+		}
 
 		if (!data.name) {
 			$('#clinic-modal .err.name').text('Please provide a name').show();
@@ -173,6 +178,7 @@ $(function(){
 			$('#clinic-form input[name="street_address"]').val(data.street_address);
 			$('#clinic-form input[name="barangay"]').val(data.barangay);
 			$('#clinic-form input[name="city"]').val(data.city);
+			$('#clinic-modal .set-sched .list').html('');
 			schedArr = [];
 
 			for (var i in data.schedule) {

@@ -51,3 +51,6 @@ Feb. 09, 2019
 
 Feb. 10, 2019
 • Create function for clinic
+
+Feb. 11, 2019
+• Update clinic

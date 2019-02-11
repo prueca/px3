@@ -185,17 +185,53 @@ class DoctorController
         }
 
         $html = $this->view->fetch('dr/clinic_item.twig', $data);
-        return $response->withJson(['html' => $html, 'append' => true, 'data' => $data]);
+        return $response->withJson(['html' => $html, 'append' => true]);
     }
 
     /**
-     * Add clinic
+     * Get single clinic data
      */
 
     public function getClinic($request, $response, $args)
     {
         $post = $request->getParsedBody();
-        $clinicId = $post['id'];
+        $clinicId = decrypt($post['id']);
         $docId = session('acct.id');
+        
+        $data = Clinics::where([
+            'clinic_id' => $clinicId,
+            'doctor_id' => $docId,
+        ])->first();
+
+        if (empty($data)) {
+            return $response->withJson(['err' => 'No data found']);
+        }
+
+        $data = $data->toArray();
+        $data['clinic_id'] = encrypt($data['clinic_id']);
+        $data['schedule'] = json_decode($data['schedule'], true);
+        unset($data['doctor_id']);
+        return $response->withJson($data);
+    }
+
+    /**
+     * Get single clinic data
+     */
+
+    public function updateClinic($request, $response, $args)
+    {
+        $post = $request->getParsedBody();
+        $post['clinic_id'] = decrypt($post['clinic']);
+        unset($post['clinic']);
+
+        $docId = session('acct.id');
+        $data = Clinics::updateClinic($docId, $post);
+
+        if (!empty($data['err'])) {
+            return $response->withJson($data);
+        }
+
+        $html = $this->view->fetch('dr/clinic_item.twig', $data);
+        return $response->withJson(['html' => $html]);
     }
 }
