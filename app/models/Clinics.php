@@ -103,6 +103,11 @@ class Clinics extends Eloquent
 
 		$data['schedule'] = json_encode($sched);
 		$data['doctor_id'] = $docId;
+
+		if (Clinics::where($data)->exists()) {
+			return ['err' => 'Clinic data already exists'];
+		}
+
 		$clinicId = $data['clinic_id'];
 		$clinic = Clinics::where('clinic_id', $clinicId)->first();
 

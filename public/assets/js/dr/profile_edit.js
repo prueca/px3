@@ -196,7 +196,6 @@ $(function(){
 
 			$('#clinic-modal').fadeIn();
 			$('#clinic-form').prop('action', config.baseUrl + '/d/clinic/update');
-			$.toast('Your profile has been updated');
 		});
 	});
 
@@ -255,7 +254,7 @@ $(function(){
 					alert(data.err);
 				} else {
 					$(data.html).insertBefore(input_wrapper);
-					alert('Profile updated successfully');
+					$.toast('Your profile has been updated');
 					input.val('');
 				}
 			});
@@ -283,7 +282,7 @@ $(function(){
 					alert(data.err);
 				} else {
 					listItem.replaceWith(data.html);
-					alert('Profile updated successfully');
+					$.toast('Your profile has been updated');
 				}
 			});
 		}
@@ -309,7 +308,7 @@ $(function(){
 					alert(data.err);
 				} else {
 					listItem.remove();
-					alert('Profile updated successfully');
+					$.toast('Your profile has been updated');
 				}
 			});
 		}
