@@ -245,7 +245,7 @@ $(function(){
 		var type = $(this).data('type');
 
 		if (type && value) {
-			var input_wrapper = $(this).parent();
+			var inputWrapper = $(this).parent();
 			config.ajax.url = config.baseUrl + '/d/meta/add';
 			config.ajax.data = { type: type, value: value };
 
@@ -253,7 +253,7 @@ $(function(){
 				if (data.err) {
 					alert(data.err);
 				} else {
-					$(data.html).insertBefore(input_wrapper);
+					$(data.html).insertBefore(inputWrapper);
 					$.toast('Your profile has been updated');
 					input.val('');
 				}

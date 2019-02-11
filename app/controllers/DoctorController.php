@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
+use \Illuminate\Database\Capsule\Manager as DB;
 use \App\Models\Doctors;
 use \App\Models\Clinics;
 
@@ -251,5 +252,37 @@ class DoctorController
         ])->delete();
 
         return $response->withJson(['succ' => $succ]);
+    }
+
+    /**
+     * Add meta: condition, service, affiliate
+     */
+
+    public function addMeta($request, $response, $args)
+    {
+        $post = $request->getParsedBody();
+        $docId = session('acct.id');
+        $data = [
+            'doctor_id' => $docId,
+            'meta_key' => $post['type'],
+            'meta_value' => $post['value'],
+        ];
+
+        $dataExists = DB::table('DoctorMeta')
+        ->where($data)
+        ->exists();
+
+        if ($dataExists) {
+            return $response->withJson(['err' => 'Data already exists']);
+        }
+
+        $meta = DB::table('DoctorMeta')->insert($data);
+
+        if (empty($meta)) {
+            return $response->withJson(['err' => 'Data insertion failed']);
+        }
+
+        $html = $this->view->fetch('dr/list_item.twig', $meta);
+        return $response->withJson(['html' => $html]);
     }
 }
