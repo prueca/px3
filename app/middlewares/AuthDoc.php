@@ -2,7 +2,7 @@
 
 namespace App\Middlewares;
 
-use Illuminate\Database\Capsule\Manager as DB;
+use \Illuminate\Database\Capsule\Manager as DB;
 
 class AuthDoc
 {
