@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model as Eloquent;
-use Illuminate\Database\Capsule\Manager as DB;
+use \Illuminate\Database\Eloquent\Model as Eloquent;
+use \Illuminate\Database\Capsule\Manager as DB;
 use \App\Models\Clinics;
 
 class Doctors extends Eloquent

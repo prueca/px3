@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model as Eloquent;
-use App\Models\Accounts;
-use App\Models\Clinics;
+use \Illuminate\Database\Eloquent\Model as Eloquent;
+use \App\Models\Accounts;
+use \App\Models\Clinics;
 
 class Appointments extends Eloquent
 {
