@@ -269,11 +269,7 @@ class DoctorController
             'meta_value' => $post['value'],
         ];
 
-        $dataExists = DB::table('DoctorMeta')
-        ->where($data)
-        ->exists();
-
-        if ($dataExists) {
+        if (DB::table('DoctorMeta')->where($data)->exists()) {
             return $response->withJson(['err' => 'Data already exists']);
         }
 
@@ -297,11 +293,7 @@ class DoctorController
             'meta_value' => $post['val'],
         ];
 
-        $dataExists = DB::table('DoctorMeta')
-        ->where($data)
-        ->exists();
-
-        if ($dataExists) {
+        if (DB::table('DoctorMeta')->where($data)->exists()) {
             return $response->withJson(['err' => 'Data already exists']);
         }
 
@@ -333,11 +325,8 @@ class DoctorController
         $post = $request->getParsedBody();
         $docId = session('acct.id');
         $metaId = decrypt($post['id']);
-        $dataExists = DB::table('DoctorMeta')
-        ->where('meta_id', $metaId)
-        ->exists();
 
-        if (!$dataExists) {
+        if (!DB::table('DoctorMeta')->where('meta_id', $metaId)->exists()) {
             return $response->withJson(['err' => 'Data not found']);
         }
 
