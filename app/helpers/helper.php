@@ -230,6 +230,10 @@ function isEmail(string $str)
 
 function getPagination(int $itemCount, int $page)
 {
+	if ($itemCount == 0) {
+		return null;
+	}
+
 	$itemPerPage = 10;
 	$btnPerPage = 5;
 	$btnCount = ceil($itemCount / $itemPerPage);
