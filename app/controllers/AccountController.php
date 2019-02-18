@@ -327,4 +327,23 @@ class AccountController
     	$data = Accounts::updateAcct($acctId, $post);
     	return $response->withJson($data);
     }
+
+    /**
+     * View appointment details
+     */
+
+    public function viewAppt($request, $response, $args)
+    {
+    	$apptId = $args['appt'];
+		$appt = Appointments::fetchAppt($apptId);
+
+		if (empty($appt)) {
+			return $response->withJson(['err' => 'Invalid code']);
+		}
+		
+		$this->view->render($response, 'acct/view_appt.twig', [
+			'appt' => $appt,
+			'css' => [url('/assets/css/acct/view_appt.css')],
+		]);
+    }
 }

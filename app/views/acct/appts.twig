@@ -1,9 +1,12 @@
 {% if appts %}
 	{% for data in appts %}
 		<div class="list-item">
+			<div>
+				{% set apptId = data['appointment_id'] %}
+				<a href="{{ app.baseUrl ~ '/view/' ~ apptId }}">{{ apptId }}</a>
+			</div>
 			<div>{{ data['doctor'] }}</div>
 			<div>{{ data['clinic'] }}</div>
-			<div>{{ data['status'] }}</div>
 			<div>{{ data['schedule'] }}</div>
 		</div>
 	{% endfor %}

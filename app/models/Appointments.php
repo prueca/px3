@@ -35,7 +35,6 @@ class Appointments extends Eloquent
 			'a.appointment_id',
 			'a.clinic_id',
 			'a.schedule',
-			'a.status',
 			'c.name as clinic',
 			'd.first_name',
 			'd.middle_name',
@@ -52,16 +51,21 @@ class Appointments extends Eloquent
 		$result = $query->limit(10)->offset($offset)
 		->join('Clinics as c', 'c.clinic_id', '=', 'a.clinic_id')
 		->join('Doctors as d', 'd.doctor_id', '=', 'c.doctor_id')
-		->get();
+		->get()
+		->toArray();
+
+		$salt = session('acct.token');
+		$char = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+		$hashids = new \Hashids\Hashids($salt, 8, $char);
 
 		foreach ($result as $i => $data) {
 			$fname = $data['first_name'];
 			$mname = $data['middle_name'];
 			$lname = $data['last_name'];
-			$doc = formatName($fname, $mname, $lname);
 			$sched = date('l, F d, Y', strtotime($data['schedule']));
-			$result[$i]['schedule'] = $sched;
-			$result[$i]['doctor'] = $doc;
+			$result[$i]['schedule'] = date('l, F d, Y', strtotime($data['schedule']));
+			$result[$i]['doctor'] = formatName($fname, $mname, $lname);
+			$result[$i]['appointment_id'] = $hashids->encode($data['appointment_id']);
 
 			unset(
 				$result[$i]['first_name'],

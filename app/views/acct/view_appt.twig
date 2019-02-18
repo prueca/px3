@@ -3,35 +3,37 @@
 {% block content %}
 <div class="center">
     <div id="section-1">
-    	<div class="progress">
-			<div class="active">
-				<div class="step-icon">
-					<i class="fas fa-user-md"></i>
+    	{% if appt.status|lower == 'booked' %}
+	    	<div class="progress">
+				<div class="active">
+					<div class="step-icon">
+						<i class="fas fa-user-md"></i>
+					</div>
+					<div class="step-desc">
+						<div class="step-no">Step 1</div>
+						Find a doctor
+					</div>
 				</div>
-				<div class="step-desc">
-					<div class="step-no">Step 1</div>
-					Find a doctor
+				<div class="active">
+					<div class="step-icon">
+						<i class="fas fa-check"></i>
+					</div>
+					<div class="step-desc">
+						<div class="step-no">Step 2</div>
+						Confirmation
+					</div>
+				</div>
+				<div class="">
+					<div class="step-icon">
+						<i class="fas fa-credit-card"></i>
+					</div>
+					<div class="step-desc">
+						<div class="step-no">Step 3</div>
+						Payment
+					</div>
 				</div>
 			</div>
-			<div class="active">
-				<div class="step-icon">
-					<i class="fas fa-check"></i>
-				</div>
-				<div class="step-desc">
-					<div class="step-no">Step 2</div>
-					Confirmation
-				</div>
-			</div>
-			<div class="">
-				<div class="step-icon">
-					<i class="fas fa-credit-card"></i>
-				</div>
-				<div class="step-desc">
-					<div class="step-no">Step 3</div>
-					Payment
-				</div>
-			</div>
-		</div>
+		{% endif %}
 		<div class="appt-no">
 			<label>Appointment No.</label>
 			<div>{{ appt.appointment_id }}</div>
@@ -103,10 +105,12 @@
 	<div id="section-4">
 		<input type="hidden" name="doctor" value="{{ appt.doctor_id }}">
 		<input type="hidden" name="appointment" value="{{ appt.appointment_id }}">
-		<a class="btn proceed" href="{{ app.baseUrl~'/payment' }}">Proceed to Payment</a>
-		<a class="edit-details toggle-modal" href="#" data-modal="#modal-book">
-			<i class="fas fa-fw fa-edit"></i> Edit Details
-		</a>
+		{% if appt.status|lower == 'booked' %}
+			<a class="btn proceed" href="{{ app.baseUrl~'/payment' }}">Proceed to Payment</a>
+			<a class="edit-details toggle-modal" href="#" data-modal="#modal-book">
+				<i class="fas fa-fw fa-edit"></i> Edit Details
+			</a>
+		{% endif%}
 		<a class="cancel" href="{{ app.baseUrl~'/cancelappt' }}">
 			<i class="fas fa-fw fa-user-slash"></i> Cancel Booking
 		</a>

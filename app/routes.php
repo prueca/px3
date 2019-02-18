@@ -35,6 +35,7 @@ $app->group('', function (\Slim\App $app) use ($ci) {
 	$app->post('/matcharea', 'AccountController:matchArea');
 	$app->post('/matchdoc', 'AccountController:matchDoc');
 	$app->post('/getappts', 'AccountController:getAppts');
+	$app->get('/view/{appt}', 'AccountController:viewAppt');
 	$app->get('/myaccount/edit', 'AccountController:editAcct');
 	$app->get('/confirm/{appt}', 'AccountController:confirmAppt');
 	$app->get('/search', 'AccountController:search');

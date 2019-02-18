@@ -52,13 +52,22 @@
 					{% endif %}
 				</div>
 			</div>
+			<div class="column-list">
+				<div><i class="fas fa-fw fa-link"></i> Appointment No.</div>
+				<div><i class="fas fa-fw fa-user-md"></i> Doctor</div>
+				<div><i class="fas fa-fw fa-map-marker-alt"></i> Clinic</div>
+				<div><i class="fas fa-fw fa-calendar-alt"></i> Schedule</div>
+			</div>
 			<div class="list">
 				{% if appts %}
 					{% for data in appts %}
 						<div class="list-item">
+							<div>
+								{% set apptId = data['appointment_id'] %}
+								<a href="{{ app.baseUrl ~ '/view/' ~ apptId }}">{{ apptId }}</a>
+							</div>
 							<div>{{ data['doctor'] }}</div>
 							<div>{{ data['clinic'] }}</div>
-							<div>{{ data['status'] }}</div>
 							<div>{{ data['schedule'] }}</div>
 						</div>
 					{% endfor %}
