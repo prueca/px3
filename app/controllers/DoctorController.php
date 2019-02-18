@@ -217,7 +217,7 @@ class DoctorController
     }
 
     /**
-     * Get single clinic data
+     * Update clinic
      */
 
     public function updateClinic($request, $response, $args)
