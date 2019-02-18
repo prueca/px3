@@ -279,7 +279,7 @@ $(function(){
 
 			$.ajax(config.ajax).done(function(data){
 				if (data.err) {
-					alert(data.err);
+					$.toast(data.err, 'err');
 				} else {
 					listItem.replaceWith(data.html);
 					$.toast('Your profile has been updated');

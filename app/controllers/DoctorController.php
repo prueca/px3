@@ -129,6 +129,7 @@ class DoctorController
 
                 foreach ($arr as $k => $v) {
                     $v['meta_id'] = encrypt($v['meta_id']);
+                    $v['meta_key'] = $type;
                     $htmlMeta[$type] .= $this->view->fetch('dr/list_item.twig', $v);
                 }
             }
@@ -283,6 +284,47 @@ class DoctorController
         }
 
         $html = $this->view->fetch('dr/list_item.twig', $meta);
+        return $response->withJson(['html' => $html]);
+    }
+
+    /**
+     * Update meta: condition, service, affiliate
+     */
+
+    public function updateMeta($request, $response, $args)
+    {
+        $post = $request->getParsedBody();
+        $docId = session('acct.id');
+        $data = [
+            'doctor_id' => $docId,
+            'meta_key' => $post['type'],
+            'meta_value' => $post['val'],
+        ];
+
+        $dataExists = DB::table('DoctorMeta')
+        ->where($data)
+        ->exists();
+
+        if ($dataExists) {
+            return $response->withJson(['err' => 'Data already exists']);
+        }
+
+        $metaId = decrypt($post['id']);
+        $metaVal = $post['val'];
+        $metaKey = $post['type'];
+
+        DB::table('DoctorMeta')
+        ->where('meta_id', $metaId)
+        ->update(['meta_value' => $metaVal]);
+
+        $metaId = encrypt($metaId);
+        $html = $this->view->fetch('dr/list_item.twig', [
+            'meta_id' => $metaId,
+            'meta_value' => $metaVal,
+            'meta_key' => $metaKey,
+            'doctor_id' => $metaVal,
+        ]);
+
         return $response->withJson(['html' => $html]);
     }
 }

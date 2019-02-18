@@ -5,6 +5,7 @@
  */
 
 $app->group('', function (\Slim\App $app) use ($ci) {
+	$app->post('/d/meta/update', 'DoctorController:updateMeta');
 	$app->post('/d/meta/add', 'DoctorController:addMeta');
 	$app->post('/d/clinic/delete', 'DoctorController:deleteClinic');
 	$app->post('/d/clinic/update', 'DoctorController:updateClinic');
