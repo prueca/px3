@@ -251,7 +251,7 @@ $(function(){
 
 			$.ajax(config.ajax).done(function(data){
 				if (data.err) {
-					alert(data.err);
+					$.toast(data.err, 'err');
 				} else {
 					$(data.html).insertBefore(inputWrapper);
 					$.toast('Your profile has been updated');
@@ -305,7 +305,7 @@ $(function(){
 
 			$.ajax(config.ajax).done(function(data){
 				if (data.err) {
-					alert(data.err);
+					$.toast(data.err, 'err');
 				} else {
 					listItem.remove();
 					$.toast('Your profile has been updated');

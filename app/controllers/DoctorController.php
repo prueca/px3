@@ -277,13 +277,9 @@ class DoctorController
             return $response->withJson(['err' => 'Data already exists']);
         }
 
-        $meta = DB::table('DoctorMeta')->insert($data);
-
-        if (empty($meta)) {
-            return $response->withJson(['err' => 'Data insertion failed']);
-        }
-
-        $html = $this->view->fetch('dr/list_item.twig', $meta);
+        $metaId = DB::table('DoctorMeta')->insertGetId($data);
+        $data['meta_id'] = encrypt($metaId);
+        $html = $this->view->fetch('dr/list_item.twig', $data);
         return $response->withJson(['html' => $html]);
     }
 
@@ -326,5 +322,30 @@ class DoctorController
         ]);
 
         return $response->withJson(['html' => $html]);
+    }
+
+    /**
+     * Delete meta: condition, service, affiliate
+     */
+
+    public function delMeta($request, $response, $args)
+    {
+        $post = $request->getParsedBody();
+        $docId = session('acct.id');
+        $metaId = decrypt($post['id']);
+        $dataExists = DB::table('DoctorMeta')
+        ->where('meta_id', $metaId)
+        ->exists();
+
+        if (!$dataExists) {
+            return $response->withJson(['err' => 'Data not found']);
+        }
+
+        DB::table('DoctorMeta')->where([
+            'meta_id' => $metaId,
+            'doctor_id' => $docId,
+        ])->delete();
+
+        return $response->withJson(['succ', true]);
     }
 }

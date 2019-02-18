@@ -59,3 +59,4 @@ Feb. 11, 2019
 
 Feb. 18, 2019
 • Update meta: service, condition, affiliation
+• Delete meta: service, condition, affiliation
