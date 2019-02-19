@@ -344,6 +344,34 @@ class AccountController
 		$this->view->render($response, 'acct/view_appt.twig', [
 			'appt' => $appt,
 			'css' => [url('/assets/css/acct/view_appt.css')],
+			'js' => [url('/assets/js/acct/cancel_appt.js')],
 		]);
+    }
+
+    /**
+     * Cancel appointment
+     */
+
+    public function cancelAppt($request, $response, $args)
+    {
+    	$post = $request->getParsedBody();
+    	$salt = session('acct.token');
+		$char = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+		$hashids = new \Hashids\Hashids($salt, 8, $char);
+		$appt = $hashids->decode($post['appt']);
+
+		if (empty($appt)) {
+			return $response->withJson(['err' => 'Invalid data']);
+		}
+
+		$appt = $appt[0];
+		$query = Appointments::where('appointment_id', $appt);
+
+		if (!$query->exists()) {
+			return $response->withJson(['err' => 'No data found']);
+		}
+
+    	$query->delete();
+    	return $response->withJson(['succ' => true]);
     }
 }

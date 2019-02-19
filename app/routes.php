@@ -29,6 +29,7 @@ $app->get('/d', 'DoctorController:home')
  */
 
 $app->group('', function (\Slim\App $app) use ($ci) {
+	$app->post('/appt/cancel', 'AccountController:cancelAppt');
 	$app->post('/myaccount/update', 'AccountController:updateAcct');
 	$app->post('/book', 'AccountController:bookAppt');
 	$app->post('/getdoctor', 'AccountController:getDoctor');

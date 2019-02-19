@@ -268,7 +268,7 @@ class Appointments extends Eloquent
 		$data['clinic_hrs'] = json_decode($data['clinic_hrs'], true);
 
 		$data['appointment_id'] = $hashids->encode($apptId);
-		$data['doctor_id'] = $hashids->encode($data['doctor_id']);
+		$data['doctor_id'] = encrypt($data['doctor_id']);
 
 		unset(
 			$data['doc_fname'],

@@ -61,3 +61,6 @@ Feb. 18, 2019
 • Update meta: service, condition, affiliation
 • Delete meta: service, condition, affiliation
 • View booked appointment
+
+Feb. 19, 2019
+• Cancel appointment in view page
