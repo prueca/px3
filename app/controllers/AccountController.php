@@ -289,6 +289,7 @@ class AccountController
 		$this->view->render($response, 'acct/confirm.twig', [
 			'appt' => $appt,
 			'css' => [url('/assets/css/acct/confirm.css')],
+			'js' => [url('/assets/js/acct/cancel_appt.js')],
 		]);
     }
 
