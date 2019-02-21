@@ -103,16 +103,13 @@
     	</div>
     </div>
 	<div id="section-4">
-		<input type="hidden" name="doctor" value="{{ appt.doctor_id }}">
 		<input type="hidden" name="appointment" value="{{ appt.appointment_id }}">
 		{% if appt.status|lower == 'booked' %}
 			<a class="btn proceed" href="{{ app.baseUrl ~ '/payment' }}">Proceed to Payment</a>
 		{% endif%}
-		{% if appt.status|lower != 'cancelled' %}
-			<a class="cancel" href="{{ app.baseUrl ~ '/appt/cancel' }}">
-				<i class="fas fa-fw fa-user-slash"></i> Cancel Booking
-			</a>
-		{% endif%}
+		<a class="cancel" href="{{ app.baseUrl ~ '/d/appt/cancel' }}">
+			<i class="fas fa-fw fa-user-slash"></i> Cancel Booking
+		</a>
 	</div>
 </div>
 {% endblock %}

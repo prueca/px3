@@ -358,20 +358,26 @@ class AccountController
     	$salt = session('acct.token');
 		$char = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
 		$hashids = new \Hashids\Hashids($salt, 8, $char);
-		$appt = $hashids->decode($post['appt']);
+		$apptId = $hashids->decode($post['appt']);
 
-		if (empty($appt)) {
+		if (empty($apptId)) {
 			return $response->withJson(['err' => 'Invalid data']);
 		}
 
-		$appt = $appt[0];
-		$query = Appointments::where('appointment_id', $appt);
+		$apptId = $apptId[0];
+		$appt = Appointments::find($apptId);
 
-		if (!$query->exists()) {
+		if (empty($appt)) {
 			return $response->withJson(['err' => 'No data found']);
 		}
 
-    	$query->delete();
+    	if ($appt->status == 'booked') {
+    		$appt->delete();
+    	} else {
+    		$appt->status = 'Cancelled';
+    		$appt->save();
+    	}
+
     	return $response->withJson(['succ' => true]);
     }
 }

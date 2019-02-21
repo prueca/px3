@@ -5,6 +5,7 @@
  */
 
 $app->group('', function (\Slim\App $app) use ($ci) {
+	$app->post('/d/appt/cancel', 'DoctorController:cancelAppt');
 	$app->post('/d/getappts', 'DoctorController:getAppts');
 	$app->post('/d/meta/delete', 'DoctorController:delMeta');
 	$app->post('/d/meta/update', 'DoctorController:updateMeta');
@@ -15,6 +16,7 @@ $app->group('', function (\Slim\App $app) use ($ci) {
 	$app->post('/d/clinic/add', 'DoctorController:addClinic');
 	$app->post('/d/update/spec', 'DoctorController:updateSpec');
 	$app->post('/d/myaccount/update', 'DoctorController:updateAcct');
+	$app->get('/d/view/{appt}', 'DoctorController:viewAppt');
 	$app->get('/d/appts', 'DoctorController:appointments');
 	$app->get('/d/profile/edit', 'DoctorController:editProfile');
 	$app->get('/d/myaccount/edit', 'DoctorController:editAcct');

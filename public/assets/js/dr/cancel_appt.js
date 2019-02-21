@@ -1,7 +1,7 @@
 $(function(){
 	$('#section-4 .cancel').click(function(e){
 		e.preventDefault();
-		
+
 		var appt = $('input[type="hidden"][name="appointment"]').val();
 		var url = $(this).prop('href');
 		
@@ -12,7 +12,7 @@ $(function(){
 			if (data.err) {
 				$.toast(data.err, 'err');
 			} else {
-				window.location.href = config.baseUrl + '/myaccount';
+				window.location.href = config.baseUrl + '/d/appts';
 			}
 		});
 	});

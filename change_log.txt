@@ -68,3 +68,5 @@ Feb. 19, 2019
 
 Feb. 21, 2019
 • Doctor's appointments page
+• View appointment by doctor
+• Cancel appointment by doctor

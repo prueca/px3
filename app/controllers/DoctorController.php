@@ -379,4 +379,53 @@ class DoctorController
         $data['pagination'] = $this->view->fetch('dr/pagination.twig', ['pagination' => $pagination, 'active' => $page]);
         return $response->withJson($data);
     }
+
+    /**
+     * View appointment details
+     */
+
+    public function viewAppt($request, $response, $args)
+    {
+        $apptId = $args['appt'];
+        $appt = Appointments::fetchAppt($apptId);
+
+        if (empty($appt)) {
+            return $response->withJson(['err' => 'Invalid code']);
+        }
+        
+        $this->view->render($response, 'dr/view_appt.twig', [
+            'appt' => $appt,
+            'css' => [url('/assets/css/dr/view_appt.css')],
+            'js' => [url('/assets/js/dr/cancel_appt.js')],
+        ]);
+    }
+
+    /**
+     * Cancel appointment
+     */
+
+    public function cancelAppt($request, $response, $args)
+    {
+        $post = $request->getParsedBody();
+        $salt = session('acct.token');
+        $char = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+        $hashids = new \Hashids\Hashids($salt, 8, $char);
+        $apptId = $hashids->decode($post['appt']);
+
+        if (empty($apptId)) {
+            return $response->withJson(['err' => 'Invalid data']);
+        }
+
+        $apptId = $apptId[0];
+        $appt = Appointments::find($apptId);
+
+        if (empty($appt)) {
+            return $response->withJson(['err' => 'No data found']);
+        }
+
+        $appt->status = 'Cancelled';
+        $appt->save();
+
+        return $response->withJson(['succ' => true]);
+    }
 }
