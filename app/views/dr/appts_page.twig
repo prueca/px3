@@ -1,0 +1,57 @@
+{% extends 'templates/master.twig' %}
+
+{% block content %}
+	<div class="center">
+		<div id="section-1">
+			<div class="action-forms">
+				<div class="filter input-wrapper">
+					<input type="hidden" name="filter" value="all">
+					<select>
+						<option value="all">All appointments</option>
+						<option value="booked">Booked appointments</option>
+						<option value="settled">Settled appointments</option>
+						<option value="done">Appointments done</option>
+						<option value="cancelled">Appointments cancelled</option>
+					</select>
+				</div>
+				<div class="pagination">
+					{% if pagination %}
+						{% for pg, btn in pagination %}
+							{% set class = (btn == active ? 'page active' : 'page') %}
+							<a class="{{ class }}" data-page={{ pg }} href="#">{{ btn }}</a>
+						{% endfor %}
+					{% endif %}
+				</div>
+			</div>
+			<div class="column-list">
+				<div><i class="fas fa-fw fa-link"></i> Appointment No.</div>
+				<div><i class="fas fa-fw fa-user"></i> Patient</div>
+				<div><i class="fas fa-fw fa-map-marker-alt"></i> Clinic</div>
+				<div><i class="fas fa-fw fa-calendar-alt"></i> Schedule</div>
+			</div>
+			<div class="list">
+				{% if appts %}
+					{% for data in appts %}
+						<div class="list-item">
+							<div>
+								{% set apptId = data['appointment_id'] %}
+								<a href="{{ app.baseUrl ~ '/view/' ~ apptId }}">{{ apptId }}</a>
+							</div>
+							<div>{{ data['patient'] }}</div>
+							<div>{{ data['clinic'] }}</div>
+							<div>{{ data['schedule'] }}</div>
+						</div>
+					{% endfor %}
+				{% endif %}
+			</div>
+			<div class="pagination">
+				{% if pagination %}
+					{% for pg, btn in pagination %}
+						{% set class = (btn == active ? 'page active' : 'page') %}
+						<a class="{{ class }}" data-page={{ pg }} href="#">{{ btn }}</a>
+					{% endfor %}
+				{% endif %}
+			</div>
+		</div>
+	</div>
+{% endblock %}

@@ -29,7 +29,7 @@ class Appointments extends Eloquent
 	 * Get all booked appointments for logged in patient
 	 */
 
-	public static function getAppts(int $acctId, $offset = 0, string $stat = 'all')
+	public static function getAppts(int $acctId, int $offset = 0, string $stat = 'all')
 	{
 		$query = Appointments::select(
 			'a.appointment_id',
@@ -51,8 +51,11 @@ class Appointments extends Eloquent
 		$result = $query->limit(10)->offset($offset)
 		->join('Clinics as c', 'c.clinic_id', '=', 'a.clinic_id')
 		->join('Doctors as d', 'd.doctor_id', '=', 'c.doctor_id')
-		->get()
-		->toArray();
+		->get();
+
+		if (!$result->isEmpty()) {
+			$result = $result->toArray();
+		}
 
 		$salt = session('acct.token');
 		$char = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
@@ -289,5 +292,61 @@ class Appointments extends Eloquent
 		);
 
 		return $data;
+	}
+
+	/**
+	 * Get appointments for logged in doctor
+	 */
+
+	public function listAppts(int $docId, int $offset = 0, string $stat = 'all')
+	{
+		$query = Appointments::select(
+			'a.appointment_id',
+			'a.clinic_id',
+			'a.schedule',
+			'c.name as clinic',
+			'a.first_name',
+			'a.middle_name',
+			'a.last_name'
+		)
+		->from('Appointments as a');
+
+		if (strtolower($stat) != 'all') {
+			$query->where('a.status', $stat);
+		}
+
+		$query = $query->join('Clinics as c', 'c.clinic_id', '=', 'a.clinic_id')
+		->join('Doctors as d', 'd.doctor_id', '=', 'c.doctor_id')
+		->where('d.doctor_id', $docId);
+
+		$total = $query->count();
+		$result = $query->limit(10)->offset($offset)->get();
+
+		if ($result->isNotEmpty()) {
+			$result = $result->toArray();
+		}
+
+		$salt = session('acct.token');
+		$char = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+		$hashids = new \Hashids\Hashids($salt, 8, $char);
+
+		foreach ($result as $i => $data) {
+			$fname = $data['first_name'];
+			$mname = $data['middle_name'];
+			$lname = $data['last_name'];
+			$sched = date('l, F d, Y', strtotime($data['schedule']));
+			$result[$i]['schedule'] = date('l, F d, Y', strtotime($data['schedule']));
+			$result[$i]['patient'] = formatName($fname, $mname, $lname);
+			$result[$i]['appointment_id'] = $hashids->encode($data['appointment_id']);
+
+			unset(
+				$result[$i]['first_name'],
+				$result[$i]['middle_name'],
+				$result[$i]['last_name']
+			);
+		}
+
+		$result['total'] = $total;
+		return $result;
 	}
 }

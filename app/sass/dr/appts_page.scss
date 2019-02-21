@@ -1,0 +1,146 @@
+@import '../variables.scss';
+
+#section-1 {
+	margin-top: 30px;
+
+	.column-list {
+		display: none;
+		padding: 15px;
+		column-count: 4;
+		border-radius: 4px;
+		background: #aaa;
+		font-weight: bold;
+		color: #fff;
+
+		div {
+			border-radius: 4px;
+		}
+	}
+
+	.list .list-item {
+		margin-bottom: 30px;
+		padding: 15px;
+		border-radius: 4px;
+		box-shadow: $shadow;
+		line-height: 1.6em;
+
+		.book-code {
+			font-weight: bold;
+
+			& ~ div {
+				font-size: 0.9em;
+			}
+		}
+
+		> div:first-child {
+			font-weight: bold;
+		}
+	}
+
+	.pagination {
+		display: block;
+		margin-bottom: 15px;
+		text-align: center;
+
+		a {
+			margin: 0 6px;
+			padding: 2px 6px 1px;
+			display: inline-block;
+			border-radius: 4px;
+			border-bottom: 2px solid #ddd;
+			background: #eee;
+			font-size: 0.85em;
+			color: #aaa;
+
+			&.active {
+				color: #fff;
+				background: #aaa;
+				border-bottom: 2px solid #888;
+			}
+
+			&:hover {
+				text-decoration: none;
+			}
+		}
+	}
+}
+
+@media (min-width: 520px) {
+	#section-1 {
+		.action-forms {
+			margin-bottom: 15px;
+
+			&:after {
+				content: '';
+				display: block;
+				clear: both;
+			}
+
+			.filter {
+				margin-top: 0;
+				margin-bottom: 0;
+				width: auto;
+				float: left;
+			}
+		}
+
+		.pagination {
+			float: right;
+			text-align: right;
+		}
+	}
+}
+
+@media (min-width: 640px) {
+	#section-1 .list .list-item .book-code ~ div {
+		width: 30%;
+		margin-right: 20px;
+		display: inline-block;
+		vertical-align: top;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		overflow: hidden;
+
+		&:last-child {
+			margin-right: 0;
+		}
+	}
+}
+
+@media (min-width: 768px) {
+	#section-1 {
+		.column-list {
+			display: block;
+		}
+
+		.list {
+			column-count: initial;
+
+			.list-item {
+				margin-bottom: 0;
+				border: none;
+				box-shadow: none;
+				column-count: 4;
+
+				&:nth-child(even) {
+					background: #eee;
+				}
+
+				div {
+					white-space: nowrap;
+					text-overflow: ellipsis;
+					overflow: hidden;
+				}
+
+				.book-code ~ div {
+					width: auto;
+					display: block;
+				}
+			}
+		}
+
+		.pagination {
+			margin-top: 15px;
+		}
+	}
+}

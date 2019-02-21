@@ -7,6 +7,7 @@ use \Psr\Http\Message\ResponseInterface as Response;
 use \Illuminate\Database\Capsule\Manager as DB;
 use \App\Models\Doctors;
 use \App\Models\Clinics;
+use \App\Models\Appointments;
 
 class DoctorController
 {
@@ -336,5 +337,46 @@ class DoctorController
         ])->delete();
 
         return $response->withJson(['succ', true]);
+    }
+
+    /**
+     * Appointments page
+     */
+
+    public function appointments($request, $response, $args)
+    {
+        $docId = session('acct.id');
+        $apptsArr = Appointments::listAppts($docId);
+        $pagination = getPagination($apptsArr['total'], 1);
+        unset($apptsArr['total']);
+
+        $this->view->render($response, 'dr/appts_page.twig', [
+            'appts' => $apptsArr,
+            'pagination' => $pagination,
+            'active' => 1,
+            'css' => [url('/assets/css/dr/appts_page.css')],
+            'js' => [url('/assets/js/dr/appts_page.js')],
+        ]);
+    }
+
+    /**
+     * Get appointments
+     */
+
+    public function getAppts($request, $response, $args)
+    {
+        $post = $request->getParsedBody();
+        $acctId = session('acct.id');
+        $page = (int) $post['page'];
+        $offset = ($page - 1) * 10;
+        $stat = $post['filter'];
+
+        $apptsArr = Appointments::listAppts($acctId, $offset, $stat);
+        $pagination = getPagination($apptsArr['total'], $page);
+        unset($apptsArr['total']);
+
+        $data['appts'] = $this->view->fetch('dr/appts.twig', ['appts' => $apptsArr]);
+        $data['pagination'] = $this->view->fetch('dr/pagination.twig', ['pagination' => $pagination, 'active' => $page]);
+        return $response->withJson($data);
     }
 }

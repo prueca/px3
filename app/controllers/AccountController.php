@@ -30,7 +30,6 @@ class AccountController
 	{
 		// active account data
 		$acctId = session('acct.id');
-		$acctName = session('acct.name');
 		$col = ['birthdate', 'gender', 'photo', 'reward_points'];
 		$acct = Accounts::select($col)->where('account_id', $acctId)->first();
 		$acct->age = calcAge($acct->birthdate);

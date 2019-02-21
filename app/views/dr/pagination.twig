@@ -1,0 +1,6 @@
+{% if pagination %}
+	{% for pg, btn in pagination %}
+		{% set class = (btn == active ? 'page active' : 'page') %}
+		<a class="{{ class }}" data-page={{ pg }} href="#">{{ btn }}</a>
+	{% endfor %}
+{% endif %}
