@@ -3,40 +3,9 @@
 {% block content %}
 <div class="center">
     <div id="section-1">
-    	{% if appt.status|lower == 'booked' %}
-	    	<div class="progress">
-				<div class="active">
-					<div class="step-icon">
-						<i class="fas fa-user-md"></i>
-					</div>
-					<div class="step-desc">
-						<div class="step-no">Step 1</div>
-						Find a doctor
-					</div>
-				</div>
-				<div class="active">
-					<div class="step-icon">
-						<i class="fas fa-check"></i>
-					</div>
-					<div class="step-desc">
-						<div class="step-no">Step 2</div>
-						Confirmation
-					</div>
-				</div>
-				<div class="">
-					<div class="step-icon">
-						<i class="fas fa-credit-card"></i>
-					</div>
-					<div class="step-desc">
-						<div class="step-no">Step 3</div>
-						Payment
-					</div>
-				</div>
-			</div>
-		{% endif %}
-		<div class="appt-no">
-			<label>Appointment No.</label>
-			<div>{{ appt.appointment_id }}</div>
+		<div class="ref-no">
+			<label>Reference No.</label>
+			<div>{{ appt.reference_no }}</div>
 		</div>
     </div>
     <div id="section-2">
@@ -103,10 +72,7 @@
     	</div>
     </div>
 	<div id="section-4">
-		<input type="hidden" name="appointment" value="{{ appt.appointment_id }}">
-		{% if appt.status|lower == 'booked' %}
-			<a class="btn proceed" href="{{ app.baseUrl ~ '/payment' }}">Proceed to Payment</a>
-		{% endif%}
+		<input type="hidden" name="appt" value="{{ appt.appointment_id }}">
 		<a class="cancel" href="{{ app.baseUrl ~ '/d/appt/cancel' }}">
 			<i class="fas fa-fw fa-user-slash"></i> Cancel Booking
 		</a>

@@ -261,10 +261,9 @@ class AccountController
     {
     	$post = $request->getParsedBody();
     	$acctId = session('acct.id');
-    	$uploadedFiles = $request->getUploadedFiles();
-    	$photo = $uploadedFiles['photo'];
+    	$files = $request->getUploadedFiles();
 
-    	if ($photo->getError() === UPLOAD_ERR_OK) {
+    	if (isset($files['photo']) && $files['photo']->getError() === UPLOAD_ERR_OK) {
     		$post['photo'] = $photo;
     	}
 
@@ -278,8 +277,8 @@ class AccountController
 
     public function confirmAppt($request, $response, $args)
     {
-    	$apptId = $args['appt'];
-		$appt = Appointments::fetchAppt($apptId);
+    	$refNo = $args['appt'];
+		$appt = Appointments::fetchAppt($refNo);
 
 		if (empty($appt)) {
 			return $response->withJson(['err' => 'Invalid code']);
@@ -334,8 +333,8 @@ class AccountController
 
     public function viewAppt($request, $response, $args)
     {
-    	$apptId = $args['appt'];
-		$appt = Appointments::fetchAppt($apptId);
+    	$refNo = $args['appt'];
+		$appt = Appointments::fetchAppt($refNo);
 
 		if (empty($appt)) {
 			return $response->withJson(['err' => 'Invalid code']);
@@ -355,23 +354,14 @@ class AccountController
     public function cancelAppt($request, $response, $args)
     {
     	$post = $request->getParsedBody();
-    	$salt = session('acct.token');
-		$char = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-		$hashids = new \Hashids\Hashids($salt, 8, $char);
-		$apptId = $hashids->decode($post['appt']);
-
-		if (empty($apptId)) {
-			return $response->withJson(['err' => 'Invalid data']);
-		}
-
-		$apptId = $apptId[0];
-		$appt = Appointments::find($apptId);
+		$apptId = decrypt($post['appt']);
+		$appt = Appointments::find($apptId)->first();
 
 		if (empty($appt)) {
 			return $response->withJson(['err' => 'No data found']);
 		}
 
-    	if ($appt->status == 'booked') {
+    	if ($appt->status == 'Booked') {
     		$appt->delete();
     	} else {
     		$appt->status = 'Cancelled';

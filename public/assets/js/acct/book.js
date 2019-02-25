@@ -275,7 +275,7 @@ $(function(){
 			if (data.err) {
 				$.toast(data.err, 'err');
 			} else {
-				window.location.href = config.baseUrl + '/confirm/' + data.appt;
+				window.location.href = config.baseUrl + '/confirm/' + data.refNo;
 			}
 		});
 	});

@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.4
+-- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 01, 2019 at 05:13 PM
--- Server version: 10.1.29-MariaDB
--- PHP Version: 7.2.0
+-- Generation Time: Feb 25, 2019 at 06:26 AM
+-- Server version: 10.1.38-MariaDB
+-- PHP Version: 7.3.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,16 +19,16 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `PX3`
+-- Database: `px3`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `Accounts`
+-- Table structure for table `accounts`
 --
 
-CREATE TABLE `Accounts` (
+CREATE TABLE `accounts` (
   `account_id` int(10) UNSIGNED NOT NULL,
   `email_address` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -45,21 +45,22 @@ CREATE TABLE `Accounts` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `Accounts`
+-- Dumping data for table `accounts`
 --
 
-INSERT INTO `Accounts` (`account_id`, `email_address`, `password`, `first_name`, `middle_name`, `last_name`, `gender`, `address`, `contact_number`, `birthdate`, `photo`, `reward_points`, `access_token`) VALUES
-(1, 'peterrueca@yahoo.com', '$2y$10$OX6Z6Nf80NEUJhxNXBsyMuroJkXZ1YyM/8zuH2kZOp5wE.taLDt0e', 'Peter John', 'Resoles', 'Rueca', 'M', 'C5-Quirino, Nova., Quezon City', '0916-872-8941', '1993-06-21', 'storage/account/ZPe1Yeyo/420e390f458b732f5164277d392bd2c7.png', 7, 'i5RUgO93kETIFUmjpAhkw3YrMmI4aFcwb0pwbjlQdHZrcS9heDlma0d6eXNCelNXL2kxbkRoajh3YTQ9'),
+INSERT INTO `accounts` (`account_id`, `email_address`, `password`, `first_name`, `middle_name`, `last_name`, `gender`, `address`, `contact_number`, `birthdate`, `photo`, `reward_points`, `access_token`) VALUES
+(1, 'peterrueca@yahoo.com', '$2y$10$OX6Z6Nf80NEUJhxNXBsyMuroJkXZ1YyM/8zuH2kZOp5wE.taLDt0e', 'Peter John', 'Resoles', 'Rueca', 'M', 'C5-Quirino, Nova., Quezon City', '0916-872-8941', '1993-06-21', 'storage/account/ZPe1Yeyo/420e390f458b732f5164277d392bd2c7.png', 7, '9f8e0a05b1d6688c9afaaf9dc2da6776'),
 (2, 'dummy@yahoo.com', '$2y$10$OX6Z6Nf80NEUJhxNXBsyMuroJkXZ1YyM/8zuH2kZOp5wE.taLDt0e', 'Dummy', '', 'Account', 'M', NULL, NULL, NULL, NULL, 0, '');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `Appointments`
+-- Table structure for table `appointments`
 --
 
-CREATE TABLE `Appointments` (
+CREATE TABLE `appointments` (
   `appointment_id` int(11) NOT NULL,
+  `reference_no` varchar(8) NOT NULL,
   `clinic_id` int(11) NOT NULL,
   `schedule` varchar(30) NOT NULL,
   `purpose` text NOT NULL,
@@ -71,189 +72,19 @@ CREATE TABLE `Appointments` (
   `birthdate` varchar(50) NOT NULL,
   `gender` varchar(1) NOT NULL,
   `email_address` varchar(255) NOT NULL,
+  `photo` varchar(255) NOT NULL,
   `booked_by` int(11) NOT NULL,
   `date_booked` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `status` varchar(30) NOT NULL DEFAULT 'Booked'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Dumping data for table `Appointments`
---
-
-INSERT INTO `Appointments` (`appointment_id`, `clinic_id`, `schedule`, `purpose`, `for_other`, `first_name`, `middle_name`, `last_name`, `address`, `birthdate`, `gender`, `email_address`, `booked_by`, `date_booked`, `status`) VALUES
-(6, 1, '2019-01-23', 'test', '0', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-22 19:44:27', 'Booked'),
-(8, 13, '2019-01-30', 'Testing lang &#039;to', '0', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-23 22:00:43', 'Booked'),
-(9, 97, '2019-01-30', 'Test', '0', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:11:29', 'Booked'),
-(10, 51, '2019-02-06', 'Test', '0', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:11:52', 'Booked'),
-(11, 28, '2019-02-13', 'Test', '0', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:12:53', 'Booked'),
-(12, 3, '2019-02-13', 'Test', '0', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:13:20', 'Booked'),
-(13, 11, '2019-02-20', 'Test', '0', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:13:51', 'Booked'),
-(14, 49, '2019-01-30', 'Test', '0', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:14:32', 'Booked'),
-(15, 27, '2019-02-20', 'Test', '0', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:15:04', 'Booked'),
-(16, 119, '2019-02-27', 'Test', '0', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:15:55', 'Booked'),
-(17, 75, '2019-03-06', 'Test', '0', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:17:17', 'Booked'),
-(18, 34, '2019-03-13', 'Test', '0', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:17:49', 'Booked'),
-(19, 41, '2019-02-20', 'Test', '0', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:18:17', 'Booked'),
-(20, 1, '2019-01-23', 'test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-22 19:44:27', 'Settled'),
-(21, 13, '2019-01-30', 'Testing lang &#039;to', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-23 22:00:43', 'Settled'),
-(22, 97, '2019-01-30', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:11:29', 'Settled'),
-(23, 51, '2019-02-06', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:11:52', 'Settled'),
-(24, 28, '2019-02-13', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:12:53', 'Settled'),
-(25, 3, '2019-02-13', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:13:20', 'Settled'),
-(27, 49, '2019-01-30', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:14:32', 'Settled'),
-(28, 27, '2019-02-20', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:15:04', 'Settled'),
-(29, 119, '2019-02-27', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:15:55', 'Settled'),
-(30, 75, '2019-03-06', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:17:17', 'Settled'),
-(31, 34, '2019-03-13', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:17:49', 'Settled'),
-(32, 41, '2019-02-20', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:18:17', 'Settled'),
-(35, 1, '2019-01-23', 'test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-22 19:44:27', 'Settled'),
-(36, 13, '2019-01-30', 'Testing lang &#039;to', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-23 22:00:43', 'Settled'),
-(37, 97, '2019-01-30', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:11:29', 'Settled'),
-(38, 51, '2019-02-06', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:11:52', 'Settled'),
-(39, 28, '2019-02-13', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:12:53', 'Settled'),
-(40, 3, '2019-02-13', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:13:20', 'Settled'),
-(41, 11, '2019-02-20', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:13:51', 'Settled'),
-(42, 49, '2019-01-30', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:14:32', 'Settled'),
-(43, 27, '2019-02-20', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:15:04', 'Settled'),
-(44, 119, '2019-02-27', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:15:55', 'Settled'),
-(45, 75, '2019-03-06', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:17:17', 'Settled'),
-(46, 34, '2019-03-13', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:17:49', 'Settled'),
-(47, 41, '2019-02-20', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:18:17', 'Settled'),
-(50, 1, '2019-01-23', 'test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-22 19:44:27', 'Settled'),
-(51, 13, '2019-01-30', 'Testing lang &#039;to', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-23 22:00:43', 'Settled'),
-(52, 97, '2019-01-30', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:11:29', 'Settled'),
-(53, 51, '2019-02-06', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:11:52', 'Settled'),
-(55, 3, '2019-02-13', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:13:20', 'Settled'),
-(56, 11, '2019-02-20', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:13:51', 'Settled'),
-(57, 49, '2019-01-30', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:14:32', 'Settled'),
-(58, 27, '2019-02-20', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:15:04', 'Settled'),
-(59, 119, '2019-02-27', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:15:55', 'Settled'),
-(61, 34, '2019-03-13', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:17:49', 'Settled'),
-(62, 41, '2019-02-20', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:18:17', 'Settled'),
-(66, 13, '2019-01-30', 'Testing lang &#039;to', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-23 22:00:43', 'Settled'),
-(67, 97, '2019-01-30', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:11:29', 'Settled'),
-(68, 51, '2019-02-06', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:11:52', 'Settled'),
-(69, 28, '2019-02-13', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:12:53', 'Settled'),
-(70, 3, '2019-02-13', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:13:20', 'Settled'),
-(71, 11, '2019-02-20', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:13:51', 'Settled'),
-(72, 49, '2019-01-30', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:14:32', 'Settled'),
-(73, 27, '2019-02-20', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:15:04', 'Settled'),
-(74, 119, '2019-02-27', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:15:55', 'Settled'),
-(75, 75, '2019-03-06', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:17:17', 'Settled'),
-(76, 34, '2019-03-13', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:17:49', 'Settled'),
-(77, 41, '2019-02-20', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:18:17', 'Settled'),
-(80, 1, '2019-01-23', 'test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-22 19:44:27', 'Settled'),
-(81, 13, '2019-01-30', 'Testing lang &#039;to', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-23 22:00:43', 'Settled'),
-(82, 97, '2019-01-30', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:11:29', 'Settled'),
-(83, 51, '2019-02-06', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:11:52', 'Settled'),
-(84, 28, '2019-02-13', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:12:53', 'Settled'),
-(85, 3, '2019-02-13', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:13:20', 'Settled'),
-(86, 11, '2019-02-20', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:13:51', 'Settled'),
-(87, 49, '2019-01-30', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:14:32', 'Settled'),
-(88, 27, '2019-02-20', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:15:04', 'Settled'),
-(89, 119, '2019-02-27', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:15:55', 'Settled'),
-(90, 75, '2019-03-06', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:17:17', 'Settled'),
-(91, 34, '2019-03-13', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:17:49', 'Settled'),
-(92, 41, '2019-02-20', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:18:17', 'Settled'),
-(95, 1, '2019-01-23', 'test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-22 19:44:27', 'Settled'),
-(96, 13, '2019-01-30', 'Testing lang &#039;to', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-23 22:00:43', 'Settled'),
-(97, 97, '2019-01-30', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:11:29', 'Settled'),
-(98, 51, '2019-02-06', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:11:52', 'Settled'),
-(99, 28, '2019-02-13', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:12:53', 'Settled'),
-(100, 3, '2019-02-13', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:13:20', 'Settled'),
-(101, 11, '2019-02-20', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:13:51', 'Settled'),
-(102, 49, '2019-01-30', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:14:32', 'Settled'),
-(103, 27, '2019-02-20', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:15:04', 'Settled'),
-(104, 119, '2019-02-27', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:15:55', 'Settled'),
-(105, 75, '2019-03-06', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:17:17', 'Settled'),
-(106, 34, '2019-03-13', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:17:49', 'Settled'),
-(107, 41, '2019-02-20', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:18:17', 'Settled'),
-(110, 1, '2019-01-23', 'test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-22 19:44:27', 'Settled'),
-(111, 13, '2019-01-30', 'Testing lang &#039;to', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-23 22:00:43', 'Settled'),
-(112, 97, '2019-01-30', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:11:29', 'Settled'),
-(113, 51, '2019-02-06', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:11:52', 'Settled'),
-(114, 28, '2019-02-13', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:12:53', 'Settled'),
-(115, 3, '2019-02-13', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:13:20', 'Settled'),
-(116, 11, '2019-02-20', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:13:51', 'Settled'),
-(117, 49, '2019-01-30', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:14:32', 'Settled'),
-(118, 27, '2019-02-20', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:15:04', 'Settled'),
-(119, 119, '2019-02-27', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:15:55', 'Settled'),
-(120, 75, '2019-03-06', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:17:17', 'Settled'),
-(121, 34, '2019-03-13', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:17:49', 'Settled'),
-(122, 41, '2019-02-20', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:18:17', 'Settled'),
-(125, 1, '2019-01-23', 'test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-22 19:44:27', 'Settled'),
-(126, 13, '2019-01-30', 'Testing lang &#039;to', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-23 22:00:43', 'Settled'),
-(127, 97, '2019-01-30', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:11:29', 'Settled'),
-(128, 51, '2019-02-06', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:11:52', 'Settled'),
-(129, 28, '2019-02-13', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:12:53', 'Settled'),
-(130, 3, '2019-02-13', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:13:20', 'Settled'),
-(131, 11, '2019-02-20', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:13:51', 'Settled'),
-(132, 49, '2019-01-30', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:14:32', 'Settled'),
-(133, 27, '2019-02-20', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:15:04', 'Settled'),
-(134, 119, '2019-02-27', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:15:55', 'Settled'),
-(135, 75, '2019-03-06', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:17:17', 'Settled'),
-(136, 34, '2019-03-13', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:17:49', 'Settled'),
-(137, 41, '2019-02-20', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:18:17', 'Settled'),
-(140, 1, '2019-01-23', 'test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-22 19:44:27', 'Settled'),
-(141, 13, '2019-01-30', 'Testing lang &#039;to', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-23 22:00:43', 'Settled'),
-(142, 97, '2019-01-30', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:11:29', 'Settled'),
-(143, 51, '2019-02-06', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:11:52', 'Settled'),
-(144, 28, '2019-02-13', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:12:53', 'Settled'),
-(145, 3, '2019-02-13', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:13:20', 'Settled'),
-(146, 11, '2019-02-20', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:13:51', 'Settled'),
-(147, 49, '2019-01-30', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:14:32', 'Settled'),
-(148, 27, '2019-02-20', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:15:04', 'Settled'),
-(149, 119, '2019-02-27', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:15:55', 'Settled'),
-(150, 75, '2019-03-06', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:17:17', 'Settled'),
-(151, 34, '2019-03-13', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:17:49', 'Settled'),
-(152, 41, '2019-02-20', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:18:17', 'Settled'),
-(155, 1, '2019-01-23', 'test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-22 19:44:27', 'Settled'),
-(156, 13, '2019-01-30', 'Testing lang &#039;to', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-23 22:00:43', 'Settled'),
-(157, 97, '2019-01-30', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:11:29', 'Settled'),
-(158, 51, '2019-02-06', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:11:52', 'Settled'),
-(159, 28, '2019-02-13', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:12:53', 'Settled'),
-(160, 3, '2019-02-13', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:13:20', 'Settled'),
-(161, 11, '2019-02-20', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:13:51', 'Settled'),
-(162, 49, '2019-01-30', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:14:32', 'Settled'),
-(163, 27, '2019-02-20', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:15:04', 'Settled'),
-(164, 119, '2019-02-27', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:15:55', 'Settled'),
-(165, 75, '2019-03-06', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:17:17', 'Settled'),
-(166, 34, '2019-03-13', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:17:49', 'Settled'),
-(167, 41, '2019-02-20', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:18:17', 'Settled'),
-(170, 1, '2019-01-23', 'test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-22 19:44:27', 'Settled'),
-(171, 13, '2019-01-30', 'Testing lang &#039;to', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-23 22:00:43', 'Settled'),
-(172, 97, '2019-01-30', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:11:29', 'Settled'),
-(173, 51, '2019-02-06', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:11:52', 'Settled'),
-(174, 28, '2019-02-13', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:12:53', 'Settled'),
-(175, 3, '2019-02-13', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:13:20', 'Settled'),
-(176, 11, '2019-02-20', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:13:51', 'Settled'),
-(177, 49, '2019-01-30', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:14:32', 'Settled'),
-(178, 27, '2019-02-20', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:15:04', 'Settled'),
-(179, 119, '2019-02-27', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:15:55', 'Settled'),
-(180, 75, '2019-03-06', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:17:17', 'Settled'),
-(181, 34, '2019-03-13', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:17:49', 'Settled'),
-(182, 41, '2019-02-20', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:18:17', 'Settled'),
-(185, 1, '2019-01-23', 'test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-22 19:44:27', 'Settled'),
-(186, 13, '2019-01-30', 'Testing lang &#039;to', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-23 22:00:43', 'Settled'),
-(187, 97, '2019-01-30', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:11:29', 'Settled'),
-(188, 51, '2019-02-06', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:11:52', 'Settled'),
-(189, 28, '2019-02-13', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:12:53', 'Settled'),
-(190, 3, '2019-02-13', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:13:20', 'Settled'),
-(191, 11, '2019-02-20', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:13:51', 'Settled'),
-(192, 49, '2019-01-30', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:14:32', 'Settled'),
-(193, 27, '2019-02-20', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:15:04', 'Settled'),
-(194, 119, '2019-02-27', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:15:55', 'Settled'),
-(195, 75, '2019-03-06', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:17:17', 'Settled'),
-(196, 34, '2019-03-13', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:17:49', 'Settled'),
-(197, 41, '2019-02-20', 'Test', '', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 1, '2019-01-25 09:18:17', 'Settled');
-
 -- --------------------------------------------------------
 
 --
--- Table structure for table `Clinics`
+-- Table structure for table `clinics`
 --
 
-CREATE TABLE `Clinics` (
+CREATE TABLE `clinics` (
   `clinic_id` int(11) NOT NULL,
   `doctor_id` int(11) DEFAULT NULL,
   `name` varchar(255) DEFAULT NULL,
@@ -264,10 +95,10 @@ CREATE TABLE `Clinics` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `Clinics`
+-- Dumping data for table `clinics`
 --
 
-INSERT INTO `Clinics` (`clinic_id`, `doctor_id`, `name`, `street_address`, `schedule`, `barangay`, `city`) VALUES
+INSERT INTO `clinics` (`clinic_id`, `doctor_id`, `name`, `street_address`, `schedule`, `barangay`, `city`) VALUES
 (1, 1, 'Kamuning Clinic', 'GMA 7,  Kamuning', '[{\"day\":\"Tue\",\"opening\":\"2:00 PM\",\"closing\":\"3:00 PM\"}]', 'Talipapa', 'Quezon City'),
 (2, 1, 'Hi-Precision', 'Sangandaan', '[{\"day\":\"Thu\",\"opening\":\"08:00 AM\",\"closing\":\"09:00 AM\"}]', '', 'Caloocan City'),
 (3, 2, 'Lung Center of the Philippines', 'Room 1113', '[{\"day\":\"Wed\",\"opening\":\"9:00 AM\",\"closing\":\"10:00 AM\"}]', 'Pulang Bato', 'Quezon City'),
@@ -395,10 +226,10 @@ INSERT INTO `Clinics` (`clinic_id`, `doctor_id`, `name`, `street_address`, `sche
 -- --------------------------------------------------------
 
 --
--- Table structure for table `DoctorMeta`
+-- Table structure for table `doctormeta`
 --
 
-CREATE TABLE `DoctorMeta` (
+CREATE TABLE `doctormeta` (
   `meta_id` int(11) NOT NULL,
   `doctor_id` int(11) NOT NULL,
   `meta_key` varchar(255) NOT NULL,
@@ -406,10 +237,10 @@ CREATE TABLE `DoctorMeta` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `DoctorMeta`
+-- Dumping data for table `doctormeta`
 --
 
-INSERT INTO `DoctorMeta` (`meta_id`, `doctor_id`, `meta_key`, `meta_value`) VALUES
+INSERT INTO `doctormeta` (`meta_id`, `doctor_id`, `meta_key`, `meta_value`) VALUES
 (1, 1, 'service', 'Diagnosis'),
 (2, 1, 'service', 'Tooth Removal'),
 (3, 2, 'service', 'Diagnosis'),
@@ -666,10 +497,10 @@ INSERT INTO `DoctorMeta` (`meta_id`, `doctor_id`, `meta_key`, `meta_value`) VALU
 -- --------------------------------------------------------
 
 --
--- Table structure for table `Doctors`
+-- Table structure for table `doctors`
 --
 
-CREATE TABLE `Doctors` (
+CREATE TABLE `doctors` (
   `doctor_id` int(10) UNSIGNED NOT NULL,
   `email_address` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -687,11 +518,11 @@ CREATE TABLE `Doctors` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
--- Dumping data for table `Doctors`
+-- Dumping data for table `doctors`
 --
 
-INSERT INTO `Doctors` (`doctor_id`, `email_address`, `password`, `first_name`, `middle_name`, `last_name`, `gender`, `address`, `contact_number`, `birthdate`, `photo`, `specialization`, `complete`, `access_token`) VALUES
-(1, 'rogel@gmail.com', '$2y$10$OX6Z6Nf80NEUJhxNXBsyMuroJkXZ1YyM/8zuH2kZOp5wE.taLDt0e', 'Rogel', 'E', 'Del Rosario', 'M', 'GMA Kamuning, Quezon City', '0906-338-8702', '1976-02-11', NULL, 'General Medical Practice', '1', NULL),
+INSERT INTO `doctors` (`doctor_id`, `email_address`, `password`, `first_name`, `middle_name`, `last_name`, `gender`, `address`, `contact_number`, `birthdate`, `photo`, `specialization`, `complete`, `access_token`) VALUES
+(1, 'rogel@gmail.com', '$2y$10$OX6Z6Nf80NEUJhxNXBsyMuroJkXZ1YyM/8zuH2kZOp5wE.taLDt0e', 'Rogel', 'E', 'Del Rosario', 'M', 'GMA Kamuning, Quezon City', '0906-338-8702', '1976-02-11', NULL, 'General Medical Practice', '1', ''),
 (2, 'noni@gmail.com', '', 'Nullinon', '', 'Vergara', 'M', NULL, '', '09-02-1976', NULL, 'Oncology', '1', NULL),
 (3, 'jewelmarquez@yahoo.com', '', 'Jewel Bea', '', 'Marquez', 'F', NULL, '', '03-28-1976', NULL, 'General Medical Practice', '1', NULL),
 (4, 'krystalperez@gmail.com', '', 'Krystal', 'A', 'Perez', 'F', NULL, '', '09-29-1980', NULL, 'Anesthesia', '1', NULL),
@@ -761,34 +592,34 @@ INSERT INTO `Doctors` (`doctor_id`, `email_address`, `password`, `first_name`, `
 --
 
 --
--- Indexes for table `Accounts`
+-- Indexes for table `accounts`
 --
-ALTER TABLE `Accounts`
+ALTER TABLE `accounts`
   ADD PRIMARY KEY (`account_id`);
 
 --
--- Indexes for table `Appointments`
+-- Indexes for table `appointments`
 --
-ALTER TABLE `Appointments`
+ALTER TABLE `appointments`
   ADD PRIMARY KEY (`appointment_id`);
 
 --
--- Indexes for table `Clinics`
+-- Indexes for table `clinics`
 --
-ALTER TABLE `Clinics`
+ALTER TABLE `clinics`
   ADD PRIMARY KEY (`clinic_id`);
-ALTER TABLE `Clinics` ADD FULLTEXT KEY `AREA` (`barangay`,`city`);
+ALTER TABLE `clinics` ADD FULLTEXT KEY `AREA` (`barangay`,`city`);
 
 --
--- Indexes for table `DoctorMeta`
+-- Indexes for table `doctormeta`
 --
-ALTER TABLE `DoctorMeta`
+ALTER TABLE `doctormeta`
   ADD PRIMARY KEY (`meta_id`);
 
 --
--- Indexes for table `Doctors`
+-- Indexes for table `doctors`
 --
-ALTER TABLE `Doctors`
+ALTER TABLE `doctors`
   ADD PRIMARY KEY (`doctor_id`);
 
 --
@@ -796,33 +627,33 @@ ALTER TABLE `Doctors`
 --
 
 --
--- AUTO_INCREMENT for table `Accounts`
+-- AUTO_INCREMENT for table `accounts`
 --
-ALTER TABLE `Accounts`
+ALTER TABLE `accounts`
   MODIFY `account_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `Appointments`
+-- AUTO_INCREMENT for table `appointments`
 --
-ALTER TABLE `Appointments`
-  MODIFY `appointment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=198;
+ALTER TABLE `appointments`
+  MODIFY `appointment_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `Clinics`
+-- AUTO_INCREMENT for table `clinics`
 --
-ALTER TABLE `Clinics`
+ALTER TABLE `clinics`
   MODIFY `clinic_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=124;
 
 --
--- AUTO_INCREMENT for table `DoctorMeta`
+-- AUTO_INCREMENT for table `doctormeta`
 --
-ALTER TABLE `DoctorMeta`
+ALTER TABLE `doctormeta`
   MODIFY `meta_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=261;
 
 --
--- AUTO_INCREMENT for table `Doctors`
+-- AUTO_INCREMENT for table `doctors`
 --
-ALTER TABLE `Doctors`
+ALTER TABLE `doctors`
   MODIFY `doctor_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
 COMMIT;
 

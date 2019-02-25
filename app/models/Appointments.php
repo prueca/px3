@@ -32,7 +32,7 @@ class Appointments extends Eloquent
 	public static function getAppts(int $acctId, int $offset = 0, string $stat = 'all')
 	{
 		$query = Appointments::select(
-			'a.appointment_id',
+			'a.reference_no',
 			'a.clinic_id',
 			'a.schedule',
 			'c.name as clinic',
@@ -57,10 +57,6 @@ class Appointments extends Eloquent
 			$result = $result->toArray();
 		}
 
-		$salt = session('acct.token');
-		$char = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-		$hashids = new \Hashids\Hashids($salt, 8, $char);
-
 		foreach ($result as $i => $data) {
 			$fname = $data['first_name'];
 			$mname = $data['middle_name'];
@@ -68,7 +64,6 @@ class Appointments extends Eloquent
 			$sched = date('l, F d, Y', strtotime($data['schedule']));
 			$result[$i]['schedule'] = date('l, F d, Y', strtotime($data['schedule']));
 			$result[$i]['doctor'] = formatName($fname, $mname, $lname);
-			$result[$i]['appointment_id'] = $hashids->encode($data['appointment_id']);
 
 			unset(
 				$result[$i]['first_name'],
@@ -157,21 +152,16 @@ class Appointments extends Eloquent
 	        $data['photo'] = "storage/$directory/$filename";
 		}
 
+		$refNo = strtoupper(bin2hex(random_bytes(4)));
 		$data['clinic_id'] = $clinicId;
 		$data['booked_by'] = $acctId;
-
+		$data['reference_no'] = $refNo;
+		
     	$appt = new Appointments;
 		$appt->fill($data)->save();
-		$apptId = $appt->appointment_id;
 
-		$salt = session('acct.token');
-		$char = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-		$hashids = new \Hashids\Hashids($salt, 8, $char);
-		$apptId = $hashids->encode($apptId);
-
-		$result['appt'] = $apptId;
+		$result['refNo'] = $refNo;
 		$result['succ'] = true;
-
     	return $result;
 	}
 
@@ -179,23 +169,14 @@ class Appointments extends Eloquent
 	 * Get appointment detials for confirmation and viewing
 	 */
 
-	public static function fetchAppt(string $apptId)
+	public static function fetchAppt(string $refNo)
 	{
-		$salt = session('acct.token');
-		$char = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-		$hashids = new \Hashids\Hashids($salt, 8, $char);
-		$apptId = $hashids->decode($apptId);
-
-		if (empty($apptId)) {
-			return null;
-		}
-
-		$apptId = $apptId[0];
-		$data = Appointments::where('appointment_id', $apptId)
+		$data = Appointments::where('reference_no', $refNo)
 		->join('Clinics', 'Clinics.clinic_id', '=', 'Appointments.clinic_id')
 		->join('Doctors', 'Doctors.doctor_id', '=', 'Clinics.doctor_id')
 		->join('Accounts', 'Accounts.account_id', '=', 'Appointments.booked_by')
 		->first([
+			'Appointments.appointment_id',
 			'Appointments.first_name as pat_fname',
 			'Appointments.middle_name as pat_mname',
 			'Appointments.last_name as pat_lname',
@@ -231,6 +212,9 @@ class Appointments extends Eloquent
 		}
 
 		$data = $data->toArray();
+
+		$apptId = $data['appointment_id'];
+		$data['appointment_id'] = encrypt($apptId);
 
 		$fname = $data['doc_fname'];
 		$mname = $data['doc_mname'];
@@ -270,7 +254,7 @@ class Appointments extends Eloquent
 		$data['age'] = calcAge($data['birthdate']);
 		$data['clinic_hrs'] = json_decode($data['clinic_hrs'], true);
 
-		$data['appointment_id'] = $hashids->encode($apptId);
+		$data['reference_no'] = $refNo;
 		$data['doctor_id'] = encrypt($data['doctor_id']);
 
 		unset(
@@ -301,7 +285,7 @@ class Appointments extends Eloquent
 	public function listAppts(int $docId, int $offset = 0, string $stat = 'all')
 	{
 		$query = Appointments::select(
-			'a.appointment_id',
+			'a.reference_no',
 			'a.clinic_id',
 			'a.schedule',
 			'c.name as clinic',
@@ -326,10 +310,6 @@ class Appointments extends Eloquent
 			$result = $result->toArray();
 		}
 
-		$salt = session('acct.token');
-		$char = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-		$hashids = new \Hashids\Hashids($salt, 8, $char);
-
 		foreach ($result as $i => $data) {
 			$fname = $data['first_name'];
 			$mname = $data['middle_name'];
@@ -337,7 +317,7 @@ class Appointments extends Eloquent
 			$sched = date('l, F d, Y', strtotime($data['schedule']));
 			$result[$i]['schedule'] = date('l, F d, Y', strtotime($data['schedule']));
 			$result[$i]['patient'] = formatName($fname, $mname, $lname);
-			$result[$i]['appointment_id'] = $hashids->encode($data['appointment_id']);
+			$result[$i]['appointment_id'] = $data['reference_no'];
 
 			unset(
 				$result[$i]['first_name'],

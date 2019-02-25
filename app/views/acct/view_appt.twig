@@ -34,9 +34,9 @@
 				</div>
 			</div>
 		{% endif %}
-		<div class="appt-no">
-			<label>Appointment No.</label>
-			<div>{{ appt.appointment_id }}</div>
+		<div class="ref-no">
+			<label>Reference No.</label>
+			<div>{{ appt.reference_no }}</div>
 		</div>
     </div>
     <div id="section-2">
@@ -102,9 +102,9 @@
 	    	</div>
     	</div>
     </div>
+    {% if appt.status|lower == 'booked' or appt.status|lower != 'cancelled' %}
 	<div id="section-4">
-		<input type="hidden" name="doctor" value="{{ appt.doctor_id }}">
-		<input type="hidden" name="appointment" value="{{ appt.appointment_id }}">
+		<input type="hidden" name="appt" value="{{ appt.appointment_id }}">
 		{% if appt.status|lower == 'booked' %}
 			<a class="btn proceed" href="{{ app.baseUrl ~ '/payment' }}">Proceed to Payment</a>
 		{% endif%}
@@ -114,5 +114,6 @@
 			</a>
 		{% endif%}
 	</div>
+	{% endif%}
 </div>
 {% endblock %}

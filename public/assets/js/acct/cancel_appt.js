@@ -2,7 +2,7 @@ $(function(){
 	$('#section-4 .cancel').click(function(e){
 		e.preventDefault();
 		
-		var appt = $('input[type="hidden"][name="appointment"]').val();
+		var appt = $('input[type="hidden"][name="appt"]').val();
 		var url = $(this).prop('href');
 		
 		config.ajax.data = { appt: appt };

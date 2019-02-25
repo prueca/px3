@@ -2,8 +2,8 @@
 	{% for data in appts %}
 		<div class="list-item">
 			<div>
-				{% set apptId = data['appointment_id'] %}
-				<a href="{{ app.baseUrl ~ '/d/view/' ~ apptId }}">{{ apptId }}</a>
+				{% set apptNo = data['reference_no'] %}
+				<a href="{{ app.baseUrl ~ '/d/view/' ~ apptNo }}">{{ apptNo }}</a>
 			</div>
 			<div>{{ data['patient'] }}</div>
 			<div>{{ data['clinic'] }}</div>

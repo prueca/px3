@@ -70,3 +70,8 @@ Feb. 21, 2019
 • Doctor's appointments page
 • View appointment by doctor
 • Cancel appointment by doctor
+
+Fe. 25, 2019
+• Fixed bugs
+• Changed appointment no. to reference no.
+• Fixed setting of reference number for appointments
