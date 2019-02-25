@@ -88,12 +88,11 @@ class DoctorController
     public function updateAcct($request, $response, $args)
     {
     	$post = $request->getParsedBody();
-    	$uploadedFiles = $request->getUploadedFiles();
-    	$photo = $uploadedFiles['photo'];
+    	$files = $request->getUploadedFiles();
 
-    	if ($photo->getError() === UPLOAD_ERR_OK) {
-    		$post['photo'] = $photo;
-    	}
+        if (isset($files['photo']) && $files['photo']->getError() === UPLOAD_ERR_OK) {
+            $post['photo'] = $photo;
+        }
 
     	$docId = session('acct.id');
     	$data = Doctors::updateAcct($docId, $post);
