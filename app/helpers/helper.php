@@ -196,7 +196,7 @@ function calcAge(string $bdate)
 
 function getPhoto(string $path = null)
 {
-	if (empty($path) || !file_exists("../app/$path")) {
+	if (empty($path) || !file_exists("./assets/$path")) {
 		return url('/assets/img/icon_user.png');
 	}
 

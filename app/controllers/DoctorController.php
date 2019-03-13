@@ -91,7 +91,7 @@ class DoctorController
     	$files = $request->getUploadedFiles();
 
         if (isset($files['photo']) && $files['photo']->getError() === UPLOAD_ERR_OK) {
-            $post['photo'] = $photo;
+            $post['photo'] = $files['photo'];
         }
 
     	$docId = session('acct.id');

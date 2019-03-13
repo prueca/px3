@@ -2,9 +2,9 @@
 -- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Feb 25, 2019 at 06:26 AM
--- Server version: 10.1.38-MariaDB
+-- Host: localhost:3306
+-- Generation Time: Mar 13, 2019 at 01:33 AM
+-- Server version: 10.3.13-MariaDB
 -- PHP Version: 7.3.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -19,16 +19,16 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `px3`
+-- Database: `id7878611_px3`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `accounts`
+-- Table structure for table `Accounts`
 --
 
-CREATE TABLE `accounts` (
+CREATE TABLE `Accounts` (
   `account_id` int(10) UNSIGNED NOT NULL,
   `email_address` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -40,31 +40,31 @@ CREATE TABLE `accounts` (
   `contact_number` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `birthdate` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `photo` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `reward_points` int(11) NOT NULL DEFAULT '0',
+  `reward_points` int(11) NOT NULL DEFAULT 0,
   `access_token` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=COMPACT;
 
 --
--- Dumping data for table `accounts`
+-- Dumping data for table `Accounts`
 --
 
-INSERT INTO `accounts` (`account_id`, `email_address`, `password`, `first_name`, `middle_name`, `last_name`, `gender`, `address`, `contact_number`, `birthdate`, `photo`, `reward_points`, `access_token`) VALUES
-(1, 'peterrueca@yahoo.com', '$2y$10$OX6Z6Nf80NEUJhxNXBsyMuroJkXZ1YyM/8zuH2kZOp5wE.taLDt0e', 'Peter John', 'Resoles', 'Rueca', 'M', 'C5-Quirino, Nova., Quezon City', '0916-872-8941', '1993-06-21', 'storage/account/ZPe1Yeyo/420e390f458b732f5164277d392bd2c7.png', 7, '9f8e0a05b1d6688c9afaaf9dc2da6776'),
+INSERT INTO `Accounts` (`account_id`, `email_address`, `password`, `first_name`, `middle_name`, `last_name`, `gender`, `address`, `contact_number`, `birthdate`, `photo`, `reward_points`, `access_token`) VALUES
+(1, 'peterrueca@yahoo.com', '$2y$10$OX6Z6Nf80NEUJhxNXBsyMuroJkXZ1YyM/8zuH2kZOp5wE.taLDt0e', 'Peter John', 'Resoles', 'Rueca', 'M', 'C5-Quirino, Nova., Quezon City', '0916-872-8941', '1993-06-21', 'storage/account/ZPe1Yeyo/420e390f458b732f5164277d392bd2c7.png', 7, '0e3fffdc4535fc39848358b2a84d01ed'),
 (2, 'dummy@yahoo.com', '$2y$10$OX6Z6Nf80NEUJhxNXBsyMuroJkXZ1YyM/8zuH2kZOp5wE.taLDt0e', 'Dummy', '', 'Account', 'M', NULL, NULL, NULL, NULL, 0, '');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `appointments`
+-- Table structure for table `Appointments`
 --
 
-CREATE TABLE `appointments` (
+CREATE TABLE `Appointments` (
   `appointment_id` int(11) NOT NULL,
   `reference_no` varchar(8) NOT NULL,
   `clinic_id` int(11) NOT NULL,
   `schedule` varchar(30) NOT NULL,
   `purpose` text NOT NULL,
-  `for_other` varchar(1) NOT NULL,
+  `for_other` varchar(1) NOT NULL DEFAULT '0',
   `first_name` varchar(255) NOT NULL,
   `middle_name` varchar(255) NOT NULL DEFAULT '',
   `last_name` varchar(255) NOT NULL,
@@ -74,17 +74,24 @@ CREATE TABLE `appointments` (
   `email_address` varchar(255) NOT NULL,
   `photo` varchar(255) NOT NULL,
   `booked_by` int(11) NOT NULL,
-  `date_booked` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `date_booked` datetime NOT NULL DEFAULT current_timestamp(),
   `status` varchar(30) NOT NULL DEFAULT 'Booked'
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
+
+--
+-- Dumping data for table `Appointments`
+--
+
+INSERT INTO `Appointments` (`appointment_id`, `reference_no`, `clinic_id`, `schedule`, `purpose`, `for_other`, `first_name`, `middle_name`, `last_name`, `address`, `birthdate`, `gender`, `email_address`, `photo`, `booked_by`, `date_booked`, `status`) VALUES
+(1, '12561A4A', 1, '2019-03-19', 'Consultation.', '0', 'Peter John', 'Resoles', 'Rueca', 'C5-Quirino, Nova., Quezon City', '1993-06-21', 'M', 'peterrueca@yahoo.com', 'storage/account/ZPe1Yeyo/420e390f458b732f5164277d392bd2c7.png', 1, '2019-03-13 09:08:06', 'Booked');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `clinics`
+-- Table structure for table `Clinics`
 --
 
-CREATE TABLE `clinics` (
+CREATE TABLE `Clinics` (
   `clinic_id` int(11) NOT NULL,
   `doctor_id` int(11) DEFAULT NULL,
   `name` varchar(255) DEFAULT NULL,
@@ -92,13 +99,13 @@ CREATE TABLE `clinics` (
   `schedule` varchar(255) DEFAULT NULL,
   `barangay` varchar(255) DEFAULT '',
   `city` varchar(255) DEFAULT ''
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
 --
--- Dumping data for table `clinics`
+-- Dumping data for table `Clinics`
 --
 
-INSERT INTO `clinics` (`clinic_id`, `doctor_id`, `name`, `street_address`, `schedule`, `barangay`, `city`) VALUES
+INSERT INTO `Clinics` (`clinic_id`, `doctor_id`, `name`, `street_address`, `schedule`, `barangay`, `city`) VALUES
 (1, 1, 'Kamuning Clinic', 'GMA 7,  Kamuning', '[{\"day\":\"Tue\",\"opening\":\"2:00 PM\",\"closing\":\"3:00 PM\"}]', 'Talipapa', 'Quezon City'),
 (2, 1, 'Hi-Precision', 'Sangandaan', '[{\"day\":\"Thu\",\"opening\":\"08:00 AM\",\"closing\":\"09:00 AM\"}]', '', 'Caloocan City'),
 (3, 2, 'Lung Center of the Philippines', 'Room 1113', '[{\"day\":\"Wed\",\"opening\":\"9:00 AM\",\"closing\":\"10:00 AM\"}]', 'Pulang Bato', 'Quezon City'),
@@ -226,21 +233,21 @@ INSERT INTO `clinics` (`clinic_id`, `doctor_id`, `name`, `street_address`, `sche
 -- --------------------------------------------------------
 
 --
--- Table structure for table `doctormeta`
+-- Table structure for table `DoctorMeta`
 --
 
-CREATE TABLE `doctormeta` (
+CREATE TABLE `DoctorMeta` (
   `meta_id` int(11) NOT NULL,
   `doctor_id` int(11) NOT NULL,
   `meta_key` varchar(255) NOT NULL,
   `meta_value` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 ROW_FORMAT=COMPACT;
 
 --
--- Dumping data for table `doctormeta`
+-- Dumping data for table `DoctorMeta`
 --
 
-INSERT INTO `doctormeta` (`meta_id`, `doctor_id`, `meta_key`, `meta_value`) VALUES
+INSERT INTO `DoctorMeta` (`meta_id`, `doctor_id`, `meta_key`, `meta_value`) VALUES
 (1, 1, 'service', 'Diagnosis'),
 (2, 1, 'service', 'Tooth Removal'),
 (3, 2, 'service', 'Diagnosis'),
@@ -497,10 +504,10 @@ INSERT INTO `doctormeta` (`meta_id`, `doctor_id`, `meta_key`, `meta_value`) VALU
 -- --------------------------------------------------------
 
 --
--- Table structure for table `doctors`
+-- Table structure for table `Doctors`
 --
 
-CREATE TABLE `doctors` (
+CREATE TABLE `Doctors` (
   `doctor_id` int(10) UNSIGNED NOT NULL,
   `email_address` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -515,13 +522,13 @@ CREATE TABLE `doctors` (
   `specialization` varchar(50) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `complete` varchar(1) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '0',
   `access_token` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci ROW_FORMAT=COMPACT;
 
 --
--- Dumping data for table `doctors`
+-- Dumping data for table `Doctors`
 --
 
-INSERT INTO `doctors` (`doctor_id`, `email_address`, `password`, `first_name`, `middle_name`, `last_name`, `gender`, `address`, `contact_number`, `birthdate`, `photo`, `specialization`, `complete`, `access_token`) VALUES
+INSERT INTO `Doctors` (`doctor_id`, `email_address`, `password`, `first_name`, `middle_name`, `last_name`, `gender`, `address`, `contact_number`, `birthdate`, `photo`, `specialization`, `complete`, `access_token`) VALUES
 (1, 'rogel@gmail.com', '$2y$10$OX6Z6Nf80NEUJhxNXBsyMuroJkXZ1YyM/8zuH2kZOp5wE.taLDt0e', 'Rogel', 'E', 'Del Rosario', 'M', 'GMA Kamuning, Quezon City', '0906-338-8702', '1976-02-11', NULL, 'General Medical Practice', '1', ''),
 (2, 'noni@gmail.com', '', 'Nullinon', '', 'Vergara', 'M', NULL, '', '09-02-1976', NULL, 'Oncology', '1', NULL),
 (3, 'jewelmarquez@yahoo.com', '', 'Jewel Bea', '', 'Marquez', 'F', NULL, '', '03-28-1976', NULL, 'General Medical Practice', '1', NULL),
@@ -592,34 +599,34 @@ INSERT INTO `doctors` (`doctor_id`, `email_address`, `password`, `first_name`, `
 --
 
 --
--- Indexes for table `accounts`
+-- Indexes for table `Accounts`
 --
-ALTER TABLE `accounts`
+ALTER TABLE `Accounts`
   ADD PRIMARY KEY (`account_id`);
 
 --
--- Indexes for table `appointments`
+-- Indexes for table `Appointments`
 --
-ALTER TABLE `appointments`
+ALTER TABLE `Appointments`
   ADD PRIMARY KEY (`appointment_id`);
 
 --
--- Indexes for table `clinics`
+-- Indexes for table `Clinics`
 --
-ALTER TABLE `clinics`
+ALTER TABLE `Clinics`
   ADD PRIMARY KEY (`clinic_id`);
-ALTER TABLE `clinics` ADD FULLTEXT KEY `AREA` (`barangay`,`city`);
+ALTER TABLE `Clinics` ADD FULLTEXT KEY `AREA` (`barangay`,`city`);
 
 --
--- Indexes for table `doctormeta`
+-- Indexes for table `DoctorMeta`
 --
-ALTER TABLE `doctormeta`
+ALTER TABLE `DoctorMeta`
   ADD PRIMARY KEY (`meta_id`);
 
 --
--- Indexes for table `doctors`
+-- Indexes for table `Doctors`
 --
-ALTER TABLE `doctors`
+ALTER TABLE `Doctors`
   ADD PRIMARY KEY (`doctor_id`);
 
 --
@@ -627,33 +634,33 @@ ALTER TABLE `doctors`
 --
 
 --
--- AUTO_INCREMENT for table `accounts`
+-- AUTO_INCREMENT for table `Accounts`
 --
-ALTER TABLE `accounts`
+ALTER TABLE `Accounts`
   MODIFY `account_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `appointments`
+-- AUTO_INCREMENT for table `Appointments`
 --
-ALTER TABLE `appointments`
-  MODIFY `appointment_id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `Appointments`
+  MODIFY `appointment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT for table `clinics`
+-- AUTO_INCREMENT for table `Clinics`
 --
-ALTER TABLE `clinics`
+ALTER TABLE `Clinics`
   MODIFY `clinic_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=124;
 
 --
--- AUTO_INCREMENT for table `doctormeta`
+-- AUTO_INCREMENT for table `DoctorMeta`
 --
-ALTER TABLE `doctormeta`
+ALTER TABLE `DoctorMeta`
   MODIFY `meta_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=261;
 
 --
--- AUTO_INCREMENT for table `doctors`
+-- AUTO_INCREMENT for table `Doctors`
 --
-ALTER TABLE `doctors`
+ALTER TABLE `Doctors`
   MODIFY `doctor_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
 COMMIT;
 
